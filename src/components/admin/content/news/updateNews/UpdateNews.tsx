@@ -77,7 +77,7 @@ const UpdateNews = ({
 
       if (image) formData.append("image", image);
 
-      await updateNews(newsId, title, desc, image || undefined);
+      await updateNews(newsId, title, desc, image || null);
 
       onCaseUpdated();
       setShowToast(true);
