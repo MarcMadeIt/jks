@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { getAllTeachers } from "@/lib/client/actions";
 
-// Define the type for a teacher
 interface Teacher {
   name: string;
   desc: string;
