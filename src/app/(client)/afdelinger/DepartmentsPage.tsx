@@ -1,7 +1,6 @@
 "use client";
 
 import FAQ from "@/components/client/tilmelding/FAQ";
-import ProductCards from "@/components/client/home/elements/PriceCards";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import LocationCards from "@/components/client/home/elements/LocationCards";
