@@ -18,32 +18,26 @@ jobs:
       - name: 🔄 Pull latest code from GitHub
         run: |
           echo "⚠️ Pulling latest changes..."
-          cd /home/jk-web/htdocs/ny.junkerskøreskole.dk
+          cd /home/jks/htdocs/ny.junkerskøreskole.dk
           git fetch --all
           git reset --hard origin/main
-
-      - name: 🧹 Clean node_modules and lockfile
-        run: |
-          echo "🧹 Removing node_modules, lockfile, and .next..."
-          cd /home/jk-web/htdocs/ny.junkerskøreskole.dk
-          rm -rf node_modules package-lock.json .next
 
       - name: 📦 Install fresh dependencies
         run: |
           set -e
           echo "📦 Installing dependencies cleanly..."
-          cd /home/jk-web/htdocs/ny.junkerskøreskole.dk
+          cd /home/jks/htdocs/ny.junkerskøreskole.dk
           npm install
 
       - name: 🔇 Disable Next.js telemetry
         run: |
-          cd /home/jk-web/htdocs/ny.junkerskøreskole.dk
+          cd /home/jks/htdocs/ny.junkerskøreskole.dk
           npx next telemetry disable
 
       - name: 🔧 Build Next.js project
         run: |
           set -e
-          cd /home/jk-web/htdocs/ny.junkerskøreskole.dk
+          cd /home/jks/htdocs/ny.junkerskøreskole.dk
           echo "⚡ Building Next.js app..."
           npm run build
           if [ ! -d ".next" ]; then
@@ -58,13 +52,13 @@ jobs:
           export NVM_DIR="$HOME/.nvm"
           [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-          cd /home/jk-web/htdocs/ny.junkerskøreskole.dk
+          cd /home/jks/htdocs/ny.junkerskøreskole.dk
 
           echo "🧹 Cleaning up old PM2 instance if any..."
-          pm2 delete jk-web-app || true
+          pm2 delete jks-app || true
 
           echo "🚀 Starting app with PM2 on port 3700..."
-          PORT=3700 pm2 start npm --name "jk-web-app" -- start
+          PORT=3700 pm2 start npm --name "jks-app" -- start
           pm2 save
           pm2 list
 
