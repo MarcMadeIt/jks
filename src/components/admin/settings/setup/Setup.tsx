@@ -11,18 +11,21 @@ import SetupTeachersCreate from "./teachers/SetupTeachersCreate";
 const Setup = () => {
   const { t } = useTranslation();
 
-  const [selectedPackage, setSelectedPackage] = useState(null);
+  const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
   const [isViewingPackageDetails, setIsViewingPackageDetails] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
   // Teacher state
-  const [selectedTeacher, setSelectedTeacher] = useState(null);
+  type Teacher = { id: string; [key: string]: any };
+  type Package = { id: string; [key: string]: any };
+
+  const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
   const [isViewingTeacherDetails, setIsViewingTeacherDetails] = useState(false);
   const [showTeacherToast, setShowTeacherToast] = useState(false);
   const [isCreatingTeacher, setIsCreatingTeacher] = useState(false);
 
-  const handlePackageDetailsToggle = (pkg = null) => {
-    setSelectedPackage(pkg);
+  const handlePackageDetailsToggle = (pkg?: Package | null) => {
+    setSelectedPackage(pkg ?? null);
     setIsViewingPackageDetails(!!pkg);
   };
 
@@ -38,7 +41,7 @@ const Setup = () => {
   };
 
   // Teacher handlers
-  const handleTeacherEdit = (teacher) => {
+  const handleTeacherEdit = (teacher: Teacher) => {
     setSelectedTeacher(teacher);
     setIsViewingTeacherDetails(true);
   };
@@ -69,7 +72,7 @@ const Setup = () => {
       {isViewingPackageDetails ? (
         <div className="bg-base-100 rounded-lg shadow-md p-5 md:p-7">
           <SetupPackagesDetails
-            packageId={selectedPackage?.id}
+            packageId={selectedPackage?.id ?? ""}
             onBack={handleBackToMain}
             onDelete={handlePackageDelete}
           />
@@ -77,7 +80,7 @@ const Setup = () => {
       ) : isViewingTeacherDetails ? (
         <div className="bg-base-100 rounded-lg shadow-md p-5 md:p-7">
           <SetupTeachersDetails
-            teacherId={selectedTeacher?.id}
+            teacherId={selectedTeacher?.id ?? ""}
             onBack={handleBackToMain}
             onDelete={handleTeacherDelete}
           />
@@ -92,7 +95,9 @@ const Setup = () => {
       ) : (
         <div className="flex flex-col gap-5">
           <div className="bg-base-100 rounded-lg shadow-md p-5 md:p-7">
-            <SetupPackages onDetails={handlePackageDetailsToggle} />
+            <SetupPackages
+              onDetails={handlePackageDetailsToggle as (pkg?: unknown) => void}
+            />
           </div>
           <div className="bg-base-100 rounded-lg shadow-md p-5 md:p-7">
             <SetupTeachers
