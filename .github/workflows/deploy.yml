@@ -1,4 +1,4 @@
-name: Deploy JK Web to VPS
+name: Deploy JKS to VPS
 
 on:
   push:
