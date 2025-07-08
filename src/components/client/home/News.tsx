@@ -2,7 +2,7 @@ import React from "react";
 
 const News = () => {
   return (
-    <div className="h-full w-full bg-base-200 text-7xl flex justify-center items-center">
+    <div className="h-full w-full text-primary  bg-secondary text-5xl flex justify-center items-center">
       News
     </div>
   );

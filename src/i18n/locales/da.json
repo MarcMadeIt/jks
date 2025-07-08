@@ -507,6 +507,7 @@
   },
 
   "departmentPage": {
+    "title": "Vores afdelinger",
     "common": {
       "registerBtn": "Find holdstart",
       "mapBtn": "Vis vej",

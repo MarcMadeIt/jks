@@ -509,6 +509,7 @@
   },
 
   "departmentPage": {
+    "title": "Our Driving School Locations",
     "common": {
       "registerBtn": "Find Courses",
       "mapBtn": "Find on Map",
