@@ -16,8 +16,8 @@ const Setup = () => {
   const [showToast, setShowToast] = useState(false);
 
   // Teacher state
-  type Teacher = { id: string; [key: string]: any };
-  type Package = { id: string; [key: string]: any };
+  type Teacher = { id: string; name?: string; email?: string };
+  type Package = { id: string; name?: string; price?: number };
 
   const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
   const [isViewingTeacherDetails, setIsViewingTeacherDetails] = useState(false);
