@@ -15,7 +15,6 @@ const Setup = () => {
   const [isViewingPackageDetails, setIsViewingPackageDetails] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
-  // Teacher state
   type Teacher = { id: string; name?: string; email?: string };
   type Package = { id: string; name?: string; price?: number };
 
