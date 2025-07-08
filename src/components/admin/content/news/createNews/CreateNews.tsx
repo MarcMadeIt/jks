@@ -33,7 +33,7 @@ const CreateNews = ({ onCaseCreated }: { onCaseCreated: () => void }) => {
       await createNews({
         title,
         desc,
-        image,
+        image: image || undefined,
       });
 
       setTitle("");
