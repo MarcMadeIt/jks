@@ -22,13 +22,6 @@ jobs:
           git fetch --all
           git reset --hard origin/main
 
-      - name: 📦 Install fresh dependencies
-        run: |
-          set -e
-          echo "📦 Installing dependencies cleanly..."
-          cd /home/jks/htdocs/ny.junkerskøreskole.dk
-          npm install
-
       - name: 🔇 Disable Next.js telemetry
         run: |
           cd /home/jks/htdocs/ny.junkerskøreskole.dk
