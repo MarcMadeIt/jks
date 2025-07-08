@@ -6,9 +6,18 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { getAllTeachers } from "@/lib/client/actions";
 
+// Define the type for a teacher
+interface Teacher {
+  name: string;
+  desc: string;
+  desc_eng: string;
+  image?: string;
+  since?: string;
+}
+
 const TeachersPage = () => {
   const { t, i18n } = useTranslation();
-  const [team, setTeam] = useState([]);
+  const [team, setTeam] = useState<Teacher[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
