@@ -62,7 +62,7 @@ const UpdateReview = ({ reviewId, onReviewUpdated }: UpdateReviewProps) => {
         desc,
         rate,
         date,
-        link: link || null,
+        link: link || undefined,
       });
       onReviewUpdated();
     } catch (err) {

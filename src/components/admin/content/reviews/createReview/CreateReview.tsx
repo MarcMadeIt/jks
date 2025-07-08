@@ -44,7 +44,7 @@ const CreateReview = ({ onReviewCreated }: CreateReviewProps) => {
         desc,
         rate,
         date,
-        link: link || null,
+        link: link || undefined,
       });
 
       onReviewCreated();
