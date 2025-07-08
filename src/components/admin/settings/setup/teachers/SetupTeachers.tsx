@@ -4,14 +4,10 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import SetupTeachersList from "./SetupTeachersList";
 
-// Match Teacher interface to SetupTeachersList
+// Use the same Teacher type as SetupTeachersList
 interface Teacher {
   id: string;
   name: string;
-  desc: string;
-  image: string;
-  priority: number;
-  active: boolean;
 }
 
 interface SetupTeachersProps {
