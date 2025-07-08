@@ -1,0 +1,805 @@
+{
+  "edit": "Edit",
+  "save": "Save",
+  "saving": "Saving...",
+  "update": "Update",
+  "updating": "Updating...",
+  "delete": "Delete",
+  "delete_selected": "Delete",
+  "cancel": "Cancel",
+  "create": "Create",
+  "back": "Back",
+  "search": "Search",
+  "language": "Language",
+  "light": "Light",
+  "dark": "Dark",
+  "new": "new",
+  "write_title": "Write title...",
+  "write_desc": "Write a description...",
+  "write_city": "Write a city...",
+  "title": "Title",
+  "details": "Details",
+  "desc": "Description",
+  "description": "Description",
+  "city": "City",
+  "creation_date": "Creation Date",
+  "image_update": "Update Image",
+  "choose_images": "Choose Image",
+  "subject": "Subject",
+  "surname": "Surname",
+  "email": "Email",
+  "password": "Password",
+  "confirm_password": "Confirm Password",
+  "mobile": "Mobile",
+  "name": "Name",
+  "message": "Message",
+  "no_message": "No Message",
+  "chars": "characters",
+  "company_name_required": "Title is required",
+  "desc_required": "Description is required",
+  "city_required": "City is required",
+  "country_required": "Country is required",
+  "contact_person_required": "Contact person is required",
+  "invalid_email": "The email is invalid",
+  "password_too_short": "Password must be at least 6 characters",
+  "passwords_not_matching": "Passwords do not match",
+  "invalid_date": "Invalid Date",
+  "invalid_days": "Invalid number of days",
+  "registration_error": "Error during registration, please try again",
+  "case": "Case",
+  "cases": "Cases",
+  "review": "Review",
+  "reviews": "Reviews",
+  "requests": "Requests",
+  "bookings": "Bookings",
+  "request_details": "Request Details",
+  "request_time": "Request Time",
+  "updated_job": "Job updated",
+  "deleted_case": "Case deleted",
+  "deleted_request": "Request deleted",
+  "deleted_review": "Review deleted",
+  "deleted_application": "Application deleted",
+  "deleted_job": "Job posting deleted",
+  "delete_case_confirmation": "Delete Case",
+  "delete_case_prompt": "Are you sure you want to delete this case?",
+  "delete_case_warning": "This action cannot be undone.",
+  "delete_request_confirmation": "Delete Requests",
+  "delete_request_prompt": "Are you sure you want to delete the this customer request?",
+  "delete_request_prompt_selected": "Are you sure you want to delete the selected requests?",
+  "delete_request_warning": "This action cannot be undone.",
+  "delete_review_confirmation": "Delete Review",
+  "delete_review_prompt": "Are you sure you want to delete this review?",
+  "delete_review_warning": "This action cannot be undone.",
+  "delete_application_confirmation": "Delete Application",
+  "delete_application_prompt": "Are you sure you want to delete this application?",
+  "delete_application_warning": "This action cannot be undone.",
+  "delete_job_confirmation": "Delete Job Posting",
+  "delete_job_prompt": "Are you sure you want to delete this job posting?",
+  "delete_job_warning": "This action cannot be undone.",
+  "case_creation": "Case creation",
+  "review_creation": "Review creation",
+  "case_editing": "Case editing",
+  "review_editing": "Review editing",
+  "customer": "Customer",
+  "customers": "Customers",
+  "customer_details_updated": "Customer details updated",
+  "customer_notes": "Customer Notes",
+  "no_notes_available": "No notes available",
+  "add_note": "Add Note",
+  "write_note": "Write a note...",
+  "contact_customer": "Contact Customer",
+  "no_address": "No address",
+  "show_route": "Show Route",
+  "address_and_city": "Address & City",
+  "task_interest": "Task Interest",
+  "consent_status": "Consent Status",
+  "consent_given": "Consent Given",
+  "consent_missing": "Consent Missing",
+  "user": "user",
+  "user_created": "User created",
+  "user_updated": "User updated",
+  "user_deleted": "User deleted",
+  "review_created": "Review created",
+  "review_updated": "Review updated",
+  "review_deleted": "Review deleted",
+  "create_new_user": "Create new user",
+  "create_user": "Create User",
+  "update_user": "Update User",
+  "creating_user": "Creating user...",
+  "delete_user_confirmation": "Delete User",
+  "delete_user_prompt": "Are you sure you want to delete this user?",
+  "delete_user_warning": "This action cannot be undone.",
+  "user_admin": "User Admin",
+  "user_control": "User Control",
+  "select_access_level": "Select Access Level",
+  "editor": "Editor",
+  "admin": "Admin",
+  "loading_cases": "Loading Cases...",
+  "loading_reviews": "Loading Reviews...",
+  "loading_request": "Loading Requests...",
+  "loading_users": "Loading Users...",
+  "loading_packages": "Loading Packages...",
+  "loading_teachers": "Loading Instructors...",
+  "loading_jobs": "Loading Jobs...",
+  "no_users": "No users available",
+  "no_cases": "No cases available",
+  "no_reviews": "No reviews available",
+  "no_requests": "No requests available",
+  "overview": "Overview",
+  "content": "Content",
+  "settings": "Settings",
+  "site": "Site",
+  "site_setup": "Site Setup",
+  "layout_settings": "Layout Settings",
+  "packages": "Packages",
+  "rating": "Rating",
+  "write_review_desc": "Write your review here...",
+  "review_name": "Name (or contact person)",
+  "write_review_name": "E.g. Mads M.",
+  "name_required": "Name is required",
+  "review_date": "Date of review",
+  "date_required": "Date is required",
+  "review_link": "Link to source (Trustpilot etc.)",
+
+  "updatePackage": {
+    "formTitle": "Edit Package",
+    "title": "Package Name",
+    "price": "Price",
+    "desc": "Description",
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "loading": "Loading package...",
+    "placeholders": {
+      "title": "Enter a new package name..."
+    },
+    "errors": {
+      "title": "Title is required",
+      "desc": "Description is required"
+    }
+  },
+  "createTeacher": {
+    "formTitle": "Create Driving Instructor",
+    "name": "Name",
+    "image": "Image",
+    "since": "Driving Insctructor since",
+    "imageFormats": "Accepted formats: png, webp, jpeg, jpg",
+    "desc": "Description in Danish",
+    "descEng": "Description in English",
+    "placeholders": {
+      "name": "Enter teacher's name...",
+      "since": "Select date for start as driving instructor...",
+      "desc": "Write about the driving instructor in Danish...",
+      "descEng": "Write about the driving instructor in English..."
+    }
+  },
+  "updateTeacher": {
+    "formTitle": "Update Driving Instructor",
+    "name": "Name",
+    "image": "Image",
+    "since": "Instructor since",
+    "desc": "Description in Danish",
+    "descEng": "Description in English",
+    "imageFormats": "Accepted formats: png, webp, jpeg, jpg",
+    "placeholders": {
+      "name": "Edit instructor's name...",
+      "since": "Update instructor start date...",
+      "desc": "Update the instructor description...",
+      "descEng": "Write about the instructor in English..."
+    }
+  },
+  "packageDetails": {
+    "loading": "Loading package details...",
+    "title": "Package details",
+    "updated_package": "Package updated",
+    "fields": {
+      "title": "Package Title",
+      "price": "Price",
+      "desc": "Description",
+      "unknown": "Unknown"
+    },
+    "features": {
+      "additional": "Fees not included in the package",
+      "title": "Package Features",
+      "price": "Price",
+      "included": "Included",
+      "baseIncludedTitle": "All of Legal Package",
+      "baseIncludedValue": "(Value 14.495,-)",
+      "valueLabel": "Value {{price}},-"
+    }
+  },
+  "teachersDetails": {
+    "loading": "Loading teacher data...",
+    "title": "Driving Instructor Details",
+    "updated_teacher": "Teacher updated",
+    "fields": {
+      "title": "Title",
+      "name": "Name",
+      "desc": "Description",
+      "image": "Image",
+      "unknown": "Unknown",
+      "since": "Driving Insctructor since"
+    }
+  },
+
+  "setup": {
+    "packages": "Packages",
+    "teachers": "Driving Instructors",
+    "create": "Create",
+    "package": "Package",
+    "teacher": "Driving Instructor",
+    "package_details": "Package details",
+    "unknown": "Unknown",
+    "mobile": "Phone",
+    "email": "Email",
+    "consent_status": "Consent",
+    "consent_given": "Given",
+    "consent_missing": "Missing",
+    "creation_date": "Created at",
+    "cv_and_application": "CV and application",
+    "view_cv": "View CV",
+    "view_application": "View application",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "delete_confirmation": "Confirm deletion",
+    "delete_application_prompt": "Are you sure you want to delete this application?",
+    "delete_application_warning": "This action cannot be undone.",
+    "back": "Back",
+    "aria_delete_button": "Delete application"
+  },
+  "image_upload": {
+    "change_image": "Change Image",
+    "select_image_type": "Select image type",
+    "intro": "Intro (homepage)",
+    "about_us": "About Us (homepage)",
+    "upload": "Upload",
+    "preview_alt": "Preview",
+    "file_uploaded": "File uploaded!",
+    "confirm_upload": "Confirm upload",
+    "confirm_upload_message": "Are you sure you want to upload this image?",
+    "warning": "Warning: The old image cannot be restored",
+    "cancel": "Cancel"
+  },
+  "about": "About",
+  "contact": "Contact",
+  "company": "Company Name",
+  "privacy_policy": "Privacy Policy",
+  "terms_of_service": "Terms of Service",
+  "cards": "Cards",
+  "list": "List",
+  "from_reviews": "from",
+  "logout": "Logout",
+  "date": "Date",
+  "time": "Time",
+  "created_by": "Created By",
+  "unknown": "Unknown",
+  "unknown_page": "Unknown Page",
+  "sent_by": "Sent by",
+  "delete_confirmation": "Confirm Deletion",
+  "delete_choosings": "Delete choosings",
+  "days_left": "Days Left",
+  "time_expired": "Time has expired",
+  "website_url": "Website URL",
+  "write_website_url": "Enter website URL...",
+
+  "header": {
+    "brandName": "Junker's Driving School",
+    "logoAlt": "Junker's Driving School Logo",
+    "registration": "Registration",
+    "prices": "Prices",
+    "contact": "Contact",
+    "information": "Information",
+    "departments": "Departments",
+    "followUs": "Follow us",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "tiktok": "TikTok",
+    "dropdown": {
+      "prices": {
+        "car": "Car License",
+        "trailer": "Trailer License",
+        "tractor": "Tractor License",
+        "reacquisition": "License Reacquisition"
+      },
+      "city": {
+        "ribe": "Ribe",
+        "billund": "Billund",
+        "grindsted": "Grindsted"
+      },
+      "information": {
+        "about": "About the school",
+        "contact": "Contact us",
+        "teachers": "The instructors",
+        "littleHelper": "The Little Helper"
+      }
+    }
+  },
+
+  "home": {
+    "hero": {
+      "allWay": "with you all the way!",
+      "btnCourse": "See Courses",
+      "btnContact": "Contact us"
+    },
+    "locations": {
+      "title": "Teaching in the following cities"
+    },
+    "reviews": {
+      "from": "Reviews from"
+    },
+    "prices": {
+      "title": "which driving license do you need?"
+    }
+  },
+
+  "taskSelect": {
+    "legend": "What type of license?",
+    "placeholder": "Select license type",
+    "options": {
+      "car": "Driving license for Car",
+      "trailer": "Driving license for Trailer",
+      "traktor": "Driving license for Tractor",
+      "generhvervelse": "Reacquiring driving license",
+      "other": "Other"
+    },
+    "aria": {
+      "selectTask": "Select license type"
+    }
+  },
+
+  "coursePage": {
+    "filter": {
+      "reset": "×"
+    },
+    "loading": "Loading...",
+    "noCourses": "No courses found.",
+    "seats": "Seats:",
+    "register": "Register",
+    "viewSchedule": "View schedule",
+    "modal": {
+      "alt": "Schedule overview"
+    }
+  },
+  "korelaerernePage": {
+    "title": "Meet Our Driving Instructors",
+    "subtitle": "Professional and Dedicated Instructors",
+    "description": "Our team of experienced driving instructors is here to guide you every step of the way on your journey to getting your driver's license. We provide personalized instruction to ensure you feel confident and well-prepared for both the theory and practical driving tests.",
+    "cta": "Get to Know Our Instructors"
+  },
+  "contactPage": {
+    "title": "Contact us",
+    "readyTitle": "Contact us directly",
+    "contactPrompt": "We’re ready to help if you have questions about our courses, pricing or process.",
+    "ambitionMessage": "Call or email us – we’ll get back to you quickly.",
+    "callPrompt": "Call us at",
+    "phoneNumber": "+45 22 77 12 46",
+    "callmailPrompt": "Call or email us",
+    "emailAddress": "junkerskoreskole@gmail.com",
+    "imageAlt": "contact us"
+  },
+  "contactForm": {
+    "title": "Questions about driving courses or licenses?",
+    "fields": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Enter your name"
+      },
+      "email": {
+        "label": "Email address",
+        "placeholder": "Enter your email"
+      },
+      "phone": {
+        "label": "Phone number",
+        "placeholder": "Enter your phone number"
+      },
+      "message": {
+        "label": "Message",
+        "placeholder": "Write your question or if you'd like to be contacted"
+      },
+      "consent": {
+        "label": "I agree to store my information for up to 30 days",
+        "readMore": "Read more"
+      }
+    },
+    "buttons": {
+      "submit": "Send message",
+      "sending": "Sending..."
+    },
+    "success": {
+      "title": "Thank you for your message!",
+      "message": "We’ll get back to you as soon as possible.",
+      "closeButton": "Close"
+    },
+    "errors": {
+      "invalidPhone": "Invalid phone number.",
+      "consentRequired": "You must accept data storage.",
+      "generic": "Something went wrong. Please try again later."
+    },
+    "aria": {
+      "name": "Enter your name",
+      "email": "Enter your email",
+      "phone": "Enter your phone number",
+      "message": "Enter your message",
+      "submit": "Submit the form",
+      "consent": "Accept consent",
+      "nameInput": "Enter your name",
+      "emailInput": "Enter your email",
+      "phoneInput": "Enter your phone number",
+      "messageInput": "Enter your message",
+      "submitButton": "Submit the form",
+      "consentCheckbox": "Accept consent"
+    }
+  },
+  "helperMenu": {
+    "vehicle_dimensions": "Vehicle dimensions",
+    "alcohol": "Alcohol limits",
+    "warning_triangle": "Warning triangle",
+    "towing": "Towing",
+    "road_risks": "Roadside risks",
+    "police_signals": "Police signals",
+    "speed_limits": "Speed limits",
+    "yield": "Yielding",
+    "stopping_parking": "Stopping & parking",
+    "lane_merge": "Merging",
+    "overtaking": "Overtaking",
+    "driving_dark": "Driving in the dark"
+  },
+  "littleHelper": {
+    "vehicle_dimensions": "Maximum vehicle dimensions",
+    "vehicle_dimensions.text": "With or without load, a vehicle may be no wider than 2.55 meters, no higher than 4 meters (measured from the road surface), and no longer than 12 meters. Vehicle combinations (car + trailer) may be up to 18.75 meters. Cargo must be marked if it extends more than 1 meter beyond the front or rear or more than 15 cm beyond the sides.",
+
+    "alcohol": "Alcohol limits",
+    "alcohol.limit": "Maximum permitted blood alcohol content: 0.5‰",
+    "alcohol.list.1": "0.5 – 1.2‰ = conditional license revocation",
+    "alcohol.list.2": "Over 1.2‰ = unconditional license revocation",
+    "alcohol.list.3": "0.8 – 2.0‰ = heavy fine",
+    "alcohol.list.4": "Over 2.0‰ = imprisonment",
+    "alcohol.note": "You may still be punished even with a blood alcohol level below 0.5‰!",
+
+    "warning_triangle": "Warning triangle",
+    "warning_triangle.text": "In case of breakdown or engine failure where the car poses a danger or obstruction, a warning triangle must be placed immediately. On ordinary roads, place it at least 50 meters before the car, and on motorways at least 100 meters before.",
+
+    "towing": "Towing rules",
+    "towing.text": "You are allowed to tow another car. The distance between vehicles may not exceed 4 meters. If the distance is more than 2 meters, the rope must be clearly marked. Speed must not exceed 30 km/h. Special rules apply on motorways.",
+
+    "road_risks": "Roadside risk factors",
+    "road_risks.list.1": "Surroundings: buildings, forest, open fields, beach, etc.",
+    "road_risks.list.2": "Features: road width, surface, lighting, bike lanes, signals",
+    "road_risks.list.3": "Layout: hills, rail crossings, turns, intersections, roundabouts",
+    "road_risks.list.4": "Usage: schools, stations, shopping areas, traffic volume",
+    "road_risks.list.5": "Type: motorway, traffic-calmed roads, etc.",
+
+    "police_signals": "Police signals",
+    "police_signals.intro": "Police can manually control traffic, and their signals function like traffic lights. Drivers must recognize and respond correctly. Below are the four main signals:",
+    "police_signals.1": "Stop (1): Police stands sideways with arms extended. Traffic from front and back must stop.",
+    "police_signals.2": "Stop (2): Police faces you (or turns back) without raised arms – you must stop.",
+    "police_signals.3": "Ready: One arm raised vertically – signal is about to change. Be ready.",
+    "police_signals.4": "Go: Police stands sideways with one arm extended – side traffic may proceed.",
+    "police_signals.reminder": "Note: Police signals override both traffic lights and signs.",
+
+    "speed_limits": "General speed limits",
+    "speed_limits.urban": "Within built-up areas = 50 km/h",
+    "speed_limits.rural": "Outside built-up areas = 80 km/h",
+    "speed_limits.express": "Express roads = 80 km/h",
+    "speed_limits.motorway": "Motorway = 130 km/h",
+
+    "yield": "Yielding rules",
+    "yield.unconditional": "Give way to all traffic from both left and right. E.g. when exiting parking lots, private property, gas stations, minor roads, or roads crossing sidewalks or bike paths.",
+    "yield.right": "Give way to traffic from the right. Check if traffic from the left can and will yield. Applies when no signs indicate otherwise.",
+
+    "stopping_parking": "Stopping & parking",
+    "stopping_parking.stopping": "Any halt of the vehicle for up to 3 minutes. Not counting traffic stops or maneuvers.",
+    "stopping_parking.parking": "Any halt of the vehicle for at least 3 minutes. Excludes loading/unloading or picking up/dropping off passengers.",
+    "stopping_parking.no_stop": "E.g. on footpaths, bike lanes, hatched areas, sidewalks, near intersections, solid lines, pedestrian crossings, hilltops, turns, underpasses, and where yellow kerb markings are present.",
+    "stopping_parking.no_parking": "E.g. in front of driveways, too close to rail crossings, on main roads, where yellow dashed lines are painted, in taxi zones, or in front of traffic signs.",
+
+    "lane_merge": "Merging & lane changing",
+    "lane_merge.text": "If a lane ends, you must merge – even if indicated by signage. Pay attention to vehicles behind you, lane markings, and road layout.",
+
+    "overtaking": "Overtaking rules",
+    "overtaking.1": "Overtake on the left under normal circumstances",
+    "overtaking.2": "May overtake on the right if the vehicle in front is turning left and it's safe",
+    "overtaking.3": "Overtaking is forbidden in intersections unless: multiple lanes, turning vehicle, regulated by lights or police, or oncoming traffic must yield",
+    "overtaking.4": "Forbidden before and on railway crossings, in hills and curves with poor visibility",
+    "overtaking.5": "Exception: Two-wheeled bicycles and mopeds may be overtaken in intersections, hills, and curves",
+
+    "driving_dark": "Driving in the dark",
+    "driving_dark.1": "Dim your lights 200–300 m before oncoming car/motorcycle",
+    "driving_dark.2": "Dim your lights 100–150 m before cyclist or pedestrian",
+    "driving_dark.3": "Reduce speed before dimming. On narrow roads: max 40 km/h when meeting oncoming traffic."
+  },
+
+  "departmentPage": {
+    "common": {
+      "registerBtn": "Find Courses",
+      "mapBtn": "Find on Map",
+      "phone": "+45 22 77 12 46",
+      "mail": "junkerskoreskole@gmail.com"
+    },
+    "ribe": {
+      "hero": "Driving School in Ribe",
+      "image": "/ribe.webp",
+      "address": "Stampemøllevej 3, 6760 Ribe",
+      "subtitle": "Get your driver's license with us in Ribe – safe and effective",
+      "title": "Our Ribe Location",
+      "desc": "At our Ribe location, you’ll get a safe and comfortable start to your driving journey. We provide thorough and dedicated instruction with a strong focus on your personal development and confidence in traffic. With calm surroundings and experienced instructors, Ribe is the ideal place to earn your license – whether you're a first-time driver or renewing your license."
+    },
+    "billund": {
+      "hero": "Driving School in Billund",
+      "image": "/billund.webp",
+      "address": "Billund Centeret, 7190 Billund",
+      "subtitle": "Start your journey towards your license in Billund",
+      "title": "Our Billund Location",
+      "desc": "Our Billund department is modern, flexible, and tailored to your needs. You’ll be taught by skilled and passionate instructors who guide you safely through every step of the process. The location is central and easy to reach, and we create a relaxed and welcoming atmosphere where you’ll feel comfortable from day one."
+    },
+    "grindsted": {
+      "hero": "Driving School in Grindsted",
+      "image": "/grindsted.webp",
+      "address": "Industrivej 17, 7200 Grindsted",
+      "subtitle": "Professional driving instruction in Grindsted",
+      "title": "Our Grindsted Location",
+      "desc": "IIn Grindsted, you’ll meet a friendly and experienced team passionate about helping you become a safe and confident driver. We teach with a personal approach and adapt to your learning style. Whether you're taking your first license or renewing it, we’ll make sure you’re well-prepared for both the theory and practical driving."
+    }
+  },
+
+  "pricesPage": {
+    "title": "Choose your driving license",
+    "subtitle": "Select the right license",
+    "description": "We offer"
+  },
+
+  "pricePage": {
+    "common": {
+      "btn": "See Courses"
+    },
+    "bil-korekort": {
+      "title": "Car Driving License",
+      "subtitle": "(Category B)",
+      "hero": "Get your car license with us – safe, fast and effective.",
+      "cta": "Ready to get your car driving license?",
+      "body": "We offer training with modern cars and experienced instructors. You'll receive both theory and practical lessons in a safe environment.\nStart your journey towards getting your license today!"
+    },
+    "trailer-korekort": {
+      "title": "Trailer Driving License",
+      "subtitle": "(Category B/E)",
+      "hero": "Gain the right to tow larger trailers – we guide you all the way.",
+      "cta": "Do you need a trailer license for work or leisure?",
+      "body": "Our trailer courses give you the knowledge and skills needed to tow safely.\nTheory, practice, and exam – we’ll guide you through it all."
+    },
+    "traktor-korekort": {
+      "title": "Tractor Driving License",
+      "subtitle": "(Category T)",
+      "hero": "Get your tractor license quickly and easily with us.",
+      "cta": "Need a tractor license for agriculture or work?",
+      "body": "Our tractor courses offer professional training and hands-on experience.\nIdeal for young people and adults working in agriculture."
+    },
+    "generhvervelse-korekort": {
+      "title": "Retake of Driving License",
+      "subtitle": "",
+      "hero": "We’ll help you reclaim your license.",
+      "cta": "Need to reacquire your license after revocation?",
+      "body": "We offer targeted programs for those reacquiring their license.\nPersonal guidance and instruction to help you pass again."
+    }
+  },
+  "carPlans": {
+    "subtitle": "Choose the right package",
+    "vatNote": "Prices include VAT",
+    "paymentInfo": "Payment is due after registration"
+  },
+
+  "tractorPlans": {
+    "vatNote": "Prices include VAT",
+    "paymentInfo": "Payment is made after registration"
+  },
+  "retakePlans": {
+    "vatNote": "Prices include VAT",
+    "paymentInfo": "Payment is made after registration"
+  },
+  "trailerPlans": {
+    "vatNote": "Prices include VAT",
+    "paymentInfo": "Payment is made after registration"
+  },
+  "registerPage": {
+    "title": "Register for a course"
+  },
+
+  "ConsentModal": {
+    "title": "Consent & Privacy Policy",
+    "section1": {
+      "title": "1. Collection and Processing of Personal Data",
+      "description": "When you use our price calculator or fill out a contact form on Arzonic Agency's website, we collect and process the following information:",
+      "list": {
+        "name": "Name",
+        "phone": "Phone number",
+        "email": "Email address",
+        "details": "Any details you provide in your message or request"
+      },
+      "note": "This information is used solely to respond to your inquiry, prepare a quote, and follow up if necessary."
+    },
+    "section2": {
+      "title": "2. Data Retention and Deletion",
+      "description": "Your data is stored securely and confidentially.",
+      "list": {
+        "noCustomer": "If no customer relationship is established, your data will be automatically deleted after 30 days.",
+        "customer": "If you become a customer, we will retain your data only as long as necessary to provide our services or comply with legal obligations."
+      },
+      "note": "You may request early deletion by contacting us at mail@arzonic.com."
+    },
+    "section3": {
+      "title": "3. Disclosure of Information",
+      "description": "We do not share your information with third parties unless it is necessary to fulfill your request (e.g., a subcontractor). If this is the case, it will only be done with your prior consent."
+    },
+    "section4": {
+      "title": "4. Your Rights",
+      "description": "You have the right to:",
+      "list": {
+        "access": "Access the data we hold about you",
+        "correct": "Correct inaccurate or outdated information",
+        "delete": "Request deletion of your data (unless retention is required by law)",
+        "withdraw": "Withdraw your consent to data processing"
+      },
+      "note": "To exercise your rights, contact us at mail@arzonic.com."
+    },
+    "section5": {
+      "title": "5. Consent",
+      "description1": "By submitting your information through our website, you consent to the processing of your data as described above.",
+      "description2": "You may withdraw your consent at any time by contacting us. If there is no legal reason to retain your data, it will be deleted upon request."
+    },
+    "section6": {
+      "title": "6. Data Security",
+      "description": "We implement appropriate technical and organizational measures to protect your data against unauthorized access, misuse, or disclosure."
+    },
+    "section7": {
+      "title": "7. Updates to This Policy",
+      "description": "We reserve the right to update this Consent & Privacy Policy. The most recent version will always be available on our website."
+    },
+    "lastUpdated": "Last updated: May 7, 2025",
+    "closeButton": "Close"
+  },
+  "TermsModal": {
+    "title": "Terms of Service",
+    "closeButton": "Close",
+    "effectiveFrom": "Effective from: May 7, 2025",
+    "lastUpdated": "Last updated: May 7, 2025",
+    "effectiveNote": "These terms apply to all agreements entered into after this date.",
+    "section1": {
+      "title": "1. Introduction",
+      "description": "These terms apply to all services and products provided by Arzonic Agency to our clients. By using our website or services, you agree to these terms."
+    },
+    "section2": {
+      "title": "2. Services",
+      "description": "We provide digital consultancy and ready-made solutions including web development, 3D design, and maintenance. Scope is agreed individually."
+    },
+    "section3": {
+      "title": "3. Payment and Invoicing",
+      "description": "Payment is due upon invoice unless otherwise agreed. Payment terms: 8 days net. Late payments may incur fees and interest according to law."
+    },
+    "section4": {
+      "title": "4. Intellectual Property",
+      "description": "All materials developed by Arzonic remain our property unless otherwise agreed in writing. The client receives a usage license."
+    },
+    "section5": {
+      "title": "5. Liability and Limitations",
+      "description": "We disclaim responsibility for indirect losses, third-party software issues, and force majeure events."
+    },
+    "section6": {
+      "title": "6. Cooperation and Changes",
+      "description": "The client must respond in a timely manner. Changes must be agreed in writing. Lack of cooperation may affect delivery."
+    },
+    "section7": {
+      "title": "7. Termination",
+      "description": "Ongoing agreements can be terminated with one month’s notice. Immediate termination may occur in case of material breach."
+    },
+    "section8": {
+      "title": "8. Governing Law and Jurisdiction",
+      "description": "Disputes are governed by Danish law with jurisdiction in the Court of Hillerød."
+    },
+    "section9": {
+      "title": "9. Changes to Terms",
+      "description": "We reserve the right to modify these terms. The latest version is always available on our website."
+    }
+  },
+  "GetStarted": {
+    "title": "Estimate your project",
+    "subtitle": "– in under a minute"
+  },
+  "footer": {
+    "brandName": "Junker's Køreskole",
+    "sloganSince": "With you all the way - since 2017",
+    "aboutUs": "About Us",
+    "departments": "Departments",
+    "jobs": "Jobs",
+    "legal": "Legal",
+    "contactUs": "Contact Us"
+  },
+  "locationCards": {
+    "ribe": {
+      "title": "Ribe",
+      "image": "/ribe.jpg"
+    },
+    "billund": {
+      "title": "Billund",
+      "image": "/billund.jpg"
+    },
+    "grindsted": {
+      "title": "Grindsted",
+      "image": "/grindsted.jpg"
+    }
+  },
+
+  "priceCards": {
+    "bil": {
+      "title": "Car license"
+    },
+    "trailer": {
+      "title": "Trailer license"
+    },
+    "traktor": {
+      "title": "Tractor license"
+    },
+    "generhvervelse": {
+      "title": "License renewal"
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "q1": {
+      "title": "How long does it take?",
+      "answer": "It depends on the complexity of the project. A simple landing page can typically be ready in 1–2 weeks, while a custom web application or a 3D-enhanced solution may take 4–8 weeks or more. We always provide a realistic timeline at project start."
+    },
+    "q2": {
+      "title": "Is maintenance included?",
+      "answer": "We offer both one-time solutions and ongoing maintenance. You can choose a support plan where we handle updates, security, and hosting – or we can hand it all over to you with full documentation."
+    },
+    "q3": {
+      "title": "Can I edit content myself?",
+      "answer": "Yes! Most of our solutions include a user-friendly CMS or dashboard, allowing you to manage text, images, and content on your own. If preferred, we can also build static solutions with zero maintenance needs."
+    },
+    "q4": {
+      "title": "What if I need new features later?",
+      "answer": "We build with scalability in mind. It's easy to add features or expand the solution later, and we're happy to help – whether it's bookings, integrations, e-commerce or something else."
+    }
+  },
+
+  "notFound": {
+    "title": "404",
+    "message": "Oops! The page you are looking for does not exist.",
+    "home": "Go to homepage",
+    "contact": "Get in touch"
+  },
+  "analytics": {
+    "title": "Analytics",
+    "last_7_days": "Last 7 days",
+    "last_30_days": "Last 30 days",
+    "visitors": "Visitors",
+    "pageviews": "Pageviews",
+    "visits": "Visits",
+    "most_visited": "Most Visited",
+    "devices": "Devices",
+    "no_data": "No data",
+    "mobile": "Mobile",
+    "desktop": "Desktop",
+    "laptop": "Laptop",
+    "tablet": "Tablet",
+    "unknown": "Unknown"
+  },
+
+  "SEO": {
+    "titleHome": "Top Driving School | Get Your Driver's License Safely",
+    "descHome": "Welcome to our modern driving school focused on safety, flexibility, and personal instruction. Sign up online today.",
+
+    "titlePrices": "Driving License Prices | Transparent Packages with No Hidden Fees",
+    "descPrices": "Check our driving license prices and compare packages. From Basic to Platinum – find the one that suits you best.",
+
+    "titleContact": "Contact Us | We're Ready to Help You Move Forward",
+    "descContact": "Have questions? Contact our friendly team for assistance with registration, pricing, or general inquiries.",
+
+    "titleTilmelding": "Sign Up for Driving Lessons | Start Your Journey Today",
+    "descTilmelding": "Fill out our registration form and begin your driving course easily. Quick, simple, and without obligation.",
+
+    "titleInformation": "Driving License Info | FAQs and Rules Explained",
+    "descInformation": "Find answers to the most common questions about driving licenses, regulations, lessons, and tests. Always updated.",
+
+    "titleTeachers": "Meet Our Driving Instructors | Experienced and Dedicated",
+    "descTeachers": "Read about our skilled and experienced instructors who ensure safe and effective driving lessons from day one."
+  }
+}

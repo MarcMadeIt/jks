@@ -1,0 +1,811 @@
+{
+  "edit": "Rediger",
+  "save": "Gem",
+  "saving": "Gemmer...",
+  "update": "Opdater",
+  "updating": "Opdatering...",
+  "delete": "Slet",
+  "delete_selected": "Slet valgte",
+  "cancel": "Annuller",
+  "create": "Opret",
+  "back": "Tilbage",
+  "search": "Søg",
+  "language": "Sprog",
+  "light": "Lys",
+  "dark": "Mørk",
+  "new": "new",
+  "write_title": "Skriv overskrift...",
+  "write_desc": "Skriv en beskrivelse...",
+  "write_city": "Skriv en by...",
+  "title": "Overskrift",
+  "details": "Detaljer",
+  "desc": "Beskrivelse",
+  "description": "Beskrivelse",
+  "city": "By",
+  "creation_date": "Oprettelsesdato",
+  "image_update": "Tilføj nyt billede",
+  "choose_images": "Vælg billede",
+  "subject": "Emne",
+  "surname": "Efternavn",
+  "email": "Mailadresse",
+  "password": "Adgangskode",
+  "confirm_password": "Bekræft kodeord",
+  "mobile": "Mobil nr.",
+  "name": "Navn",
+  "message": "Besked",
+  "no_message": "Ingen besked",
+  "chars": "tegn",
+  "title_required": "Titel er påkrævet",
+  "desc_required": "Beskrivelse er påkrævet",
+  "city_required": "By er påkrævet",
+  "country_required": "Land er påkrævet",
+  "contact_person_required": "Kontaktperson er påkrævet",
+  "invalid_email": "Mailen er ugyldig",
+  "password_too_short": "Kodeordet skal være mindst 6 tegn",
+  "passwords_not_matching": "Kodeordene er ikke ens",
+  "invalid_date": "Ugyldig dato",
+  "invalid_days": "Ugyldigt antal dage",
+  "registration_error": "Fejl ved registrering, prøv igen",
+  "case": "Case",
+  "cases": "Cases",
+  "review": "Anmeldelse",
+  "reviews": "Anmeldelser",
+  "requests": "Henvendelser",
+  "bookings": "Bookings",
+  "request_details": "Detaljer for henvendelse",
+  "request_time": "Tidspunkt for henvendelse",
+  "updated_job": "Jobopslag opdateret",
+  "deleted_case": "Case slettet",
+  "deleted_request": "Henvendelse slettet",
+  "deleted_review": "Anmeldelse slettet",
+  "deleted_application": "Ansøgning slettet",
+  "deleted_job": "Jobopslaget slettet",
+  "delete_case_confirmation": "Sletning af case",
+  "delete_case_prompt": "Er du sikker på, at du vil slette denne case?",
+  "delete_case_warning": "Denne handling kan ikke fortrydes.",
+  "delete_request_confirmation": "Sletning af anmodninger",
+  "delete_request_prompt": "Er du sikker på, at du vil slette denne kundehenvendelse?",
+  "delete_request_prompt_selected": "Er du sikker på, at du vil slette de valgte henvendelse?",
+  "delete_request_warning": "Denne handling kan ikke fortrydes.",
+  "delete_review_confirmation": "Slet anmeldelse",
+  "delete_review_prompt": "Er du sikker på, at du vil slette denne anmeldelse?",
+  "delete_review_warning": "Denne handling kan ikke fortrydes.",
+  "delete_application_confirmation": "Slet ansøgning",
+  "delete_application_prompt": "Er du sikker på, at du vil slette denne ansøgning?",
+  "delete_application_warning": "Denne handling kan ikke fortrydes.",
+  "delete_job_confirmation": "Slet jobopslag",
+  "delete_job_prompt": "Er du sikker på, at du vil slette dette jobopslag?",
+  "delete_job_warning": "Denne handling kan ikke fortrydes.",
+  "case_creation": "Oprettelse af Case",
+  "review_creation": "Oprettelse af Anmeldelse",
+  "case_editing": "Redigering af Case",
+  "review_editing": "Redigering af Anmeldelse",
+  "customer": "kunde",
+  "customers": "Kunder",
+  "customer_details_updated": "Kundedetaljer opdateret",
+  "customer_notes": "Noter for kunde",
+  "no_notes_available": "Ingen noter tilgængelige",
+  "add_note": "Tilføj note",
+  "write_note": "Skriv en note...",
+  "contact_customer": "Kontakt kunde",
+  "no_address": "Ingen adresse",
+  "show_route": "Vis vej",
+  "address_and_city": "Adresse & By",
+  "task_interest": "Opgave interesse",
+  "consent_status": "Status for samtykke",
+  "consent_given": "Samtykke givet",
+  "consent_missing": "Samtykke mangler",
+  "user": "bruger",
+  "user_created": "Bruger oprettet",
+  "user_updated": "Bruger opdateret",
+  "user_deleted": "Bruger slettet",
+  "review_created": "Anmeldelse oprettet",
+  "review_updated": "Anmeldelse opdateret",
+  "review_deleted": "Anmeldelse slettet",
+  "create_new_user": "Opret ny bruger",
+  "create_user": "Opret bruger",
+  "update_user": "Opdater bruger",
+  "creating_user": "Opretter bruger...",
+  "delete_user_confirmation": "Slet bruger",
+  "delete_user_prompt": "Er du sikker på, at du vil slette denne bruger?",
+  "delete_user_warning": "Denne handling kan ikke fortrydes.",
+  "user_admin": "Brugeradministration",
+  "user_control": "Brugeradgang",
+  "select_access_level": "Vælg adgangsniveau",
+  "editor": "Redaktør",
+  "admin": "Admin",
+  "loading_cases": "Indlæser Cases...",
+  "loading_reviews": "Indlæser Anmeldelser...",
+  "loading_request": "Indlæser Henvendelser...",
+  "loading_users": "Indlæser Brugere...",
+  "loading_packages": "Indlæser Pakker...",
+  "loading_teachers": "Indlæser Kørelærere...",
+  "loading_jobs": "Indlæser jobstillinger...",
+  "no_users": "Ingen brugere fundet",
+  "no_cases": "Ingen sager fundet",
+  "no_reviews": "Ingen anmeldelser fundet",
+  "no_requests": "Ingen henvendelser fundet",
+  "overview": "Overblik",
+  "content": "Indhold",
+  "settings": "Indstillinger",
+  "site": "Side",
+  "site_setup": "Sideopsætning",
+  "layout_settings": "Sideopsætning",
+  "packages": "Pakker",
+  "rating": "Bedømmelse",
+  "write_review_desc": "Skriv din anmeldelse her...",
+  "review_name": "Navn (eller kontaktperson)",
+  "write_review_name": "F.eks. Mads M.",
+  "name_required": "Navn er påkrævet",
+  "review_date": "Dato for anmeldelse",
+  "date_required": "Dato er påkrævet",
+  "review_link": "Link til kilde (Trustpilot m.m.)",
+
+  "updatePackage": {
+    "formTitle": "Rediger jobopslag",
+    "title": "Pakkenavn",
+    "price": "Pris",
+    "desc": "Beskrivelse",
+    "save": "Gem ændringer",
+    "loading": "Indlæser pakke...",
+    "placeholders": {
+      "title": "Skriv et ny pakkenavn..."
+    },
+    "errors": {
+      "title": "Titel er påkrævet",
+      "desc": "Beskrivelse er påkrævet"
+    }
+  },
+  "createTeacher": {
+    "formTitle": "Opret kørelærer",
+    "name": "Navn",
+    "image": "Billede",
+    "since": "Kørelærer siden",
+    "desc": "Beskrivelse",
+    "descEng": "Beskrivelse på engelsk",
+    "imageFormats": "Tilladte filformater: png, webp, jpeg, jpg",
+    "placeholders": {
+      "name": "Skriv lærerens navn...",
+      "since": "Vælg dato for start som kørelærer...",
+      "desc": "Skriv om kørelæreren...",
+      "descEng": "Skriv om kørelæreren på engelsk..."
+    }
+  },
+  "updateTeacher": {
+    "formTitle": "Opdater kørelærer",
+    "name": "Navn",
+    "image": "Billede",
+    "since": "Kørelærer siden",
+    "desc": "Beskrivelse",
+    "descEng": "Beskrivelse på engelsk",
+    "imageFormats": "Tilladte filformater: png, webp, jpeg, jpg",
+    "placeholders": {
+      "name": "Rediger lærerens navn...",
+      "since": "Opdater dato for start som kørelærer...",
+      "desc": "Skriv om kørelæreren...",
+      "descEng": "Skriv om kørelæreren på engelsk..."
+    }
+  },
+
+  "packageDetails": {
+    "loading": "Indlæser pakkedetaljer...",
+    "title": "Pakkedetaljer",
+    "updated_package": "Pakke opdateret",
+    "fields": {
+      "title": "Pakkens titel",
+      "price": "Pris",
+      "desc": "Beskrivelse",
+      "unknown": "Ukendt"
+    },
+    "features": {
+      "additional": "Gebyr der kommer udover pakken",
+      "title": "Pakkeindhold",
+      "price": "Pris",
+      "included": "Inkluderet",
+      "baseIncludedTitle": "Alt i Lovpakken",
+      "baseIncludedValue": "(Værdi 14.495,-)",
+      "valueLabel": "Værdi {{price}},-"
+    }
+  },
+  "teachersDetails": {
+    "loading": "Indlæser lærerdata...",
+    "title": "Kørelærer detaljer",
+    "updated_teacher": "Lærer opdateret",
+    "fields": {
+      "title": "Titel",
+      "name": "Navn",
+      "desc": "Beskrivelse",
+      "image": "Billede",
+      "unknown": "Ukendt",
+      "since": "Kørelærer siden"
+    }
+  },
+
+  "setup": {
+    "packages": "Pakker",
+    "teachers": "Kørelærere",
+    "create": "Opret",
+    "package": "pakke",
+    "teacher": "kørelærer",
+    "package_details": "Pakke detaljer",
+    "unknown": "Ukendt",
+    "mobile": "Telefonnummer",
+    "email": "E-mail",
+    "consent_status": "Samtykke",
+    "consent_given": "Givet",
+    "consent_missing": "Mangler",
+    "creation_date": "Oprettet",
+    "cv_and_application": "CV og ansøgning",
+    "view_cv": "Se CV",
+    "view_application": "Se ansøgning",
+    "delete": "Slet",
+    "cancel": "Annuller",
+    "delete_confirmation": "Bekræft sletning",
+    "delete_application_prompt": "Er du sikker på, at du vil slette denne ansøgning?",
+    "delete_application_warning": "Dette kan ikke fortrydes.",
+    "back": "Tilbage",
+    "aria_delete_button": "Slet ansøgning"
+  },
+  "image_upload": {
+    "change_image": "Skift billede",
+    "select_image_type": "Vælg billede type",
+    "intro": "Intro (startside)",
+    "about_us": "Om os (startside)",
+    "upload": "Upload",
+    "preview_alt": "Preview",
+    "file_uploaded": "Fil uploadet!",
+    "confirm_upload": "Bekræft upload",
+    "confirm_upload_message": "Er du sikker på, at du vil uploade dette billede?",
+    "warning": "Advarsel: Det gamle billede kan ikke genskabes",
+    "cancel": "Annuller"
+  },
+  "about": "Om os",
+  "contact": "Kontakt",
+  "company": "Virksomhedsnavn",
+  "privacy_policy": "Privatlivspolitik",
+  "terms_of_service": "Vilkår og betingelser",
+  "cards": "Kort",
+  "list": "Liste",
+  "from_reviews": "fra",
+  "logout": "Log ud",
+  "date": "Dato",
+  "time": "Tid",
+  "created_by": "Oprettet af",
+  "unknown": "Ukendt",
+  "unknown_page": "Ukendt side",
+  "sent_by": "Afsender",
+  "delete_confirmation": "Bekræft sletning",
+  "delete_choosings": "Slet valgte",
+  "days_left": "Antal dage tilbage",
+  "time_expired": "Tiden er udløbet",
+
+  "header": {
+    "brandName": "Junker's Køreskole",
+    "logoAlt": "Junker's Køreskole Logo",
+    "registration": "Tilmelding",
+    "prices": "Priser",
+    "contact": "Kontakt",
+    "information": "Information",
+    "departments": "Afdelinger",
+    "followUs": "Følg os",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "tiktok": "TikTok",
+    "dropdown": {
+      "prices": {
+        "car": "Bil Kørekort",
+        "trailer": "Trailer Kørekort",
+        "tractor": "Traktor Kørekort",
+        "reacquisition": "Generhvervelse"
+      },
+      "city": {
+        "ribe": "Ribe",
+        "billund": "Billund",
+        "grindsted": "Grindsted"
+      },
+      "information": {
+        "about": "Om køreskolen",
+        "contact": "Kontakt os",
+        "teachers": "Kørelærerne ",
+        "littleHelper": "Den lille hjælper"
+      }
+    }
+  },
+
+  "home": {
+    "hero": {
+      "allWay": "Med dig hele vejen!",
+      "btnCourse": "Se holdstart",
+      "btnContact": "Kontakt os"
+    },
+    "locations": {
+      "title": "Undervisning i følgende byer"
+    },
+    "reviews": {
+      "from": "Anmeldelser fra"
+    },
+    "prices": {
+      "title": "Hvilket kørekort er du interesseret i?"
+    }
+  },
+
+  "taskSelect": {
+    "legend": "Hvilket kørekort er du interesseret i?",
+    "placeholder": "Vælg kørekorttype",
+    "options": {
+      "car": "Kørekort til Bil",
+      "trailer": "Kørekort til Trailer",
+      "traktor": "Kørekort til Traktor",
+      "generhvervelse": "Generhvervelse af kørekort",
+      "other": "Andet"
+    },
+    "aria": {
+      "selectTask": "Vælg kørekorttype"
+    }
+  },
+  "coursePage": {
+    "filter": {
+      "reset": "×"
+    },
+    "loading": "Indlæser...",
+    "noCourses": "Ingen kurser fundet.",
+    "seats": "Pladser:",
+    "register": "Tilmeld",
+    "viewSchedule": "Se forløbskort",
+    "modal": {
+      "alt": "Forløbskort"
+    }
+  },
+
+  "korelaerernePage": {
+    "title": "Mød vores kørelærere",
+    "subtitle": "Professionelle og engagerede kørelærere",
+    "description": "Vores team af erfarne kørelærere står klar til at guide dig gennem hele din rejse mod kørekortet. Vi tilbyder personlig undervisning, der sikrer, at du føler dig tryg og godt forberedt til både teori og køreprøve.",
+    "cta": "Lær vores kørelærere at kende"
+  },
+  "contactPage": {
+    "title": "Kontakt os",
+    "readyTitle": "Kontakt os direkte",
+    "contactPrompt": "Vi sidder klar, hvis du har spørgsmål til vores hold, priser eller forløb.",
+    "ambitionMessage": "Ring eller skriv til os – vi hjælper dig hurtigt videre.",
+    "callmailPrompt": "Ring eller send en mail til os",
+    "phoneNumber": "+45 22 77 12 46",
+    "emailAddress": "junkerskoreskole@gmail.com",
+    "imageAlt": "kontakt os"
+  },
+  "contactForm": {
+    "title": "Spørgsmål til kørekort eller forløb?",
+    "fields": {
+      "name": {
+        "label": "Navn",
+        "placeholder": "Indtast dit navn"
+      },
+      "email": {
+        "label": "E-mailadresse",
+        "placeholder": "Indtast din e-mail"
+      },
+      "phone": {
+        "label": "Telefonnummer",
+        "placeholder": "Indtast dit telefonnummer"
+      },
+      "message": {
+        "label": "Besked",
+        "placeholder": "Skriv hvis du har spørgsmål, eller ønsker at blive kontaktet"
+      },
+      "consent": {
+        "label": "Jeg accepterer opbevaring af mine oplysninger i op til 30 dage",
+        "readMore": "Læs mere"
+      }
+    },
+    "buttons": {
+      "submit": "Send besked",
+      "sending": "Sender..."
+    },
+    "success": {
+      "title": "Tak for din henvendelse!",
+      "message": "Vi vender tilbage til dig hurtigst muligt.",
+      "closeButton": "Luk"
+    },
+    "errors": {
+      "invalidPhone": "Ugyldigt telefonnummer.",
+      "consentRequired": "Du skal acceptere opbevaring af dine oplysninger.",
+      "generic": "Noget gik galt. Prøv venligst igen senere."
+    },
+    "aria": {
+      "name": "Indtast dit navn",
+      "email": "Indtast din e-mail",
+      "phone": "Indtast dit telefonnummer",
+      "message": "Indtast din besked",
+      "submit": "Send formularen",
+      "consent": "Accepter samtykke",
+      "nameInput": "Indtast dit navn",
+      "emailInput": "Indtast din e-mail",
+      "phoneInput": "Indtast dit telefonnummer",
+      "messageInput": "Indtast din besked",
+      "submitButton": "Send formularen",
+      "consentCheckbox": "Accepter samtykke"
+    }
+  },
+  "helperMenu": {
+    "vehicle_dimensions": "Køretøjets mål",
+    "alcohol": "Promillegrænser",
+    "warning_triangle": "Advarselstrekant",
+    "towing": "Slæbning",
+    "road_risks": "Risikoforhold ved vejene",
+    "police_signals": "Politiets tegn",
+    "speed_limits": "Hastigheder",
+    "yield": "Vigepligt",
+    "stopping_parking": "Standsning & parkering",
+    "lane_merge": "Sammenfletning",
+    "overtaking": "Overhaling",
+    "driving_dark": "Mørkekørsel"
+  },
+
+  "littleHelper": {
+    "vehicle_dimensions": "Bilens maksimum mål",
+    "vehicle_dimensions.text": "Med eller uden læs må en bil højst fylde 2,55 meter i bredden, 4 meter i højden (målt fra vejbanen) og 12 meter i længden. Vogntog (bil+trailer) 18,75 meter. Gods skal afmærkes hvis, det stikker mere end 1 meter udover forende eller bagende, eller mere end 15 cm ud over siderne.",
+
+    "alcohol": "Spiritus",
+    "alcohol.limit": "Højst tilladte promillegrænse 0,5 promille",
+    "alcohol.list.1": "0,5 – 1,2 promille = betinget frakendelse",
+    "alcohol.list.2": "Over 1,2 promille = ubetinget frakendelse",
+    "alcohol.list.3": "0,8 – 2,0 promille = stor bøde",
+    "alcohol.list.4": "Over 2,0 promille = fængsel",
+    "alcohol.note": "Man kan dog også straffes ved kørsel med en promille under 0,5!",
+
+    "warning_triangle": "Advarselstrekant",
+    "warning_triangle.text": "Ved havari eller motorstop hvor bilen holder til fare og ulempe for færdslen, skal man straks opsætte en advarselstrekant i vejkanten. På almindelige veje mindst 50 meter før bilen og på motorveje mindst 100 meter før bilen.",
+
+    "towing": "Regler for slæbning",
+    "towing.text": "Det er tilladt at bruge bilen til at slæbe en anden bil. Afstand mellem køretøjerne må højst være 4 meter. Er afstanden over 2 meter skal tovet tydeligt afmærkes. Hastigheden må højst være 30 km/t. Særlige regler gælder på motorvej.",
+
+    "road_risks": "Risikoforhold ved vejene",
+    "road_risks.list.1": "Omgivelser: Bebyggelse, skov, åbne marker, strand, mv.",
+    "road_risks.list.2": "Udstyr: Kørebanens bredde, belægning, belysning, cykelsti, signaler",
+    "road_risks.list.3": "Forløb: Bakker, jernbane, sving, vejkryds, rundkørsler",
+    "road_risks.list.4": "Brug: Skoler, station, butiksområder, trafikmængde",
+    "road_risks.list.5": "Type: Motorvej, trafiksaneret vej, mv.",
+
+    "police_signals": "Politiets tegn",
+    "police_signals.intro": "Politiet kan manuelt styre trafikken, og deres tegn gælder ligesom trafiklys. Som bilist skal du kunne genkende og reagere korrekt på disse signaler. Herunder ser du de fire vigtigste:",
+    "police_signals.1": "Stands (1): Politiet står med siden til og armene ud til siden. Trafikken forfra og bagfra skal stoppe.",
+    "police_signals.2": "Stands (2): Politiet vender front eller ryg mod dig uden armene udstrakt – du skal standse.",
+    "police_signals.3": "Klar: En arm er løftet lodret – signalet er ved at skifte. Gør dig klar.",
+    "police_signals.4": "Kør: Politiet står med siden til og én arm ud. Trafikken fra siden må køre.",
+    "police_signals.reminder": "Husk: Politiets tegn overtrumfer både trafiklys og skilte.",
+
+    "speed_limits": "Generelle hastigheder",
+    "speed_limits.urban": "Indenfor tættere bebygget område = 50 km/t",
+    "speed_limits.rural": "Udenfor tættere bebygget område = 80 km/t",
+    "speed_limits.express": "Motortrafikvej = 80 km/t",
+    "speed_limits.motorway": "Motorvej = 130 km/t",
+
+    "yield": "Ubetinget og højre vigepligt",
+    "yield.unconditional": "Hold tilbage for al færdsel fra både højre og venstre. Fx ved udkørsel fra parkeringsplads, grundstykke, tankstation, underordnet vej, eller vej der skærer over fortov eller cykelsti.",
+    "yield.right": "Hold tilbage for trafik fra højre og se om trafikanter fra venstre kan og vil holde tilbage. Gælder hvor andet ikke er angivet med skiltning.",
+
+    "stopping_parking": "Standsning & parkering",
+    "stopping_parking.stopping": "Enhver hensætning af bilen i højst 3 minutter. Gælder ikke ved trafikstop eller manøvrer.",
+    "stopping_parking.parking": "Enhver hensætning af bilen i mindst 3 minutter. Gælder ikke ved af- eller pålæsning, eller af- og påsætning af passagerer.",
+    "stopping_parking.no_stop": "Fx på gangsti, cykelsti, spærreflade, fortov, tæt ved kryds, spærrelinie, fodgængerfelt, bakketop, sving, viadukt og ved gul kantstensafmærkning.",
+    "stopping_parking.no_parking": "Fx foran udkørsler, for tæt på jernbaneoverkørsler, på hovedvej, ved punkteret gul kantlinie, på taxiholdeplads eller foran færdselstavler.",
+
+    "lane_merge": "Sammenfletning & vognbaneskift",
+    "lane_merge.text": "Sletter man, fletter man – også hvis det er angivet med skilt. Vær opmærksom på bagfrakommende, kørebanestriber og vejens forløb.",
+
+    "overtaking": "Overhalingsforbud",
+    "overtaking.1": "Normalt overhales til venstre",
+    "overtaking.2": "Må overhale til højre, hvis køretøjet svinger til venstre, og det er muligt",
+    "overtaking.3": "Forbudt i kryds, medmindre: flere baner, svingende køretøj, reguleret med lys eller politi, eller modkørende har vigepligt",
+    "overtaking.4": "Forbudt foran og på jernbaneoverkørsler samt i bakker og sving med dårlig oversigt",
+    "overtaking.5": "Undtagelse: To-hjulede cykler og knallerter må overhales i kryds, bakker og sving",
+
+    "driving_dark": "Kørsel i mørke",
+    "driving_dark.1": "Blænd ned 200–300 m før modkørende bil/mc",
+    "driving_dark.2": "Blænd ned 100–150 m før cyklist/fodgænger",
+    "driving_dark.3": "Nedsæt hastighed inden nedblænding. På smal vej: maks. 40 km/t ved møde med modkørende."
+  },
+
+  "departmentPage": {
+    "common": {
+      "registerBtn": "Find holdstart",
+      "mapBtn": "Vis vej",
+      "phone": "+45 22 77 12 46",
+      "mail": "junkerskoreskole@gmail.com"
+    },
+    "ribe": {
+      "hero": "Køreskole i Ribe",
+      "image": "/ribe.webp",
+      "address": "Stampemøllevej 3, 6760 Ribe",
+      "subtitle": "Tag dit kørekort hos os i Ribe – trygt og effektivt",
+      "title": "Afdelingen i Ribe",
+      "desc": "I vores afdeling i Ribe får du en tryg og behagelig start på dit kørekortforløb. Vi tilbyder grundig og engageret undervisning, hvor der er fokus på din individuelle udvikling og tryghed i trafikken. Med rolige omgivelser og erfarne undervisere er Ribe det ideelle sted at tage dit kørekort – uanset om du er nybegynder eller ønsker generhvervelse."
+    },
+    "billund": {
+      "hero": "Køreskole i Billund",
+      "image": "/billund.webp",
+      "address": "Billund Centeret, 7190 Billund",
+      "subtitle": "Start din rejse mod kørekortet i Billund",
+      "title": "Afdelingen i Billund",
+      "desc": "Vores afdeling i Billund er moderne, fleksibel og skræddersyet til dine behov. Du bliver undervist af dygtige og engagerede kørelærere, som hjælper dig trygt igennem hele forløbet. Afdelingen ligger centralt og er let tilgængelig, og vi skaber en rar og afslappet stemning, hvor du kan føle dig hjemme fra første dag."
+    },
+    "grindsted": {
+      "hero": "Køreskole i Grindsted",
+      "image": "/grindsted.webp",
+      "address": "Industrivej 17, 7200 Grindsted",
+      "subtitle": "Professionel køreskoleundervisning i Grindsted",
+      "title": "Afdelingen i Grindsted",
+      "desc": "I Grindsted møder du et imødekommende og erfarent team, der brænder for at gøre dig til en sikker og ansvarlig bilist. Her får du undervisning i øjenhøjde og med fokus på din læringsstil. Uanset om du vil tage almindeligt kørekort eller generhverve, sørger vi for, at du føler dig godt klædt på til både teori og kørsel."
+    }
+  },
+
+  "pricesPage": {
+    "title": "Vælg dit kørekort",
+    "subtitle": "Vælg det rette kørekort",
+    "description": "Vi tilbyder"
+  },
+
+  "pricePage": {
+    "common": {
+      "btn": "Se holdstart"
+    },
+    "bil-korekort": {
+      "title": "Kørekort til bil",
+      "subtitle": "(Kategori B)",
+      "hero": "Tag dit bilkørekort hos os – trygt, hurtigt og effektivt.",
+      "cta": "Er du klar til at tage kørekort til bil?",
+      "body": "Vi tilbyder undervisning med moderne biler og engagerede undervisere. Du får både teori og praktiske lektioner i trygge omgivelser.\nStart din rejse mod kørekortet i dag!"
+    },
+    "trailer-korekort": {
+      "title": "Kørekort til trailer",
+      "subtitle": "(Kategori B/E)",
+      "hero": "Få lov til at køre med større trailere – vi hjælper dig hele vejen.",
+      "cta": "Skal du bruge trailerkørekort til arbejde eller fritid?",
+      "body": "Vores trailerkurser giver dig den nødvendige viden og færdigheder til at køre sikkert med anhænger.\nTeori, praksis og prøve – vi guider dig gennem det hele."
+    },
+    "traktor-korekort": {
+      "title": "Kørekort til traktor",
+      "subtitle": "(Kategori T)",
+      "processTitle": "Forløbet for traktorkørekort",
+      "cta": "Har du brug for traktor-kørekort til landbrug eller erhverv?",
+      "body": "Med vores traktorkurser får du professionel undervisning og praktisk erfaring.\nKurset er ideelt for unge og voksne i landbruget."
+    },
+    "generhvervelse-korekort": {
+      "title": "Generhvervelse af kørekort",
+      "hero": "Få dit kørekort tilbage med vores hjælp.",
+      "cta": "Skal du generhverve dit kørekort efter frakendelse?",
+      "body": "Vi tilbyder målrettede forløb til dig, der skal generhverve dit kørekort.\nIndividuel rådgivning og undervisning, så du kan bestå prøverne igen."
+    }
+  },
+
+  "carPlans": {
+    "subtitle": "Vælg den rette pakke",
+    "vatNote": "Priser er inkl. moms",
+    "paymentInfo": "Betaling sker efter tilmelding",
+    "noteTitle": "Bemærk",
+    "noteBullet1": "Sparer dig for ekstra køreprøver",
+    "noteBullet2": "Fri kørsel indtil du består",
+    "noteBullet3": "Førstehjælp og pasfoto inkluderet",
+    "noteFooter": "Typisk besparelse: 3.000–5.000 kr."
+  },
+
+  "tractorPlans": {
+    "vatNote": "Priser er inkl. moms",
+    "paymentInfo": "BEMÆRK Betaling sker efter tilmelding"
+  },
+  "retakePlans": {
+    "vatNote": "Priser er inkl. moms",
+    "paymentInfo": "BEMÆRK Betaling sker efter tilmelding"
+  },
+  "trailerPlans": {
+    "vatNote": "Priser er inkl. moms",
+    "paymentInfo": "BEMÆRK Betaling sker efter tilmelding"
+  },
+
+  "registerPage": {
+    "title": "Tilmelding til nye hold"
+  },
+
+  "ConsentModal": {
+    "title": "Samtykke & Privatlivspolitik",
+    "section1": {
+      "title": "1. Indsamling og Behandling af Personoplysninger",
+      "description": "Når du bruger vores prisberegner eller udfylder en kontaktformular på Arzonic Agencys hjemmeside, indsamler og behandler vi følgende oplysninger:",
+      "list": {
+        "name": "Navn",
+        "phone": "Telefonnummer",
+        "email": "E-mailadresse",
+        "details": "Eventuelle detaljer, du angiver i din besked eller forespørgsel"
+      },
+      "note": "Disse oplysninger bruges udelukkende til at besvare din forespørgsel, udarbejde et tilbud og følge op, hvis nødvendigt."
+    },
+    "section2": {
+      "title": "2. Opbevaring og Sletning af Data",
+      "description": "Dine data opbevares sikkert og fortroligt.",
+      "list": {
+        "noCustomer": "Hvis du ikke bliver kunde, slettes dine oplysninger automatisk efter 30 dage.",
+        "customer": "Hvis du bliver kunde, opbevarer vi dine oplysninger kun så længe, det er nødvendigt for at levere vores ydelser eller overholde lovgivningen."
+      },
+      "note": "Du kan anmode om tidligere sletning ved at kontakte os på mail@arzonic.com."
+    },
+    "section3": {
+      "title": "3. Videregivelse af Oplysninger",
+      "description": "Vi deler ikke dine oplysninger med tredjeparter, medmindre det er nødvendigt for at behandle din forespørgsel (f.eks. med en underleverandør). I så fald sker det kun med dit forudgående samtykke."
+    },
+    "section4": {
+      "title": "4. Dine Rettigheder",
+      "description": "Du har til enhver tid ret til at:",
+      "list": {
+        "access": "Få adgang til de oplysninger, vi har om dig",
+        "correct": "Få rettet forkerte eller forældede oplysninger",
+        "delete": "Anmode om sletning af dine data (medmindre lovgivningen kræver opbevaring)",
+        "withdraw": "Trække dit samtykke tilbage"
+      },
+      "note": "Kontakt os venligst på mail@arzonic.com for at gøre brug af dine rettigheder."
+    },
+    "section5": {
+      "title": "5. Samtykke",
+      "description1": "Ved at indsende dine oplysninger via vores hjemmeside giver du samtykke til, at vi må behandle dine data som beskrevet ovenfor.",
+      "description2": "Du kan til enhver tid trække dit samtykke tilbage ved at kontakte os. Hvis der ikke er nogen lovmæssig grund til at gemme dine data, bliver de slettet."
+    },
+    "section6": {
+      "title": "6. Datasikkerhed",
+      "description": "Vi benytter passende tekniske og organisatoriske foranstaltninger for at beskytte dine data mod uautoriseret adgang, misbrug eller offentliggørelse."
+    },
+    "section7": {
+      "title": "7. Ændringer i Denne Politik",
+      "description": "Vi forbeholder os retten til at opdatere denne samtykke- og privatlivspolitik. Den nyeste version vil altid være tilgængelig på vores hjemmeside."
+    },
+    "lastUpdated": "Sidst opdateret: 7. maj 2025",
+    "closeButton": "Luk"
+  },
+  "TermsModal": {
+    "title": "Vilkår og betingelser",
+    "closeButton": "Luk",
+    "effectiveFrom": "Gyldig fra: 7. maj 2025",
+    "lastUpdated": "Sidst opdateret: 7. maj 2025",
+    "effectiveNote": "Disse vilkår gælder for alle aftaler indgået efter denne dato.",
+    "section1": {
+      "title": "1. Introduktion",
+      "description": "Disse vilkår gælder for alle ydelser og produkter leveret af Arzonic Agency til vores kunder. Ved at bruge vores hjemmeside eller tjenester accepterer du disse vilkår."
+    },
+    "section2": {
+      "title": "2. Ydelser",
+      "description": "Vi tilbyder digitale konsulentydelser og færdige løsninger, herunder webudvikling, 3D-design og vedligeholdelse. Omfanget aftales individuelt."
+    },
+    "section3": {
+      "title": "3. Betaling og fakturering",
+      "description": "Betaling sker efter fremsendt faktura. Betalingsfrist: 8 dage netto. Ved forsinket betaling pålægges gebyr og renter jf. lovgivning."
+    },
+    "section4": {
+      "title": "4. Immaterielle rettigheder",
+      "description": "Alt materiale udviklet af Arzonic forbliver vores ejendom, medmindre andet er skriftligt aftalt. Kunden får brugsret til løsningen."
+    },
+    "section5": {
+      "title": "5. Ansvar og begrænsninger",
+      "description": "Vi fraskriver os ansvar for indirekte tab, fejl forårsaget af tredjepart, og force majeure-situationer."
+    },
+    "section6": {
+      "title": "6. Samarbejde og ændringer",
+      "description": "Kunden skal medvirke rettidigt. Ændringer i projektet skal aftales skriftligt. Manglende medvirken kan påvirke levering."
+    },
+    "section7": {
+      "title": "7. Opsigelse",
+      "description": "Løbende aftaler kan opsiges med én måneds varsel. Ved væsentlig misligholdelse kan samarbejdet ophøre straks."
+    },
+    "section8": {
+      "title": "8. Gældende lov og værneting",
+      "description": "Tvister afgøres efter dansk ret med værneting i Retten i Hillerød."
+    },
+    "section9": {
+      "title": "9. Ændringer af vilkår",
+      "description": "Vi forbeholder os retten til at ændre disse vilkår. Den nyeste version findes altid på vores hjemmeside."
+    }
+  },
+  "footer": {
+    "brandName": "Junker's Køreskole",
+    "sloganSince": "Med dig hele vejen - siden 2017",
+    "aboutUs": "Om os",
+    "jobs": "Jobs",
+    "legal": "Juridisk",
+    "departments": "Afdelinger",
+    "contactUs": "Kontakt os"
+  },
+
+  "locationCards": {
+    "ribe": {
+      "title": "Ribe"
+    },
+    "billund": {
+      "title": "Billund"
+    },
+    "grindsted": {
+      "title": "Grindsted"
+    }
+  },
+
+  "priceCards": {
+    "bil": {
+      "title": "Bil kørekort"
+    },
+    "trailer": {
+      "title": "Trailer kørekort"
+    },
+    "traktor": {
+      "title": "Traktor kørekort"
+    },
+    "generhvervelse": {
+      "title": "Generhvervelse"
+    }
+  },
+  "faq": {
+    "title": "Ofte stillede spørgsmål",
+    "q1": {
+      "title": "Hvor lang tid tager det at tage kørekort?",
+      "answer": "Det varierer fra person til person, men typisk tager det 2–4 måneder afhængigt af, hvor ofte du kan tage teori- og køretimer. Vi tilpasser forløbet til dine behov og tempo."
+    },
+    "q2": {
+      "title": "Hvad koster det at tage kørekort?",
+      "answer": "Prisen afhænger af din pakke og eventuelle ekstra lektioner. Vi tilbyder gennemsigtige priser uden skjulte gebyrer. Se vores pakkeløsninger på hjemmesiden eller kontakt os for et tilbud."
+    },
+    "q3": {
+      "title": "Hvor mange køretimer skal jeg have?",
+      "answer": "Lovpakken indeholder 16 lektioner på vej, men nogle elever har brug for flere. Vores kørelærere vurderer løbende dit niveau og giver ærlig feedback på, hvornår du er klar til prøve."
+    },
+    "q4": {
+      "title": "Hvornår kan jeg starte?",
+      "answer": "Du kan starte når som helst – vi har løbende holdstart for teori, og du kan hurtigt komme i gang med at booke dine køretimer. Tilmeld dig online eller kontakt os direkte."
+    },
+    "q5": {
+      "title": "Hvad hvis jeg dumper en prøve?",
+      "answer": "Det er helt normalt at være nervøs. Hvis du dumper, hjælper vi dig med at finde næste ledige tid og giver dig målrettet forberedelse, så du føler dig mere sikker næste gang."
+    },
+    "q6": {
+      "title": "Tilbyder I trailerkørekort (B/E)?",
+      "answer": "Ja, vi tilbyder også kørekort til påhængskøretøj (kategori B/E). Du skal have bestået B-kørekort først, og der kræves færre lektioner. Kontakt os for detaljer og priser."
+    }
+  },
+
+  "notFound": {
+    "title": "404",
+    "message": "Ups! Siden du leder efter findes ikke.",
+    "home": "Gå til forsiden",
+    "contact": "Kontakt os"
+  },
+  "analytics": {
+    "title": "Statistikker",
+    "last_7_days": "Seneste 7 dage",
+    "last_30_days": "Seneste 30 dage",
+    "visitors": "Besøgende",
+    "pageviews": "Sidevisninger",
+    "visits": "Besøg",
+    "most_visited": "Mest besøgte",
+    "devices": "Enheder",
+    "no_data": "Ingen data",
+    "mobile": "Mobil",
+    "desktop": "Stationær",
+    "laptop": "Bærbar",
+    "tablet": "Tablet",
+    "unknown": "Ukendt"
+  },
+
+  "SEO": {
+    "titleHome": "Køreskole i topklasse | Tag dit kørekort trygt hos os",
+    "descHome": "Velkommen til vores moderne køreskole med fokus på tryghed, fleksibilitet og personlig undervisning. Tilmeld dig nemt online i dag.",
+
+    "titlePrices": "Priser på kørekort | Gennemsigtige pakker uden skjulte gebyrer",
+    "descPrices": "Se vores kørekortpriser og sammenlign pakker. Fra basis til platin – vælg det, der passer bedst til dig.",
+
+    "titleContact": "Kontakt os | Vi er klar til at hjælpe dig videre",
+    "descContact": "Har du spørgsmål? Kontakt vores venlige team for hjælp til tilmelding, priser eller generel information.",
+
+    "titleTilmelding": "Tilmeld dig kørekort | Start din rejse i dag",
+    "descTilmelding": "Udfyld vores tilmeldingsformular og kom hurtigt i gang med dit kørekortforløb. Nemt, hurtigt og uforpligtende.",
+
+    "titleInformation": "Information om kørekort | Ofte stillede spørgsmål og regler",
+    "descInformation": "Få svar på de mest almindelige spørgsmål om kørekort, regler, undervisning og prøver. Altid opdateret og klart formuleret.",
+
+    "titleTeachers": "Mød vores kørelærere | Erfarne og engagerede",
+    "descTeachers": "Læs om vores dygtige og erfarne kørelærere, der sikrer tryg og effektiv undervisning fra første lektion."
+  }
+}
