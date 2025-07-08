@@ -46,6 +46,7 @@ jobs:
       - name: 🚀 Restart PM2 process
         run: |
           echo "🔄 Restarting PM2 process..."
+          export PATH=$PATH:/home/jks/.npm-global/bin  # Juster hvis nødvendigt
           cd /home/jks/htdocs/ny.junkerskøreskole.dk
 
           echo "🧹 Cleaning up old PM2 instance if any..."
