@@ -1,4 +1,5 @@
 "use client";
+
 import CourseList from "@/components/client/tilmelding/CourseList";
 import React from "react";
 import { useTranslation } from "react-i18next";
