@@ -1,12 +1,12 @@
 "use client";
 
+import Cars from "@/components/client/home/Cars";
 import Hero from "@/components/client/home/Hero";
 import Locations from "@/components/client/home/Locations";
 import News from "@/components/client/home/News";
 import Preview from "@/components/client/home/Preview";
 import PricesCards from "@/components/client/home/PricesCards";
 import Reviews from "@/components/client/home/Reviews";
-import Teachers from "@/components/client/home/Cars";
 
 const HomePage = () => {
   return (
@@ -30,7 +30,7 @@ const HomePage = () => {
         <News />
       </section>
       <section className="h-96">
-        <Teachers />
+        <Cars />
       </section>
     </>
   );
