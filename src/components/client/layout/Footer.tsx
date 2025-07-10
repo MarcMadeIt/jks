@@ -35,14 +35,14 @@ const Footer = () => {
           </Link>
 
           <Link
-            href="/"
+            href="/information"
             className="link link-hover"
             aria-label={t("aria.footer.linkToContact", "Go to contact")}
           >
             Information
           </Link>
           <Link
-            href="/"
+            href="/korelaererne"
             className="link link-hover"
             aria-label={t("aria.footer.linkToJobs", "Go to jobs")}
           >

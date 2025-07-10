@@ -23,7 +23,7 @@ const HomePage = () => {
       <section className="h-96 md:h-[500px]">
         <PricesCards />
       </section>
-      <section className="h-96">
+      <section className="h-96 md:h-[700px]">
         <Preview />
       </section>
       <section className="h-96">
