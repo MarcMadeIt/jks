@@ -9,7 +9,7 @@ const Preview = () => {
       <div className="w-full max-w-[855px] overflow-hidden rounded-xl ">
         <video
           controls
-          className="w-full h-auto block rounded-xl border-black border-3 bg-[#000]"
+          className="w-full h-auto block rounded-xl border-base-300 border-3 bg-[#000]"
           poster="/thumbnail-video.png"
         >
           <source src="/video/jk-preview.mp4" type="video/mp4" />
