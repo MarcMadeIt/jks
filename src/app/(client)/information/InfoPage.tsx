@@ -65,7 +65,7 @@ type InfoCardProps = {
 const InfoCard = ({ title, description, icon, href }: InfoCardProps) => (
   <Link href={href}>
     <div className="rounded-xl bg-base-200 ring-2 ring-base-300 md:hover:bg-base-300 active:scale-[0.99] focus-visible:ring-2 focus-visible:ring-primary transition-all duration-300 ease-in-out gap-3 shadow-lg cursor-pointer flex flex-col p-5 h-30">
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
         {icon}
         <h2 className="text-xl font-semibold">{title}</h2>
       </div>
