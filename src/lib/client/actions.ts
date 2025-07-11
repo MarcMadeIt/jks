@@ -133,7 +133,9 @@ export async function getTractorPackages() {
   const supabase = createClient();
   const { data, error } = await supabase
     .from("packages")
-    .select("id, label, title, title_eng, desc, desc_eng, price")
+    .select(
+      "id, label, title, title_eng, desc, desc_eng, price, note, note_eng"
+    )
     .in("label", ["tractor"]);
 
   if (error)

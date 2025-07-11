@@ -308,6 +308,7 @@
       "information": {
         "about": "About the school",
         "contact": "Contact us",
+        "steps": "License Program",
         "teachers": "The instructors",
         "littleHelper": "The Little Helper"
       }
@@ -550,7 +551,8 @@
 
   "pricePage": {
     "common": {
-      "btn": "See Courses"
+      "btn": "See Courses",
+      "from": "From"
     },
     "bil-korekort": {
       "title": "Car Driving License",

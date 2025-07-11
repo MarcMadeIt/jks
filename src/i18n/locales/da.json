@@ -305,8 +305,9 @@
       },
       "information": {
         "about": "Om køreskolen",
+        "steps": "Kørekortforløbet",
         "contact": "Kontakt os",
-        "teachers": "Kørelærerne ",
+        "teachers": "Kørelærerne",
         "littleHelper": "Den lille hjælper"
       }
     }
@@ -506,6 +507,62 @@
     "driving_dark.3": "Nedsæt hastighed inden nedblænding. På smal vej: maks. 40 km/t ved møde med modkørende."
   },
 
+  "stepsContent": {
+    "title": "Kørekortforløbet",
+    "subtitle": "Hvordan er forløbet hos Junkers køreskole?",
+    "intro": "Den første dag på Junkers køreskole gennemgår jeres kørelærer hele undervisnings forløbet hos junkers køreskole og sørger for, at alle er orienterede om, hvad der venter jer.\n\nVi er af den overbevisning, at et hurtigt effektivt forløb er vejen frem, teorien tager derfor kun 4 uger hos os.\n\nDette giver et rigtigt godt overblik til dig som elev, så evt. forvirring ikke præger den kommende tid, og du kan sætte fokus på at lære alt det nye stof og koncentrere dig om det.\n\nAlle spørgsmål vil blive besvaret grundigt og der findes ingen dumme spørgsmål.",
+    "requirements": {
+      "title": "Lovkrav for kørekort",
+      "1": "29 lektioner teoriundervisning (Vi giver 32 lektioner)",
+      "2": "4 lektioner på manøvrebane",
+      "3": "16 lektioner på vej",
+      "4": "4 lektioner på køreteknisk anlæg",
+      "5": "Et færdselsrelateret førstehjælpsbevis og godkendt lægeerklæring",
+      "6": "Bestå teoriprøve",
+      "7": "Bestå køreprøve"
+    },
+    "theory": {
+      "title": "Teoriundervisning",
+      "text": "Hos Junkers køreskole foregår teoriundervisningen som tavleundervisning og er dialogorienteret hele vejen igennem. Du vil aldrig blive overladt til dig selv."
+    },
+    "maneuver": {
+      "title": "Manøvrebane",
+      "text": "På manøvrebanen, også kaldet kravlegården, lærer du de grundlæggende manøvrer og hvordan bilen betjenes.",
+      "1": "Igangsætning og standsning",
+      "2": "Kørsel i ottetal",
+      "3": "Forlæns og baglæns kørsel med målbremsning",
+      "4": "Baglæns kørsel med svingning",
+      "5": "Forlæns og baglæns slalomparkering ved vejkant",
+      "6": "2. gear, højresving og eventuelt hård opbremsning uden hjulblokade",
+      "7": "Vending",
+      "8": "Parkering i båse",
+      "road": "Efter manøvrebanen starter lektionerne på vej."
+    },
+    "theory_test": {
+      "title": "Teoriprøven",
+      "text": "Når du er færdig med de nødvendige teorilektioner, er du klar til at gå op til teoriprøven som foregår hos færdselsstyrelsen. Husk at møde op til prøven i god tid. Hvis du kommer for sent eller udebliver, koster det et nyt gebyr på 1170,-"
+    },
+    "tech_course": {
+      "title": "Køreteknisk anlæg (Glatbane)",
+      "text": "Når din kørelærer siger at du er klar og du har afsluttet din køreundervisning skal du på et glatbane kursus. På glatbanen lærer du at håndtere nødsituationer ligesom du bliver bekendt med hvordan årstidernes forskellige vejrforhold kræver ekstra opmærksomhed.",
+      "transport": "Vi kører både på køreteknisk anlæg i Varde og Skjern. Alle elever fra Grindsted eller Ribe bliver fragtet via minibus til Varde."
+    },
+    "driving_test": {
+      "title": "Den praktiske prøve",
+      "text": "Køreprøven er den sidste test, inden du får dit kørekort i hånden. Du skal vise, at dine kørekundskaber, praktiske færdigheder og din adfærd i trafikken er sikker og lovlig, sådan som det er fastsat i køreuddannelsen. Du skal ikke nødvendigvis køre fejlfrit, men dine fejl må ikke være større, end du kan løse dem sikkert og alene."
+    }
+  },
+
+  "stepsMenu": {
+    "overview": "Introduktion",
+    "requirements": "Lovkrav",
+    "theory": "Teoriundervisning",
+    "maneuver": "Manøvrebane",
+    "theoryTest": "Teoriprøve",
+    "techCourse": "Glatbane",
+    "drivingTest": "Praktisk prøve"
+  },
+
   "departmentPage": {
     "title": "Vores afdelinger",
     "common": {
@@ -548,7 +605,8 @@
 
   "pricePage": {
     "common": {
-      "btn": "Se holdstart"
+      "btn": "Se holdstart",
+      "from": "Fra"
     },
     "bil-korekort": {
       "title": "Kørekort til bil",
@@ -567,7 +625,7 @@
     "traktor-korekort": {
       "title": "Kørekort til traktor",
       "subtitle": "(Kategori T)",
-      "processTitle": "Forløbet for traktorkørekort",
+      "hero": "Få dit traktorkørekort hurtigt og nemt hos os",
       "cta": "Har du brug for traktor-kørekort til landbrug eller erhverv?",
       "body": "Med vores traktorkurser får du professionel undervisning og praktisk erfaring.\nKurset er ideelt for unge og voksne i landbruget."
     },

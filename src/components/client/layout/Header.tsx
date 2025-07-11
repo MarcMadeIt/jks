@@ -134,6 +134,12 @@ const Header = () => {
                   className="absolute top-10 -left-4 bg-base-100 shadow-xl w-52 px-2 py-3 z-30 flex flex-col items-start gap-3 rounded-lg menu"
                 >
                   <li className="w-full">
+                    <Link href="/korekort-forlob">
+                      {t("header.dropdown.information.steps")}
+                    </Link>
+                  </li>
+
+                  <li className="w-full">
                     <Link href="/den-lille-hjaelper">
                       {t("header.dropdown.information.littleHelper")}
                     </Link>

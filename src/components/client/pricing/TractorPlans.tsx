@@ -25,6 +25,8 @@ interface Package {
   desc: string;
   desc_eng: string;
   price: number;
+  note?: string;
+  note_eng?: string;
 }
 
 const TractorPlans = () => {
@@ -78,13 +80,14 @@ const TractorPlans = () => {
           const title =
             lang === "en" ? pack.title_eng || pack.title : pack.title;
           const desc = lang === "en" ? pack.desc_eng || pack.desc : pack.desc;
+          const note = lang === "en" ? pack.note_eng || pack.note : pack.note;
           const featureList = features[pack.id] || [];
           const included = featureList.filter((f) => f.included);
           const extras = featureList.filter((f) => !f.included);
 
           return (
             <div key={pack.id} className="relative" aria-label={title}>
-              <div className="flex flex-col shadow-lg w-full min-w-sm sm:min-w-[460px] h-full sm:pb-20 p-6 sm:p-8 rounded-xl bg-base-200 ring-2 shadow-base-300 ring-base-300 gap-5">
+              <div className="flex flex-col shadow-lg w-full max-w-96 min-w-sm sm:min-w-[460px] h-full sm:pb-20 p-6 sm:p-8 rounded-xl bg-base-200 ring-2 shadow-base-300 ring-base-300 gap-5">
                 <div className="flex flex-col gap-3">
                   <h3 className="text-2xl sm:text-3xl font-bold tracking-wide">
                     {title}
@@ -94,6 +97,7 @@ const TractorPlans = () => {
 
                 <div className="flex flex-col gap-1 items-start">
                   <span className="text-2xl sm:text-3xl font-semibold tracking-wide">
+                    {t("pricePage.common.from")}{" "}
                     {pack.price.toLocaleString("da-DK")} DKK
                   </span>
                 </div>
@@ -124,7 +128,7 @@ const TractorPlans = () => {
                     );
                   })}
                 </ul>
-
+                {note && <span>{note}</span>}
                 {/* Ekstra tilvalg */}
                 {extras.length > 0 && (
                   <div className="mt-6">

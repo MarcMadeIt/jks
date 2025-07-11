@@ -15,10 +15,10 @@ const InfoPage = () => {
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <InfoCard
-          title="Vores kørelærere"
-          description="Lær vores erfarne og passionerede kørelærere at kende."
-          icon={<FaUserTie className="text-2xl text-primary" />}
-          href="/korelaererne"
+          title="Kørekortforløbet"
+          description="Find din nærmeste afdeling og se vores lokationer."
+          icon={<FaTreeCity className="text-2xl text-primary" />}
+          href="/korekort-forlob"
         />
         <InfoCard
           title="Den lille hjælper"
@@ -27,16 +27,22 @@ const InfoPage = () => {
           href="/den-lille-hjaelper"
         />
         <InfoCard
-          title="Kontakt os"
-          description="Få fat i os – find telefonnumre, adresser og åbningstider."
-          icon={<FaPhoneAlt className="text-2xl text-primary" />}
-          href="/kontakt"
+          title="Vores kørelærere"
+          description="Lær vores erfarne og passionerede kørelærere at kende."
+          icon={<FaUserTie className="text-2xl text-primary" />}
+          href="/korelaererne"
         />
         <InfoCard
           title="Tilmelding"
           description="Tilmeld dig nemt og hurtigt til vores køreskole."
           icon={<FaPeopleGroup className="text-2xl text-primary" />}
           href="/tilmelding"
+        />
+        <InfoCard
+          title="Kontakt os"
+          description="Få fat i os – find telefonnumre, adresser og åbningstider."
+          icon={<FaPhoneAlt className="text-2xl text-primary" />}
+          href="/kontakt"
         />
         <InfoCard
           title="Alle afdelinger"
