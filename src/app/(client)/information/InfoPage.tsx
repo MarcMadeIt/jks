@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { FaUserTie, FaPhoneAlt, FaBookOpen } from "react-icons/fa";
-import { FaPeopleGroup, FaTreeCity } from "react-icons/fa6";
+import { FaPeopleGroup, FaRoute, FaTreeCity } from "react-icons/fa6";
 
 const InfoPage = () => {
   return (
@@ -17,7 +17,7 @@ const InfoPage = () => {
         <InfoCard
           title="Kørekortforløbet"
           description="Find din nærmeste afdeling og se vores lokationer."
-          icon={<FaTreeCity className="text-2xl text-primary" />}
+          icon={<FaRoute className="text-2xl text-primary" />}
           href="/korekort-forlob"
         />
         <InfoCard
