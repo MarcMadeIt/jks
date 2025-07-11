@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { FaTrash } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
-import { deleteApplication } from "@/lib/server/actions";
 
 interface SetupPackagesApplicationActionsProps {
   applicationId: string;
@@ -19,16 +18,6 @@ const SetupPackagesApplicationActions = ({
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
-
-  const handleDelete = async () => {
-    try {
-      await deleteApplication(applicationId);
-      onDeleteSuccess();
-      closeModal();
-    } catch (error) {
-      console.error("Failed to delete application:", error);
-    }
-  };
 
   return (
     <div className="flex gap-2">
@@ -54,9 +43,7 @@ const SetupPackagesApplicationActions = ({
               <button className="btn" onClick={closeModal}>
                 {t("setup.cancel")}
               </button>
-              <button className="btn btn-error" onClick={handleDelete}>
-                {t("setup.delete")}
-              </button>
+              <button className="btn btn-error">{t("setup.delete")}</button>
             </div>
           </div>
         </div>
