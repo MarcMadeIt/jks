@@ -932,6 +932,10 @@ export async function updatePackage(
     title?: string;
     price?: number;
     desc?: string;
+    note?: string;
+    title_eng?: string;
+    desc_eng?: string;
+    note_eng?: string;
   }
 ): Promise<void> {
   const supabase = await createServerClientInstance();
@@ -947,6 +951,24 @@ export async function updatePackage(
     }
   } catch (err) {
     console.error("Error in updatePackage:", err);
+    throw err;
+  }
+}
+
+export async function deleteFeature(featureId: string): Promise<void> {
+  const supabase = await createServerClientInstance();
+
+  try {
+    const { error } = await supabase
+      .from("package_features")
+      .delete()
+      .eq("id", featureId);
+
+    if (error) {
+      throw new Error(`Failed to delete feature: ${error.message}`);
+    }
+  } catch (err) {
+    console.error("Error in deleteFeature:", err);
     throw err;
   }
 }
