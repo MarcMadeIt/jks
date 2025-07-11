@@ -28,7 +28,7 @@ interface SetupPackagesApplicationProps {
   onDeleteSuccess: () => void;
 }
 
-const SetupPackagesApplication = ({
+const SetupPackagesFeature = ({
   application,
   onBackToDetails,
   onDeleteSuccess,
@@ -43,7 +43,7 @@ const SetupPackagesApplication = ({
           {t("setup.package_details")}
         </button>
         <SetupPackagesApplicationActions
-          applicationId={application.id}
+          featureId={application.id}
           onDeleteSuccess={onDeleteSuccess}
         />
       </div>
@@ -142,4 +142,4 @@ const SetupPackagesApplication = ({
   );
 };
 
-export default SetupPackagesApplication;
+export default SetupPackagesFeature;
