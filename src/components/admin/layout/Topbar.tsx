@@ -11,7 +11,7 @@ import LanguageAdmin from "./LanguageAdmin";
 import ThemeAdmin from "./ThemeAdmin";
 import { createClient } from "@/utils/supabase/client";
 import { useAuthStore } from "@/lib/auth/useAuthStore";
-import { checkFacebookLinked } from "@/lib/auth/readUserSession";
+import { fetchAndSetFacebookToken } from "@/lib/auth/readUserSession";
 
 interface PageTitleMapping {
   [key: string]: string;
@@ -26,7 +26,7 @@ const Topbar = () => {
   const [facebookChecked, setFacebookChecked] = useState(false);
 
   useEffect(() => {
-    checkFacebookLinked().then(() => setFacebookChecked(true));
+    fetchAndSetFacebookToken().then(() => setFacebookChecked(true));
   }, []);
 
   const handleFacebookConnect = async () => {
@@ -38,7 +38,7 @@ const Topbar = () => {
       console.error("Facebook linking fejl:", error.message);
     } else {
       console.log("Facebook forbundet til eksisterende bruger ✅");
-      checkFacebookLinked(); // Opdater UI
+      fetchAndSetFacebookToken(); // Hent token og opdater UI
     }
   };
 
@@ -73,8 +73,9 @@ const Topbar = () => {
             className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow-lg ring-1 ring-black ring-opacity-5"
           >
             <li>
+              {" "}
               {facebookChecked ? (
-                facebookToken === "linked" ? (
+                facebookToken ? (
                   <span className="pl-[14px] flex items-center gap-2 text-green-600">
                     <FaFacebook /> {t("Forbundet til JK")}
                   </span>
