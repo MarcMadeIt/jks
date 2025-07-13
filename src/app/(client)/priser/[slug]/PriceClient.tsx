@@ -20,7 +20,7 @@ const PriceClient = ({ slug }: Props) => {
 
   const seoTitle = t(`pricePage.${slug}.title`);
   const seoSubTitle = t(`pricePage.${slug}.subtitle`);
-  const seoHero = t(`pricePage.${slug}.hero`);
+
   const seoBtn = t(`pricePage.common.btn`);
   const cta = t(`pricePage.${slug}.cta`);
 
