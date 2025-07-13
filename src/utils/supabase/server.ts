@@ -3,7 +3,8 @@ import { cookies } from "next/headers";
 import { createClient } from "@supabase/supabase-js";
 
 export async function createServerClientInstance() {
-  const cookieStore = await cookies();
+  const cookieStore = await cookies(); // ingen await her
+  const isLocalhost = process.env.NODE_ENV === "development";
 
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -16,12 +17,14 @@ export async function createServerClientInstance() {
         setAll(cookiesToSet) {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
+              cookieStore.set(name, value, {
+                ...options,
+                domain: isLocalhost ? undefined : "ny.junkerskøreskole.dk",
+                secure: !isLocalhost,
+              })
             );
           } catch {
-            // The `setAll` method was called from a Server Component.
-            // This can be ignored if you have middleware refreshing
-            // user sessions.
+            // Server Component fallback
           }
         },
       },
