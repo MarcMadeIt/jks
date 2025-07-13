@@ -19,7 +19,7 @@ export async function createServerClientInstance() {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, {
                 ...options,
-                domain: isLocalhost ? undefined : "ny.junkerskøreskole.dk",
+                domain: isLocalhost ? undefined : ".xn--junkerskreskole-dub.dk",
                 secure: !isLocalhost,
               })
             );
