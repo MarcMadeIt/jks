@@ -47,48 +47,12 @@ export async function fetchAndSetUserSession() {
   }
 }
 
-export async function fetchAndSetFacebookToken() {
+export async function checkFacebookLinked() {
   const supabase = createClient();
 
-  const {
-    data: { session },
-    error,
-  } = await supabase.auth.getSession();
+  const { data: sessionData } = await supabase.auth.getSession();
+  if (!sessionData.session) return false;
 
-  if (error || !session?.provider_token) {
-    useAuthStore.getState().clearFacebookToken?.();
-    return;
-  }
-
-  useAuthStore.getState().setFacebookToken(session.provider_token);
-}
-
-export async function linkFacebookToCurrentUser() {
-  const supabase = createClient();
-
-  const { data: sessionData, error: sessionError } =
-    await supabase.auth.getSession();
-
-  if (sessionError || !sessionData.session) {
-    throw new Error("Ingen aktiv session");
-  }
-
-  const { error } = await supabase.auth.linkIdentity({
-    provider: "facebook",
-    options: {
-      redirectTo: "https://ny.junkerskøreskole.dk/admin", // OBS: ændr til dit domæne
-    },
-  });
-
-  if (error) {
-    if (error.message?.includes("identity_already_exists")) {
-      console.warn("Facebook allerede linket til en anden bruger.");
-      return;
-    }
-
-    console.error("Linking fejl:", error.message);
-    throw error;
-  }
-
-  console.log("Facebook linket til bruger ✅");
+  const { data } = await supabase.auth.getUserIdentities();
+  return data?.identities?.some((i) => i.provider === "facebook") ?? false;
 }

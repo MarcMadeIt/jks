@@ -1,5 +1,6 @@
 "use client";
-import { linkFacebookToCurrentUser } from "@/lib/auth/readUserSession";
+
+import { linkFacebookToCurrentUser } from "@/lib/auth/linkFacebook";
 
 const FacebookConnectButton = () => {
   const handleClick = async () => {
