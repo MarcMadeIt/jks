@@ -47,12 +47,18 @@ export async function fetchAndSetUserSession() {
   }
 }
 
-export async function checkFacebookLinked() {
+export async function fetchAndSetFacebookToken() {
   const supabase = createClient();
 
-  const { data: sessionData } = await supabase.auth.getSession();
-  if (!sessionData.session) return false;
+  const {
+    data: { session },
+    error,
+  } = await supabase.auth.getSession();
 
-  const { data } = await supabase.auth.getUserIdentities();
-  return data?.identities?.some((i) => i.provider === "facebook") ?? false;
+  if (error || !session?.provider_token) {
+    useAuthStore.getState().clearFacebookToken?.();
+    return;
+  }
+
+  useAuthStore.getState().setFacebookToken(session.provider_token);
 }
