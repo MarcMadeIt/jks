@@ -617,7 +617,7 @@
     },
     "trailer-korekort": {
       "title": "Kørekort til trailer",
-      "subtitle": "(Kategori B/E)",
+      "subtitle": "(Kategori BE)",
       "hero": "Få lov til at køre med større trailere – vi hjælper dig hele vejen.",
       "cta": "Skal du bruge trailerkørekort til arbejde eller fritid?",
       "body": "Vores trailerkurser giver dig den nødvendige viden og færdigheder til at køre sikkert med anhænger.\nTeori, praksis og prøve – vi guider dig gennem det hele."
@@ -657,6 +657,7 @@
     "paymentInfo": "BEMÆRK Betaling sker efter tilmelding"
   },
   "trailerPlans": {
+    "subtitle": "Den rette løsning til store trailere",
     "vatNote": "Priser er inkl. moms",
     "paymentInfo": "BEMÆRK Betaling sker efter tilmelding"
   },
@@ -669,96 +670,85 @@
     "title": "Samtykke & Privatlivspolitik",
     "section1": {
       "title": "1. Indsamling og Behandling af Personoplysninger",
-      "description": "Når du bruger vores prisberegner eller udfylder en kontaktformular på Arzonic Agencys hjemmeside, indsamler og behandler vi følgende oplysninger:",
+      "description": "Når du henvender dig via kontaktformularen på hjemmesiden for Junkers Køreskole, indsamler og behandler vi følgende oplysninger på vegne af Mjunker ApS (CVR 35382674):",
       "list": {
         "name": "Navn",
         "phone": "Telefonnummer",
         "email": "E-mailadresse",
-        "details": "Eventuelle detaljer, du angiver i din besked eller forespørgsel"
+        "details": "Eventuelle oplysninger, du selv angiver i beskeden"
       },
-      "note": "Disse oplysninger bruges udelukkende til at besvare din forespørgsel, udarbejde et tilbud og følge op, hvis nødvendigt."
+      "note": "Disse oplysninger anvendes udelukkende til at besvare din henvendelse og følge op, hvis nødvendigt."
     },
     "section2": {
       "title": "2. Opbevaring og Sletning af Data",
-      "description": "Dine data opbevares sikkert og fortroligt.",
-      "list": {
-        "noCustomer": "Hvis du ikke bliver kunde, slettes dine oplysninger automatisk efter 30 dage.",
-        "customer": "Hvis du bliver kunde, opbevarer vi dine oplysninger kun så længe, det er nødvendigt for at levere vores ydelser eller overholde lovgivningen."
-      },
-      "note": "Du kan anmode om tidligere sletning ved at kontakte os på mail@arzonic.com."
+      "description": "Dine oplysninger opbevares sikkert og fortroligt og slettes automatisk efter 30 dage.",
+      "info": "Hvis din henvendelse vedrører tilmelding til et kørekortforløb, skal du kontakte Go’n Drive direkte. Tilmeldingsoplysninger afgives via deres platform og behandles udelukkende af Go’n Drive som dataansvarlig.",
+      "note": "Ønsker du tidligere sletning, bedes du kontakte vores tekniske databehandler Arzonic ApS (CVR 45630102) og oplyse navn og e-mail, så vi kan finde dine oplysninger i systemet. Skriv til:"
     },
     "section3": {
-      "title": "3. Videregivelse af Oplysninger",
-      "description": "Vi deler ikke dine oplysninger med tredjeparter, medmindre det er nødvendigt for at behandle din forespørgsel (f.eks. med en underleverandør). I så fald sker det kun med dit forudgående samtykke."
+      "title": "3. Videregivelse og Teknisk Adgang",
+      "description": "Dine oplysninger deles ikke med tredjeparter, medmindre det er nødvendigt for at behandle din henvendelse. Junkers Køreskoles hjemmeside og database drives teknisk af Arzonic ApS (CVR 45630102), som agerer som databehandler med adgang til oplysningerne på vegne af Mjunker ApS. Der er indgået databehandleraftale mellem parterne i overensstemmelse med gældende GDPR-regler."
     },
     "section4": {
       "title": "4. Dine Rettigheder",
       "description": "Du har til enhver tid ret til at:",
       "list": {
-        "access": "Få adgang til de oplysninger, vi har om dig",
+        "access": "Få indsigt i de oplysninger, vi har om dig",
         "correct": "Få rettet forkerte eller forældede oplysninger",
-        "delete": "Anmode om sletning af dine data (medmindre lovgivningen kræver opbevaring)",
+        "delete": "Få slettet dine oplysninger (før automatisk sletning)",
         "withdraw": "Trække dit samtykke tilbage"
       },
-      "note": "Kontakt os venligst på mail@arzonic.com for at gøre brug af dine rettigheder."
+      "note": "Du kan gøre brug af dine rettigheder ved at kontakte os på"
     },
     "section5": {
       "title": "5. Samtykke",
-      "description1": "Ved at indsende dine oplysninger via vores hjemmeside giver du samtykke til, at vi må behandle dine data som beskrevet ovenfor.",
-      "description2": "Du kan til enhver tid trække dit samtykke tilbage ved at kontakte os. Hvis der ikke er nogen lovmæssig grund til at gemme dine data, bliver de slettet."
+      "description1": "Ved at sende en besked via kontaktformularen giver du samtykke til, at Mjunker ApS må behandle dine oplysninger som beskrevet her.",
+      "description2": "Tilmelding til kørekortforløb sker udelukkende via Go n' Drive, som er selvstændig dataansvarlig. Ved tilmelding henvises du derfor til Go n' Drive’s egne samtykke- og privatlivsbetingelser."
     },
     "section6": {
       "title": "6. Datasikkerhed",
-      "description": "Vi benytter passende tekniske og organisatoriske foranstaltninger for at beskytte dine data mod uautoriseret adgang, misbrug eller offentliggørelse."
+      "description": "Der anvendes passende tekniske og organisatoriske foranstaltninger for at beskytte dine oplysninger mod uautoriseret adgang, misbrug eller offentliggørelse. Arzonic ApS sørger for drift og sikkerhed af webplatformen."
     },
     "section7": {
       "title": "7. Ændringer i Denne Politik",
       "description": "Vi forbeholder os retten til at opdatere denne samtykke- og privatlivspolitik. Den nyeste version vil altid være tilgængelig på vores hjemmeside."
     },
-    "lastUpdated": "Sidst opdateret: 7. maj 2025",
+    "lastUpdated": "Sidst opdateret: 11. juli 2025",
     "closeButton": "Luk"
   },
   "TermsModal": {
     "title": "Vilkår og betingelser",
     "closeButton": "Luk",
-    "effectiveFrom": "Gyldig fra: 7. maj 2025",
-    "lastUpdated": "Sidst opdateret: 7. maj 2025",
-    "effectiveNote": "Disse vilkår gælder for alle aftaler indgået efter denne dato.",
+    "effectiveFrom": "Gyldig fra: 11. juli 2025",
+    "lastUpdated": "Sidst opdateret: 11. juli 2025",
+    "effectiveNote": "Disse vilkår gælder for brugen af hjemmesiden og kontaktformularen på junkerskøreskole.dk.",
     "section1": {
       "title": "1. Introduktion",
-      "description": "Disse vilkår gælder for alle ydelser og produkter leveret af Arzonic Agency til vores kunder. Ved at bruge vores hjemmeside eller tjenester accepterer du disse vilkår."
+      "description": "Disse vilkår gælder for besøgende og brugere af hjemmesiden junkerskøreskole.dk, som drives af Mjunker ApS (CVR 35382674). Ved at bruge hjemmesiden accepterer du disse vilkår."
     },
     "section2": {
-      "title": "2. Ydelser",
-      "description": "Vi tilbyder digitale konsulentydelser og færdige løsninger, herunder webudvikling, 3D-design og vedligeholdelse. Omfanget aftales individuelt."
+      "title": "2. Tilmelding og kørekortforløb",
+      "description": "Selve tilmeldingen til kørekortforløb foregår via Go’n Drive, som er selvstændigt ansvarlig for administration, betaling og undervisning. Mjunker ApS henviser alene til Go’n Drive’s system og privatlivspolitik i denne forbindelse."
     },
     "section3": {
-      "title": "3. Betaling og fakturering",
-      "description": "Betaling sker efter fremsendt faktura. Betalingsfrist: 8 dage netto. Ved forsinket betaling pålægges gebyr og renter jf. lovgivning."
+      "title": "3. Brug af kontaktformular",
+      "description": "Ved brug af kontaktformularen gives samtykke til, at Mjunker ApS må kontakte dig med henblik på besvarelse af din henvendelse. Alle oplysninger slettes automatisk efter 30 dage."
     },
     "section4": {
-      "title": "4. Immaterielle rettigheder",
-      "description": "Alt materiale udviklet af Arzonic forbliver vores ejendom, medmindre andet er skriftligt aftalt. Kunden får brugsret til løsningen."
+      "title": "4. Teknisk drift",
+      "description": "Websiden drives og vedligeholdes teknisk af Arzonic ApS (CVR 45630102), som handler på vegne af Mjunker ApS som databehandler. Der er indgået databehandleraftale mellem parterne."
     },
     "section5": {
-      "title": "5. Ansvar og begrænsninger",
-      "description": "Vi fraskriver os ansvar for indirekte tab, fejl forårsaget af tredjepart, og force majeure-situationer."
+      "title": "5. Ansvarsfraskrivelse",
+      "description": "Mjunker ApS fraskriver sig ansvar for eventuelle fejl på hjemmesiden samt konsekvenser af afbrydelser eller nedetid. Forhold relateret til undervisning og tilmelding henvises til Go’n Drive."
     },
     "section6": {
-      "title": "6. Samarbejde og ændringer",
-      "description": "Kunden skal medvirke rettidigt. Ændringer i projektet skal aftales skriftligt. Manglende medvirken kan påvirke levering."
+      "title": "6. Ændringer",
+      "description": "Vi forbeholder os retten til at opdatere disse vilkår uden forudgående varsel. Den nyeste version er altid tilgængelig på hjemmesiden."
     },
     "section7": {
-      "title": "7. Opsigelse",
-      "description": "Løbende aftaler kan opsiges med én måneds varsel. Ved væsentlig misligholdelse kan samarbejdet ophøre straks."
-    },
-    "section8": {
-      "title": "8. Gældende lov og værneting",
-      "description": "Tvister afgøres efter dansk ret med værneting i Retten i Hillerød."
-    },
-    "section9": {
-      "title": "9. Ændringer af vilkår",
-      "description": "Vi forbeholder os retten til at ændre disse vilkår. Den nyeste version findes altid på vores hjemmeside."
+      "title": "7. Gældende lov",
+      "description": "Brug af denne hjemmeside er underlagt dansk lovgivning. Eventuelle tvister behandles efter gældende regler ved de danske domstole."
     }
   },
   "footer": {

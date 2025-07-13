@@ -18,7 +18,7 @@ const ContactPage = () => {
         </h1>
       </div>
       <motion.div
-        className="flex flex-col lg:flex-row gap-10 lg:gap-16"
+        className="flex flex-col-reverse lg:flex-row gap-10 lg:gap-16"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
@@ -36,10 +36,10 @@ const ContactPage = () => {
             <h3 className="text-xl font-bold">{t("contactPage.readyTitle")}</h3>
             <p className="font-medium">{t("contactPage.contactPrompt")}</p>
             <p>{t("contactPage.ambitionMessage")}</p>
-            <p className="font-medium">{t("contactPage.callmailPrompt")}</p>
+
             <a
-              href="tel:+4522501703"
-              className="flex items-center gap-2 text-secondary text-xl font-bold"
+              href="tel:+4522771246"
+              className="flex items-center gap-2 text-secondary text-lg font-bold"
             >
               <FaPhone size={20} /> {t("contactPage.phoneNumber")}
             </a>
@@ -55,7 +55,7 @@ const ContactPage = () => {
             alt={t("contactPage.imageAlt")}
             width={200}
             height={200}
-            className="w-28 h-auto absolute bottom-0 right-32 hidden lg:block"
+            className="w-32 h-auto absolute bottom-10 right-32 hidden lg:block"
           />
         </div>
       </motion.div>

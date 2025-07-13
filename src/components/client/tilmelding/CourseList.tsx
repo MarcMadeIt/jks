@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Course } from "@/lib/client/gondrive";
 import {
   FaCalendarCheck,
   FaClock,
@@ -14,12 +13,31 @@ import { useTranslation } from "react-i18next";
 const cityOptions = ["Grindsted", "Billund", "Ribe"] as const;
 type City = (typeof cityOptions)[number] | "Alle";
 
-const extractTimeAndCleanName = (name: string) => {
-  const timeRegex = /(kl\.\s*\d{1,2}:\d{2}\s*[-–]\s*\d{1,2}:\d{2})/i;
-  const match = name.match(timeRegex);
-  const time = match?.[0] ?? null;
-  const cleanName = name.replace(timeRegex, "").trim();
-  return { time, cleanName };
+type Course = {
+  id: number;
+  title: string;
+  license_type: string;
+  capacity: number;
+  reservations: number;
+  start_date: string;
+  start: string;
+  end: string;
+  address: string;
+  url: string;
+  api_link?: string;
+  api_text?: string;
+};
+
+const extractCityFromAddress = (address: string): City => {
+  const match = address.match(/Junkers [Kk]øreskole\s+([A-Za-zæøåÆØÅ]+)/);
+  return (match?.[1] as City) ?? "Alle";
+};
+
+const splitStartDate = (fullDate: string) => {
+  const parts = fullDate.split(" ");
+  const weekday = parts[0];
+  const date = parts.slice(1).join(" ");
+  return { weekday, date };
 };
 
 const CourseList = () => {
@@ -30,36 +48,24 @@ const CourseList = () => {
   const [cityFilter, setCityFilter] = useState<City>("Alle");
 
   useEffect(() => {
-    fetch("/api/courses")
+    fetch("https://gondrive.com/api/site/school/30/lessons")
       .then((res) => res.json())
-      .then(setCourses)
+      .then((data) => setCourses(data.lessons))
       .catch(console.error)
       .finally(() => setLoading(false));
   }, []);
 
-  const openModal = () => {
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
 
   const courseMatchesCity = (course: Course, city: City) => {
-    const combined = `${course.location} ${course.name}`.toLowerCase();
-    switch (city) {
-      case "Alle":
-        return true;
-      case "Billund":
-        return combined.includes("billund") || combined.includes("grindsted");
-      default:
-        return combined.includes(city.toLowerCase());
-    }
+    const courseCity = extractCityFromAddress(course.address);
+    return city === "Alle" || courseCity === city;
   };
 
   const filteredCourses = courses
     .filter((course) => courseMatchesCity(course, cityFilter))
-    .filter((course) => !course.seatsLeft?.startsWith("0"));
+    .filter((course) => course.capacity - course.reservations > 0);
 
   return (
     <div className="flex flex-col gap-6">
@@ -85,6 +91,7 @@ const CourseList = () => {
             onChange={() => setCityFilter(city)}
           />
         ))}
+        {/* <button className="btn md:btn-lg border-2 border-base-300"></button> */}
       </form>
 
       {/* Skeleton */}
@@ -111,48 +118,45 @@ const CourseList = () => {
         <p className="text-center">{t("coursePage.noCourses")}</p>
       ) : (
         <div className="flex flex-wrap justify-center gap-7 max-w-6xl mx-auto p-4">
-          {filteredCourses.map((course, index) => {
-            const { time, cleanName } = extractTimeAndCleanName(course.name);
+          {filteredCourses.map((course) => {
+            const time = `${course.start} - ${course.end}`;
+            const seatsLeft = course.capacity - course.reservations;
+            const city = extractCityFromAddress(course.address);
+            const { weekday, date } = splitStartDate(course.start_date);
 
             return (
               <div
-                key={`${course.id}-${index}`}
-                className="w-[350px] rounded-xl border-1 border-base-200 bg-base-200 p-6 shadow-md flex flex-col justify-between"
+                key={course.id}
+                className="w-[350px] rounded-xl border border-base-200 bg-base-200 p-6 shadow-md flex flex-col justify-between"
               >
                 <div className="flex flex-col gap-2">
                   <h2 className="text-xl font-bold flex items-center gap-2">
                     <FaCalendarCheck className="text-primary" size={23} />
-                    {course.start_date}
+                    {date}
                   </h2>
-                  {time && (
-                    <p className="flex items-center gap-2 text-sm text-base-content">
-                      <FaClock className="text-base-content" /> {time}
-                    </p>
-                  )}
-                  <p className="text-sm font-semibold text-base-content">
-                    {cleanName}
+                  <p className="flex items-center gap-2 text-sm text-base-content">
+                    <FaClock className="text-base-content" />
+                    {weekday}, {time}
                   </p>
-                  {course.seatsLeft && (
-                    <p className="text-sm text-base-content">
-                      <strong>{t("coursePage.seats")}</strong>{" "}
-                      {course.seatsLeft}
-                    </p>
-                  )}
+                  <p className="text-sm font-semibold text-base-content">
+                    {city} - {course.title}
+                  </p>
+                  <p className="text-sm text-base-content">
+                    <strong>{t("coursePage.seats")}:</strong> {seatsLeft}
+                  </p>
                 </div>
                 <div className="flex items-center justify-between mt-4 gap-2">
                   <a
-                    href={course.registration_url}
+                    href={course.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-primary flex items-center gap-2"
                   >
                     {t("coursePage.register")} <FaUpRightFromSquare />
                   </a>
-                  {/(bil|personbil)/i.test(cleanName) && (
-                    <button onClick={openModal} className="btn btn-soft">
-                      {t("coursePage.viewSchedule")}
-                    </button>
-                  )}
+                  <button onClick={openModal} className="btn btn-soft">
+                    {t("coursePage.viewSchedule")}
+                  </button>
                 </div>
               </div>
             );
@@ -160,7 +164,7 @@ const CourseList = () => {
         </div>
       )}
 
-      {/* Modal med forløbskort */}
+      {/* Modal med statisk billede */}
       {modalOpen && (
         <div className="modal modal-open">
           <div className="modal-box w-[95%] max-w-6xl h-[70vh] md:h-[85vh] overflow-auto relative touch-auto">

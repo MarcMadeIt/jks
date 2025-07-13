@@ -1,4 +1,4 @@
-import LocationCards from "@/components/client/home/elements/LocationCards";
+import LocationCards from "@/components/client/home/LocationCards";
 import React from "react";
 import { useTranslation } from "react-i18next";
 

@@ -62,3 +62,11 @@
 .tiptap-list-style h4 {
   @apply text-lg font-medium mt-2 mb-1;
 }
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  /* mørkere baggrund */
+
+}

@@ -128,7 +128,7 @@ const ContactForm = () => {
           <h2 className="text-xl font-bold">{t("contactForm.title")}</h2>
 
           {/* Name / Email / Phone */}
-          <div className="flex flex-col md:flex-row gap-3 md:gap-10">
+          <div className="flex flex-col lg:flex-row gap-3 md:gap-10">
             <div className="flex-1 flex flex-col gap-3">
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">
@@ -142,7 +142,7 @@ const ContactForm = () => {
                     autoComplete="name"
                     placeholder={t("contactForm.fields.name.placeholder")}
                     aria-label={t("contactForm.aria.nameInput")}
-                    className="input input-ghost bg-base-200 w-full md:max-w-xs"
+                    className="input input-ghost bg-base-200 w-full lg:max-w-xs"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
@@ -161,7 +161,7 @@ const ContactForm = () => {
                     autoComplete="email"
                     placeholder={t("contactForm.fields.email.placeholder")}
                     aria-label={t("contactForm.aria.emailInput")}
-                    className="input input-ghost bg-base-200 w-full md:max-w-xs"
+                    className="input input-ghost bg-base-200 w-full lg:max-w-xs"
                     value={mail}
                     onChange={(e) => setMail(e.target.value)}
                     required
@@ -180,7 +180,7 @@ const ContactForm = () => {
                     autoComplete="tel"
                     placeholder={t("contactForm.fields.phone.placeholder")}
                     aria-label={t("contactForm.aria.phoneInput")}
-                    className="input input-ghost bg-base-200 w-full md:max-w-xs"
+                    className="input input-ghost bg-base-200 w-full lg:max-w-xs"
                     value={mobile}
                     onChange={(e) => setMobile(e.target.value)}
                     required
@@ -208,7 +208,7 @@ const ContactForm = () => {
                     rows={5}
                     placeholder={t("contactForm.fields.message.placeholder")}
                     aria-label={t("contactForm.aria.messageInput")}
-                    className="textarea textarea-ghost bg-base-200 textarea-md text-base w-full md:max-w-xs resize-none"
+                    className="textarea textarea-ghost bg-base-200 textarea-md text-base w-full lg:max-w-xs resize-none"
                     value={message}
                     onChange={handleMessageChange}
                     maxLength={charLimit}

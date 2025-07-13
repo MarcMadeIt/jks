@@ -563,7 +563,7 @@
     },
     "trailer-korekort": {
       "title": "Trailer Driving License",
-      "subtitle": "(Category B/E)",
+      "subtitle": "(Category BE)",
       "hero": "Gain the right to tow larger trailers – we guide you all the way.",
       "cta": "Do you need a trailer license for work or leisure?",
       "body": "Our trailer courses give you the knowledge and skills needed to tow safely.\nTheory, practice, and exam – we’ll guide you through it all."
@@ -598,6 +598,7 @@
     "paymentInfo": "Payment is made after registration"
   },
   "trailerPlans": {
+    "subtitle": "Right package for you",
     "vatNote": "Prices include VAT",
     "paymentInfo": "Payment is made after registration"
   },
@@ -609,96 +610,85 @@
     "title": "Consent & Privacy Policy",
     "section1": {
       "title": "1. Collection and Processing of Personal Data",
-      "description": "When you use our price calculator or fill out a contact form on Arzonic Agency's website, we collect and process the following information:",
+      "description": "When you contact us via the contact form on the Junkers Køreskole website, we collect and process the following data on behalf of Mjunker ApS (CVR 35382674):",
       "list": {
         "name": "Name",
         "phone": "Phone number",
         "email": "Email address",
-        "details": "Any details you provide in your message or request"
+        "details": "Any details you provide in your message"
       },
-      "note": "This information is used solely to respond to your inquiry, prepare a quote, and follow up if necessary."
+      "note": "This information is used solely to respond to your inquiry and follow up if necessary."
     },
     "section2": {
-      "title": "2. Data Retention and Deletion",
-      "description": "Your data is stored securely and confidentially.",
-      "list": {
-        "noCustomer": "If no customer relationship is established, your data will be automatically deleted after 30 days.",
-        "customer": "If you become a customer, we will retain your data only as long as necessary to provide our services or comply with legal obligations."
-      },
-      "note": "You may request early deletion by contacting us at mail@arzonic.com."
+      "title": "2. Storage and Deletion of Data",
+      "description": "Your data is stored securely and confidentially and will be automatically deleted after 30 days.",
+      "info": "If your inquiry concerns registration for a driving course, please contact Go’n Drive directly. Registration data is submitted through their platform and is handled solely by Go’n Drive as the data controller.",
+      "note": "If you wish to have your data deleted earlier, please contact our technical data processor Arzonic ApS (CVR 45630102) and provide your name and email address so we can locate your information in the system. Write to:"
     },
     "section3": {
-      "title": "3. Disclosure of Information",
-      "description": "We do not share your information with third parties unless it is necessary to fulfill your request (e.g., a subcontractor). If this is the case, it will only be done with your prior consent."
+      "title": "3. Disclosure and Technical Access",
+      "description": "Your information is not shared with third parties unless necessary to process your inquiry. The Junkers Køreskole website and database are technically operated by Arzonic ApS (CVR 45630102), acting as a data processor with access to the data on behalf of Mjunker ApS. A data processing agreement has been entered into in accordance with applicable GDPR regulations."
     },
     "section4": {
       "title": "4. Your Rights",
-      "description": "You have the right to:",
+      "description": "You have the right at any time to:",
       "list": {
-        "access": "Access the data we hold about you",
-        "correct": "Correct inaccurate or outdated information",
-        "delete": "Request deletion of your data (unless retention is required by law)",
-        "withdraw": "Withdraw your consent to data processing"
+        "access": "Access the data we have about you",
+        "correct": "Have incorrect or outdated information corrected",
+        "delete": "Request deletion of your data (before automatic deletion)",
+        "withdraw": "Withdraw your consent"
       },
-      "note": "To exercise your rights, contact us at mail@arzonic.com."
+      "note": "To exercise your rights, please contact us at"
     },
     "section5": {
       "title": "5. Consent",
-      "description1": "By submitting your information through our website, you consent to the processing of your data as described above.",
-      "description2": "You may withdraw your consent at any time by contacting us. If there is no legal reason to retain your data, it will be deleted upon request."
+      "description1": "By submitting a message via the contact form, you consent to Mjunker ApS processing your data as described above.",
+      "description2": "Registration for driving courses takes place exclusively through Go n' Drive, which is an independent data controller. By registering, you are therefore subject to Go n' Drive’s own consent and privacy policy."
     },
     "section6": {
       "title": "6. Data Security",
-      "description": "We implement appropriate technical and organizational measures to protect your data against unauthorized access, misuse, or disclosure."
+      "description": "Appropriate technical and organizational measures are in place to protect your data against unauthorized access, misuse, or disclosure. Arzonic ApS is responsible for the operation and security of the web platform."
     },
     "section7": {
-      "title": "7. Updates to This Policy",
-      "description": "We reserve the right to update this Consent & Privacy Policy. The most recent version will always be available on our website."
+      "title": "7. Changes to This Policy",
+      "description": "We reserve the right to update this consent and privacy policy. The latest version will always be available on our website."
     },
-    "lastUpdated": "Last updated: May 7, 2025",
+    "lastUpdated": "Last updated: July 11, 2025",
     "closeButton": "Close"
   },
   "TermsModal": {
-    "title": "Terms of Service",
+    "title": "Terms and Conditions",
     "closeButton": "Close",
-    "effectiveFrom": "Effective from: May 7, 2025",
-    "lastUpdated": "Last updated: May 7, 2025",
-    "effectiveNote": "These terms apply to all agreements entered into after this date.",
+    "effectiveFrom": "Effective from: July 11, 2025",
+    "lastUpdated": "Last updated: July 11, 2025",
+    "effectiveNote": "These terms apply to the use of the website and contact form at junkerskøreskole.dk.",
     "section1": {
       "title": "1. Introduction",
-      "description": "These terms apply to all services and products provided by Arzonic Agency to our clients. By using our website or services, you agree to these terms."
+      "description": "These terms apply to visitors and users of the website junkerskøreskole.dk, which is operated by Mjunker ApS (CVR 35382674). By using the website, you accept these terms."
     },
     "section2": {
-      "title": "2. Services",
-      "description": "We provide digital consultancy and ready-made solutions including web development, 3D design, and maintenance. Scope is agreed individually."
+      "title": "2. Course Registration",
+      "description": "Registration for driving courses takes place via Go’n Drive, which is independently responsible for administration, payment, and instruction. Mjunker ApS only refers users to Go’n Drive’s system and privacy policy."
     },
     "section3": {
-      "title": "3. Payment and Invoicing",
-      "description": "Payment is due upon invoice unless otherwise agreed. Payment terms: 8 days net. Late payments may incur fees and interest according to law."
+      "title": "3. Use of Contact Form",
+      "description": "By using the contact form, you consent to Mjunker ApS contacting you in response to your inquiry. All submitted data is automatically deleted after 30 days."
     },
     "section4": {
-      "title": "4. Intellectual Property",
-      "description": "All materials developed by Arzonic remain our property unless otherwise agreed in writing. The client receives a usage license."
+      "title": "4. Technical Operation",
+      "description": "The website is technically operated and maintained by Arzonic ApS (CVR 45630102), acting as a data processor on behalf of Mjunker ApS. A data processing agreement has been established between the parties."
     },
     "section5": {
-      "title": "5. Liability and Limitations",
-      "description": "We disclaim responsibility for indirect losses, third-party software issues, and force majeure events."
+      "title": "5. Disclaimer",
+      "description": "Mjunker ApS disclaims liability for any errors on the website and for consequences of downtime or service interruptions. Matters related to course registration and instruction are referred to Go’n Drive."
     },
     "section6": {
-      "title": "6. Cooperation and Changes",
-      "description": "The client must respond in a timely manner. Changes must be agreed in writing. Lack of cooperation may affect delivery."
+      "title": "6. Changes",
+      "description": "We reserve the right to update these terms without prior notice. The latest version will always be available on the website."
     },
     "section7": {
-      "title": "7. Termination",
-      "description": "Ongoing agreements can be terminated with one month’s notice. Immediate termination may occur in case of material breach."
-    },
-    "section8": {
-      "title": "8. Governing Law and Jurisdiction",
-      "description": "Disputes are governed by Danish law with jurisdiction in the Court of Hillerød."
-    },
-    "section9": {
-      "title": "9. Changes to Terms",
-      "description": "We reserve the right to modify these terms. The latest version is always available on our website."
+      "title": "7. Governing Law",
+      "description": "Use of this website is governed by Danish law. Any disputes will be handled according to applicable rules by the Danish courts."
     }
   },
   "GetStarted": {

@@ -21,7 +21,7 @@ const HomePage = () => {
         <Reviews />
       </section>
       <section className="h-96 md:h-[500px]">
-        <PricesCards />
+        <PricesCards showTitle={true} />
       </section>
       <section className="h-96 md:h-[700px]">
         <Preview />

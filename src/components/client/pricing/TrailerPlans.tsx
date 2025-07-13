@@ -8,6 +8,7 @@ import {
   getTrailerPackages,
   getFeaturesByPackageId,
 } from "@/lib/client/actions";
+import Image from "next/image";
 
 // Define types for TrailerPackage and Feature
 interface TrailerPackage {
@@ -76,8 +77,13 @@ const TrailerPlans = () => {
 
   return (
     <div className="flex flex-col gap-10 items-center justify-center w-full relative">
+      <div className="flex flex-col items-center gap-5">
+        <span className="text-xl sm:text-xl md:text-2xl font-light text-center">
+          {t("trailerPlans.subtitle")}
+        </span>
+      </div>
       <motion.div
-        className="flex flex-col items-center justify-center w-full h-full z-10 gap-10"
+        className="flex items-center justify-center w-full h-full z-10 gap-10"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}

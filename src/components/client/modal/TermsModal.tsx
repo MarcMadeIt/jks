@@ -36,7 +36,7 @@ const TermsModal = ({ buttonText, variant = "hover" }: TermsModalProps) => {
             </div>
 
             <div className="py-4 text-sm max-h-96 overflow-y-auto flex flex-col gap-5">
-              {[...Array(9)].map((_, i) => (
+              {[...Array(7)].map((_, i) => (
                 <div key={i}>
                   <h4 className="font-semibold md:text-base mb-2">
                     {t(`TermsModal.section${i + 1}.title`)}

@@ -4,7 +4,11 @@ import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { FaCarSide, FaRepeat, FaTractor, FaTrailer } from "react-icons/fa6";
 
-const PricesCards = () => {
+interface PricesCardsProps {
+  showTitle?: boolean;
+}
+
+const PricesCards = ({ showTitle = true }: PricesCardsProps) => {
   const { t } = useTranslation();
 
   const prices = [
@@ -32,9 +36,11 @@ const PricesCards = () => {
 
   return (
     <div className="h-full w-full text-7xl flex flex-col justify-center items-center">
-      <h2 className="text-xl md:text-[28px] font-bold text-center mb-5  md:mb-10">
-        {t("home.prices.title")}
-      </h2>
+      {showTitle && (
+        <h2 className="text-xl md:text-[28px] font-bold text-center mb-5  md:mb-10">
+          {t("home.prices.title")}
+        </h2>
+      )}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-7 p-4">
         {prices.map((price, index) => (
           <motion.div

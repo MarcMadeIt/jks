@@ -51,10 +51,9 @@ const ConsentModal = ({ buttonText, variant = "hover" }: ConsentModalProps) => {
                   {t("ConsentModal.section2.title")}
                 </h4>
                 <p>{t("ConsentModal.section2.description")}</p>
-                <ul className="list-disc pl-5 my-2">
-                  <li>{t("ConsentModal.section2.list.noCustomer")}</li>
-                  <li>{t("ConsentModal.section2.list.customer")}</li>
-                </ul>
+
+                <p className="mt-2">{t("ConsentModal.section2.info")}</p>
+                <br />
                 <p>
                   {t("ConsentModal.section2.note")}{" "}
                   <strong>

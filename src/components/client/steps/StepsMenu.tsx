@@ -3,7 +3,8 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AnimatePresence, motion } from "framer-motion";
-import { FaCaretDown } from "react-icons/fa6";
+import { FaAngleLeft, FaCaretDown } from "react-icons/fa6";
+import Link from "next/link";
 
 const stepsItems = [
   { href: "#overview", key: "overview" },
@@ -38,8 +39,8 @@ const StepsMenu = () => {
   return (
     <>
       {/* Desktop menu (sticky sidebar) */}
-      <div className="hidden md:block w-64 shrink-0 sticky top-28 h-fit">
-        <ul className="menu bg-base-200 shadow rounded-box font-semibold gap-1">
+      <div className="hidden md:block w-60 shrink-0 sticky top-28 h-fit">
+        <ul className="menu bg-base-200 shadow rounded-box font-semibold gap-1 w-full">
           <li>
             <a href="#" className="font-bold">
               Kørekortforløbet
@@ -62,12 +63,20 @@ const StepsMenu = () => {
 
       {/* Mobile dropdown */}
       <div className="md:hidden w-full fixed top-28 z-30">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="btn btn-neutral btn-soft opacity-90"
-        >
-          <FaCaretDown size={20} /> Oversigt
-        </button>
+        <div className="gap-3 flex items-center">
+          <Link
+            href="/information"
+            className="btn btn-neutral btn-soft opacity-90"
+          >
+            <FaAngleLeft size={18} />
+          </Link>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="btn btn-neutral btn-soft opacity-90"
+          >
+            Oversigt <FaCaretDown size={20} />
+          </button>
+        </div>
 
         <AnimatePresence>
           {isOpen && (
@@ -76,7 +85,7 @@ const StepsMenu = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2 }}
-              className="bg-base-200 rounded-box mt-2 shadow menu text-base font-semibold "
+              className="bg-base-200 rounded-box mt-2 shadow menu text-base font-semibold ml-16"
             >
               <li>
                 <a href="">Kørekortforløbet</a>

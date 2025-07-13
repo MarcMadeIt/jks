@@ -5,6 +5,7 @@ import { FaCheck } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { getCarPackages, getFeaturesByPackageId } from "@/lib/client/actions";
+import Image from "next/image";
 
 interface Feature {
   id: string;
@@ -87,7 +88,16 @@ const CarPlans = () => {
 
           return (
             <div key={pack.id} className="relative" aria-label={title}>
-              <div className="flex flex-col shadow-lg w-full min-w-sm sm:min-w-[460px] h-[800px] p-6 sm:p-8 rounded-xl bg-base-200 ring-2 shadow-base-300 ring-base-300 gap-5">
+              <div className="flex flex-col shadow-lg w-full min-w-sm sm:min-w-[460px] h-[800px] p-6 sm:p-8 rounded-xl bg-base-200 ring-2 shadow-base-300 ring-base-300 gap-5 overflow-hidden relative">
+                {pack.label === "platin" && (
+                  <Image
+                    src={lang === "en" ? "/all_in_eng.png" : "/all_in_da.png"}
+                    alt=""
+                    width={800}
+                    height={150}
+                    className="absolute top-9 -right-22 md:top-11 md:-right-24 rotate-40 w-auto h-10 md:h-12"
+                  />
+                )}
                 <div className="flex flex-col gap-3">
                   <h3 className="text-2xl sm:text-3xl font-bold tracking-wide">
                     {title}
