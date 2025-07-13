@@ -100,14 +100,9 @@ const UserList = ({
                         {user.role === "editor" ? "Redaktør" : user.role}
                       </span>
                     </div>
-                    <div className="w-20 md:w-32">
+                    <div className="w-40 md:w-60">
                       <span className="font-semibold md:font-bold text-xs md:text-base">
                         {user.name}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="font-semibold md:font-bold text-xs md:text-base hidden md:block">
-                        {user.email}
                       </span>
                     </div>
                   </div>
