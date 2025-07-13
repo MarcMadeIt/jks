@@ -8,7 +8,6 @@ import {
   getTrailerPackages,
   getFeaturesByPackageId,
 } from "@/lib/client/actions";
-import Image from "next/image";
 
 // Define types for TrailerPackage and Feature
 interface TrailerPackage {

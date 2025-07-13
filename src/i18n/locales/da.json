@@ -325,6 +325,9 @@
     "reviews": {
       "from": "Anmeldelser fra"
     },
+    "preview": {
+      "title": "Et kig ind i hverdagen på køreskolen"
+    },
     "prices": {
       "title": "Hvilket kørekort er du interesseret i?"
     }
