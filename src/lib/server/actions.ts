@@ -13,47 +13,27 @@ import sharp from "sharp";
 // ─────────────────────────────────────────────────────────────────────────────
 
 export async function login(formData: FormData) {
-  const supabase = await createServerClientInstance();
+  try {
+    const supabase = await createServerClientInstance();
 
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
+    const data = {
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+    };
 
-  const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
+    const { error } = await supabase.auth.signInWithPassword(data);
 
-  if (error) {
-    // Tjek om brugeren er registreret med OAuth (Facebook)
-    if (
-      error.message.includes("Email not confirmed") ||
-      error.message.includes("Invalid login credentials") ||
-      error.message.includes("signup_disabled")
-    ) {
-      // Prøv at tjekke om brugeren eksisterer via admin API
-      try {
-        const adminClient = await createAdminClient();
-        const { data: users } = await adminClient.auth.admin.listUsers();
-        const user = users?.users?.find((u) => u.email === email);
-
-        if (user && user.app_metadata.providers?.includes("facebook")) {
-          // Brugeren er registreret med Facebook - redirect til OAuth login
-          console.log("User is registered with Facebook OAuth");
-          redirect(
-            "/login?provider=facebook&email=" + encodeURIComponent(email)
-          );
-        }
-      } catch (adminError) {
-        console.error("Admin check failed:", adminError);
-      }
+    if (error) {
+      console.error("Failed to login:", error.message);
+      redirect("/login?error=true");
     }
 
-    console.error("Failed to login:", error.message);
-    redirect("/login?error=true&message=" + encodeURIComponent(error.message));
+    revalidatePath("/", "layout");
+    redirect("/admin");
+  } catch (err) {
+    console.error("Login server action crashed:", err);
+    throw err;
   }
-
-  revalidatePath("/", "layout");
-  redirect("/admin");
 }
 
 export async function createMember(data: {
@@ -1111,160 +1091,6 @@ export async function createTeacher({
     }
   } catch (err) {
     console.error("createTeacher error:", err);
-    throw err;
-  }
-}
-
-export async function loginWithFacebook() {
-  const supabase = await createServerClientInstance();
-
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: "facebook",
-    options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/admin`,
-    },
-  });
-
-  if (error) {
-    console.error("Facebook login failed:", error.message);
-    redirect(
-      "/login?error=true&message=" + encodeURIComponent("Facebook login failed")
-    );
-  }
-
-  if (data.url) {
-    redirect(data.url);
-  }
-}
-
-export async function handleFacebookConnect() {
-  const supabase = await createServerClientInstance();
-
-  try {
-    // Tjek om NEXT_PUBLIC_SITE_URL er konfigureret
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
-    if (!siteUrl) {
-      throw new Error("NEXT_PUBLIC_SITE_URL er ikke konfigureret");
-    }
-
-    console.log(
-      "Starting Facebook OAuth with redirect URL:",
-      `${siteUrl}/admin?facebook_callback=true`
-    );
-
-    // Start Facebook OAuth flow med mindre restriktive scopes
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "facebook",
-      options: {
-        redirectTo: `${siteUrl}/admin?facebook_callback=true`,
-        scopes: "public_profile", // Start med minimal scope
-      },
-    });
-
-    if (error) {
-      console.error("Facebook OAuth setup failed:", error.message);
-      throw new Error("Facebook forbindelse fejlede: " + error.message);
-    }
-
-    console.log("Facebook OAuth URL generated:", data.url);
-
-    // Returner URL så client kan håndtere redirect
-    return { url: data.url };
-  } catch (err) {
-    console.error("handleFacebookConnect error:", err);
-    throw err;
-  }
-}
-
-export async function processFacebookCallback() {
-  const supabase = await createServerClientInstance();
-
-  try {
-    // Hent den nuværende session efter OAuth callback
-    const {
-      data: { session },
-      error: sessionError,
-    } = await supabase.auth.getSession();
-
-    if (sessionError || !session) {
-      throw new Error("Ingen session fundet efter Facebook callback");
-    }
-
-    // Hvis det er en OAuth session, gem token som metadata
-    if (session.provider_token && session.user) {
-      const { error: updateError } = await supabase.auth.updateUser({
-        data: {
-          facebook_access_token: session.provider_token,
-          facebook_connected: true,
-          facebook_connected_at: new Date().toISOString(),
-        },
-      });
-
-      if (updateError) {
-        throw new Error(
-          "Kunne ikke gemme Facebook token: " + updateError.message
-        );
-      }
-
-      return {
-        success: true,
-        message: "Facebook forbundet!",
-      };
-    }
-
-    throw new Error("Ingen Facebook token fundet i session");
-  } catch (err) {
-    console.error("processFacebookCallback error:", err);
-    throw err;
-  }
-}
-
-export async function debugFacebookConfig() {
-  console.log("🔍 Debug Facebook konfiguration:");
-  console.log("NEXT_PUBLIC_SITE_URL:", process.env.NEXT_PUBLIC_SITE_URL);
-  console.log(
-    "NEXT_PUBLIC_SUPABASE_URL:",
-    process.env.NEXT_PUBLIC_SUPABASE_URL
-  );
-  console.log(
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY:",
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? "✅ Sat" : "❌ Mangler"
-  );
-
-  return {
-    siteUrl: process.env.NEXT_PUBLIC_SITE_URL,
-    supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
-    hasAnonKey: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  };
-}
-
-export async function handleFacebookDisconnect() {
-  const supabase = await createServerClientInstance();
-
-  try {
-    const { data: userData, error: userError } = await supabase.auth.getUser();
-    if (userError || !userData?.user) {
-      throw new Error("Bruger ikke logget ind");
-    }
-
-    // Fjern Facebook data fra bruger metadata
-    const { error: updateError } = await supabase.auth.updateUser({
-      data: {
-        facebook_access_token: null,
-        facebook_connected: false,
-        facebook_disconnected_at: new Date().toISOString(),
-      },
-    });
-
-    if (updateError) {
-      throw new Error(
-        "Kunne ikke fjerne Facebook token: " + updateError.message
-      );
-    }
-
-    return { success: true };
-  } catch (err) {
-    console.error("handleFacebookDisconnect error:", err);
     throw err;
   }
 }
