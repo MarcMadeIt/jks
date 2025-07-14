@@ -1137,7 +1137,108 @@ export async function loginWithFacebook() {
   }
 }
 
-export async function handleFacebookConnect(accessToken: string) {
+export async function handleFacebookConnect() {
+  const supabase = await createServerClientInstance();
+
+  try {
+    // Tjek om NEXT_PUBLIC_SITE_URL er konfigureret
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+    if (!siteUrl) {
+      throw new Error("NEXT_PUBLIC_SITE_URL er ikke konfigureret");
+    }
+
+    console.log(
+      "Starting Facebook OAuth with redirect URL:",
+      `${siteUrl}/admin?facebook_callback=true`
+    );
+
+    // Start Facebook OAuth flow med mindre restriktive scopes
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "facebook",
+      options: {
+        redirectTo: `${siteUrl}/admin?facebook_callback=true`,
+        scopes: "public_profile", // Start med minimal scope
+      },
+    });
+
+    if (error) {
+      console.error("Facebook OAuth setup failed:", error.message);
+      throw new Error("Facebook forbindelse fejlede: " + error.message);
+    }
+
+    console.log("Facebook OAuth URL generated:", data.url);
+
+    // Returner URL så client kan håndtere redirect
+    return { url: data.url };
+  } catch (err) {
+    console.error("handleFacebookConnect error:", err);
+    throw err;
+  }
+}
+
+export async function processFacebookCallback() {
+  const supabase = await createServerClientInstance();
+
+  try {
+    // Hent den nuværende session efter OAuth callback
+    const {
+      data: { session },
+      error: sessionError,
+    } = await supabase.auth.getSession();
+
+    if (sessionError || !session) {
+      throw new Error("Ingen session fundet efter Facebook callback");
+    }
+
+    // Hvis det er en OAuth session, gem token som metadata
+    if (session.provider_token && session.user) {
+      const { error: updateError } = await supabase.auth.updateUser({
+        data: {
+          facebook_access_token: session.provider_token,
+          facebook_connected: true,
+          facebook_connected_at: new Date().toISOString(),
+        },
+      });
+
+      if (updateError) {
+        throw new Error(
+          "Kunne ikke gemme Facebook token: " + updateError.message
+        );
+      }
+
+      return {
+        success: true,
+        message: "Facebook forbundet!",
+      };
+    }
+
+    throw new Error("Ingen Facebook token fundet i session");
+  } catch (err) {
+    console.error("processFacebookCallback error:", err);
+    throw err;
+  }
+}
+
+export async function debugFacebookConfig() {
+  console.log("🔍 Debug Facebook konfiguration:");
+  console.log("NEXT_PUBLIC_SITE_URL:", process.env.NEXT_PUBLIC_SITE_URL);
+  console.log(
+    "NEXT_PUBLIC_SUPABASE_URL:",
+    process.env.NEXT_PUBLIC_SUPABASE_URL
+  );
+  console.log(
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY:",
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? "✅ Sat" : "❌ Mangler"
+  );
+
+  return {
+    siteUrl: process.env.NEXT_PUBLIC_SITE_URL,
+    supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    hasAnonKey: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  };
+}
+
+export async function handleFacebookDisconnect() {
   const supabase = await createServerClientInstance();
 
   try {
@@ -1146,24 +1247,24 @@ export async function handleFacebookConnect(accessToken: string) {
       throw new Error("Bruger ikke logget ind");
     }
 
-    // Gem Facebook access token som bruger metadata i stedet for at linke identities
+    // Fjern Facebook data fra bruger metadata
     const { error: updateError } = await supabase.auth.updateUser({
       data: {
-        facebook_access_token: accessToken,
-        facebook_connected: true,
-        facebook_connected_at: new Date().toISOString(),
+        facebook_access_token: null,
+        facebook_connected: false,
+        facebook_disconnected_at: new Date().toISOString(),
       },
     });
 
     if (updateError) {
       throw new Error(
-        "Kunne ikke gemme Facebook token: " + updateError.message
+        "Kunne ikke fjerne Facebook token: " + updateError.message
       );
     }
 
     return { success: true };
   } catch (err) {
-    console.error("handleFacebookConnect error:", err);
+    console.error("handleFacebookDisconnect error:", err);
     throw err;
   }
 }
