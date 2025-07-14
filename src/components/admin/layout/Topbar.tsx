@@ -30,18 +30,27 @@ const Topbar = () => {
   }, []);
 
   const handleFacebookConnect = async () => {
-    const { error } = await supabase.auth.linkIdentity({
-      provider: "facebook",
-      options: {
-        redirectTo: "https://ny.junkerskøreskole.dk/admin",
-      },
-    });
+    // I stedet for at linke identities (som overtager kontoen),
+    // kan vi åbne Facebook OAuth i et popup/ny fane for at få access token
+    // og derefter gemme det som bruger metadata
 
-    if (error) {
-      console.error("Facebook linking fejl:", error.message);
-    } else {
-      console.log("Facebook forbundet til eksisterende bruger ✅");
-      fetchAndSetFacebookToken();
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "facebook",
+        options: {
+          redirectTo: `${window.location.origin}/admin?facebook_connect=true`,
+          scopes: "public_profile,email", // Kun de tilladelser du har brug for
+        },
+      });
+
+      if (error) {
+        console.error("Facebook forbindelse fejl:", error.message);
+      } else if (data.url) {
+        // Åbn OAuth i en ny fane i stedet for at redirecte
+        window.open(data.url, "facebook_connect", "width=600,height=600");
+      }
+    } catch (err) {
+      console.error("Uventet fejl ved Facebook forbindelse:", err);
     }
   };
 

@@ -1,14 +1,37 @@
 "use client";
 
-import { login } from "@/lib/server/actions";
-import React, { useState } from "react";
-import { FaEnvelope, FaKey } from "react-icons/fa6";
+import { login, loginWithFacebook } from "@/lib/server/actions";
+import React, { useState, useEffect } from "react";
+import { FaEnvelope, FaKey, FaFacebook } from "react-icons/fa6";
+import { useSearchParams } from "next/navigation";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
+  const [showFacebookOption, setShowFacebookOption] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const provider = searchParams.get("provider");
+    const error = searchParams.get("error");
+    const message = searchParams.get("message");
+    const emailParam = searchParams.get("email");
+
+    if (provider === "facebook") {
+      setShowFacebookOption(true);
+      if (emailParam) {
+        setEmail(decodeURIComponent(emailParam));
+      }
+    }
+
+    if (error === "true" && message) {
+      setErrorMessage(decodeURIComponent(message));
+    }
+  }, [searchParams]);
 
   const validateEmail = (email: string) => {
     const re = /\S+@\S+\.\S+/;
@@ -34,6 +57,7 @@ const LoginPage = () => {
 
     if (valid) {
       setLoading(true);
+      setErrorMessage("");
       try {
         const formData = new FormData();
         formData.append("email", email);
@@ -43,6 +67,15 @@ const LoginPage = () => {
       } finally {
         setLoading(false);
       }
+    }
+  };
+
+  const handleFacebookLogin = async () => {
+    setLoading(true);
+    try {
+      await loginWithFacebook();
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -58,6 +91,22 @@ const LoginPage = () => {
             Junker&#39;s Køreskole
           </span>
         </div>
+
+        {errorMessage && (
+          <div className="alert alert-error text-sm">
+            <span>{errorMessage}</span>
+          </div>
+        )}
+
+        {showFacebookOption && (
+          <div className="alert alert-info text-sm">
+            <span>
+              Denne konto er forbundet med Facebook. Brug Facebook login
+              nedenfor.
+            </span>
+          </div>
+        )}
+
         <div className="flex flex-col gap-2 relative">
           <label
             htmlFor="email"
@@ -106,6 +155,7 @@ const LoginPage = () => {
             </span>
           )}
         </div>
+
         <button
           type="submit"
           className="btn btn-primary mt-2"
@@ -113,6 +163,21 @@ const LoginPage = () => {
         >
           {loading ? "Logger ind..." : "Login"}
         </button>
+
+        {showFacebookOption && (
+          <>
+            <div className="divider">ELLER</div>
+            <button
+              type="button"
+              onClick={handleFacebookLogin}
+              className="btn btn-outline gap-2"
+              disabled={loading}
+            >
+              <FaFacebook />
+              {loading ? "Logger ind..." : "Log ind med Facebook"}
+            </button>
+          </>
+        )}
       </form>
       <a
         href="https://arzonic.com"

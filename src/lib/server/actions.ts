@@ -24,13 +24,32 @@ export async function login(formData: FormData) {
   });
 
   if (error) {
-    if (error.message.includes("provider")) {
-      // Brugeren er registreret med fx Facebook — vis besked eller redirect til OAuth
-      redirect("/login?provider=facebook");
+    // Tjek om brugeren er registreret med OAuth (Facebook)
+    if (
+      error.message.includes("Email not confirmed") ||
+      error.message.includes("Invalid login credentials") ||
+      error.message.includes("signup_disabled")
+    ) {
+      // Prøv at tjekke om brugeren eksisterer via admin API
+      try {
+        const adminClient = await createAdminClient();
+        const { data: users } = await adminClient.auth.admin.listUsers();
+        const user = users?.users?.find((u) => u.email === email);
+
+        if (user && user.app_metadata.providers?.includes("facebook")) {
+          // Brugeren er registreret med Facebook - redirect til OAuth login
+          console.log("User is registered with Facebook OAuth");
+          redirect(
+            "/login?provider=facebook&email=" + encodeURIComponent(email)
+          );
+        }
+      } catch (adminError) {
+        console.error("Admin check failed:", adminError);
+      }
     }
 
     console.error("Failed to login:", error.message);
-    redirect("/login?error=true");
+    redirect("/login?error=true&message=" + encodeURIComponent(error.message));
   }
 
   revalidatePath("/", "layout");
@@ -1092,6 +1111,59 @@ export async function createTeacher({
     }
   } catch (err) {
     console.error("createTeacher error:", err);
+    throw err;
+  }
+}
+
+export async function loginWithFacebook() {
+  const supabase = await createServerClientInstance();
+
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "facebook",
+    options: {
+      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/admin`,
+    },
+  });
+
+  if (error) {
+    console.error("Facebook login failed:", error.message);
+    redirect(
+      "/login?error=true&message=" + encodeURIComponent("Facebook login failed")
+    );
+  }
+
+  if (data.url) {
+    redirect(data.url);
+  }
+}
+
+export async function handleFacebookConnect(accessToken: string) {
+  const supabase = await createServerClientInstance();
+
+  try {
+    const { data: userData, error: userError } = await supabase.auth.getUser();
+    if (userError || !userData?.user) {
+      throw new Error("Bruger ikke logget ind");
+    }
+
+    // Gem Facebook access token som bruger metadata i stedet for at linke identities
+    const { error: updateError } = await supabase.auth.updateUser({
+      data: {
+        facebook_access_token: accessToken,
+        facebook_connected: true,
+        facebook_connected_at: new Date().toISOString(),
+      },
+    });
+
+    if (updateError) {
+      throw new Error(
+        "Kunne ikke gemme Facebook token: " + updateError.message
+      );
+    }
+
+    return { success: true };
+  } catch (err) {
+    console.error("handleFacebookConnect error:", err);
     throw err;
   }
 }
