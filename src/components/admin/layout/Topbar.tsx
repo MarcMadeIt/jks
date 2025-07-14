@@ -33,7 +33,7 @@ const Topbar = () => {
     const { error } = await supabase.auth.linkIdentity({
       provider: "facebook",
       options: {
-        redirectTo: "https://ny.junkerskøreskole.dk/admin",
+        redirectTo: "https://ny.xn--junkerskreskole-dub.dk/admin",
       },
     });
 

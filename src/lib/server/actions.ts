@@ -15,20 +15,26 @@ import sharp from "sharp";
 export async function login(formData: FormData) {
   const supabase = await createServerClientInstance();
 
-  const data = {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
-  };
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
 
-  const { error } = await supabase.auth.signInWithPassword(data);
+  const { error, data: session } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
 
   if (error) {
+    if (error.message.includes("provider")) {
+      // Brugeren er registreret med fx Facebook — vis besked eller redirect til OAuth
+      redirect("/login?provider=facebook");
+    }
+
     console.error("Failed to login:", error.message);
     redirect("/login?error=true");
-  } else {
-    revalidatePath("/", "layout");
-    redirect("/admin");
   }
+
+  revalidatePath("/", "layout");
+  redirect("/admin");
 }
 
 export async function createMember(data: {
