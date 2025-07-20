@@ -29,20 +29,32 @@ const Navbar = () => {
     <div className="flex flex-col items-center justify-between bg-base-100 rounded-lg sm:fixed sm:h-full md:py-0 md:pr-0">
       <div className="flex flex-col sm:gap-5 h-full ">
         <div className="flex flex-col items-center justify-center h-32 w-full text-xl">
-          <Image src="/jk-flag.png" alt="" width={60} height={60} />
-          <span className="font-bold mt-1">ADMIN</span>
+          <Image
+            src="/jk-flag.png"
+            alt="JK Flag Logo"
+            width={60}
+            height={60}
+            priority
+            style={{
+              width: "auto",
+              height: "auto",
+            }}
+          />
+          <span className="font-bold">ADMIN</span>
         </div>
         <div className="hidden sm:flex">
           <ul className="menu menu-lg gap-2 rounded-box w-56 xl:w-72">
-            <li>
-              <Link
-                className={pathname === "/admin" ? "menu-active" : ""}
-                href="/admin"
-                aria-label={t("aria.navigation.linkToOverview")}
-              >
-                {t("overview")}
-              </Link>
-            </li>
+            {["admin", "developer"].includes(role || "") && (
+              <li>
+                <Link
+                  className={pathname === "/admin" ? "menu-active" : ""}
+                  href="/admin"
+                  aria-label={t("aria.navigation.linkToOverview")}
+                >
+                  {t("overview")}
+                </Link>
+              </li>
+            )}
             <li>
               <Link
                 className={pathname === "/admin/content" ? "menu-active" : ""}
@@ -52,31 +64,27 @@ const Navbar = () => {
                 {t("content")}
               </Link>
             </li>
-            {role === "admin" && (
-              <>
-                <li>
-                  <Link
-                    className={
-                      pathname === "/admin/messages" ? "menu-active" : ""
-                    }
-                    href="/admin/messages"
-                    aria-label={t("aria.navigation.linkToCustomers")}
-                  >
-                    {t("customers")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className={
-                      pathname === "/admin/settings" ? "menu-active" : ""
-                    }
-                    href="/admin/settings"
-                    aria-label={t("aria.navigation.linkToSettings")}
-                  >
-                    {t("settings")}
-                  </Link>
-                </li>
-              </>
+            <li>
+              <Link
+                className={pathname === "/admin/messages" ? "menu-active" : ""}
+                href="/admin/messages"
+                aria-label={t("aria.navigation.linkToCustomers")}
+              >
+                {t("customers")}
+              </Link>
+            </li>
+            {["admin", "developer"].includes(role || "") && (
+              <li>
+                <Link
+                  className={
+                    pathname === "/admin/settings" ? "menu-active" : ""
+                  }
+                  href="/admin/settings"
+                  aria-label={t("aria.navigation.linkToSettings")}
+                >
+                  {t("settings")}
+                </Link>
+              </li>
             )}
           </ul>
         </div>
@@ -100,28 +108,24 @@ const Navbar = () => {
                 <FaList size={25} />
               </Link>
             </li>
-            {role === "admin" && (
-              <>
-                <li>
-                  <Link
-                    href="/admin/messages"
-                    className={pathname === "/admin/messages" ? "active" : ""}
-                    aria-label={t("aria.navigation.linkToCustomers")}
-                  >
-                    <FaComment size={25} />
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/admin/settings"
-                    className={pathname === "/admin/settings" ? "active" : ""}
-                    aria-label={t("aria.navigation.linkToSettings")}
-                  >
-                    <FaGear size={25} />
-                  </Link>
-                </li>
-              </>
-            )}
+            <li>
+              <Link
+                href="/admin/messages"
+                className={pathname === "/admin/messages" ? "active" : ""}
+                aria-label={t("aria.navigation.linkToCustomers")}
+              >
+                <FaComment size={25} />
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/admin/settings"
+                className={pathname === "/admin/settings" ? "active" : ""}
+                aria-label={t("aria.navigation.linkToSettings")}
+              >
+                <FaGear size={25} />
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

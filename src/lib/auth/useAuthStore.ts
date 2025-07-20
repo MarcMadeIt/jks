@@ -1,4 +1,6 @@
+// useAuthStore.ts
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface User {
   id: string;
@@ -7,22 +9,44 @@ interface User {
 
 interface AuthState {
   user: User | null;
-  role: "admin" | "editor" | null;
+  role: "admin" | "editor" | "developer" | null;
   facebookToken: string | null;
+  facebookLinked: boolean;
   setUser: (user: User) => void;
-  setRole: (role: "admin" | "editor") => void;
-  setFacebookToken: (token: string) => void;
-  clearFacebookToken: () => void;
+  setRole: (role: "admin" | "editor" | "developer") => void;
+  setFacebookToken: (token: string | null) => void;
+  setFacebookLinked: (linked: boolean) => void;
   clearSession: () => void;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
-  user: null,
-  role: null,
-  facebookToken: null,
-  setUser: (user) => set({ user }),
-  setRole: (role) => set({ role }),
-  setFacebookToken: (token) => set({ facebookToken: token }),
-  clearFacebookToken: () => set({ facebookToken: null }),
-  clearSession: () => set({ user: null, role: null, facebookToken: null }),
-}));
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      user: null,
+      role: null,
+      facebookToken: null,
+      facebookLinked: false,
+
+      setUser: (user) => set({ user }),
+      setRole: (role) => set({ role }),
+      setFacebookToken: (token) => set({ facebookToken: token }),
+      setFacebookLinked: (linked) => set({ facebookLinked: linked }),
+
+      clearSession: () =>
+        set({
+          user: null,
+          role: null,
+          facebookToken: null,
+          facebookLinked: false,
+        }),
+    }),
+    {
+      name: "auth-storage", // key i localStorage
+      // Vi vælger kun at persiste facebookToken & facebookLinked
+      partialize: (state) => ({
+        facebookToken: state.facebookToken,
+        facebookLinked: state.facebookLinked,
+      }),
+    }
+  )
+);

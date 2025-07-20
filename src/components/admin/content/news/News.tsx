@@ -42,26 +42,26 @@ const News = () => {
           <button
             onClick={() => setShowCreateNews(false)}
             className="btn btn-ghost"
-            aria-label={t("aria.cases.back")}
+            aria-label={t("aria.news.back")}
           >
             <FaAngleLeft />
             {t("back")}
           </button>
-          <CreateNews onCaseCreated={handleNewsCreated} />
+          <CreateNews onNewsCreated={handleNewsCreated} />
         </div>
       ) : showUpdateNews && selectedNewsId !== null ? (
         <div className="flex flex-col items-start gap-5">
           <button
             onClick={() => setShowUpdateNews(false)}
             className="btn btn-ghost"
-            aria-label={t("aria.cases.back")}
+            aria-label={t("aria.news.back")}
           >
             <FaAngleLeft />
             {t("back")}
           </button>
           <UpdateNews
             newsId={selectedNewsId}
-            onCaseUpdated={handleNewsUpdated}
+            onNewsUpdated={handleNewsUpdated}
           />
         </div>
       ) : (
@@ -70,7 +70,7 @@ const News = () => {
             <button
               onClick={() => setShowCreateNews(true)}
               className="btn btn-primary"
-              aria-label={t("aria.cases.createCase")}
+              aria-label={t("aria.news.createNews")}
             >
               {t("create")} Nyhed
             </button>
@@ -80,8 +80,8 @@ const News = () => {
             view={view}
             page={page}
             setTotal={setTotal}
-            onEditCase={(caseId: number) => {
-              setSelectedNewsId(caseId);
+            onEditNews={(newsId: number) => {
+              setSelectedNewsId(newsId);
               setShowUpdateNews(true);
             }}
           />
@@ -98,12 +98,12 @@ const News = () => {
             className="alert alert-success text-neutral-content"
             aria-label={
               showCreateNews
-                ? t("aria.cases.caseCreated")
-                : t("aria.cases.caseUpdated")
+                ? t("aria.news.newsCreated")
+                : t("aria.news.newsUpdated")
             }
           >
             <span className="text-base md:text-lg">
-              {showCreateNews ? t("case_created") : t("case_updated")}
+              {showCreateNews ? t("news_created") : t("news_updated")}
             </span>
           </div>
         </div>

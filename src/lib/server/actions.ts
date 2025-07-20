@@ -7,47 +7,42 @@ import {
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import sharp from "sharp";
+import { postToFacebookPage } from "./some";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // AUTHENTICATION
 // ─────────────────────────────────────────────────────────────────────────────
 
 export async function login(formData: FormData) {
-  try {
-    const supabase = await createServerClientInstance();
+  const supabase = await createServerClientInstance();
 
-    const data = {
-      email: formData.get("email") as string,
-      password: formData.get("password") as string,
-    };
+  const data = {
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  };
 
-    const { error } = await supabase.auth.signInWithPassword(data);
+  const { error } = await supabase.auth.signInWithPassword(data);
 
-    if (error) {
-      console.error("Failed to login:", error.message);
-      redirect("/login?error=true");
-    }
-
-    revalidatePath("/", "layout");
-    redirect("/admin");
-  } catch (err) {
-    console.error("Login server action crashed:", err);
-    throw err;
+  if (error) {
+    console.error("Failed to login:", error.message);
+    return { success: false, error: error.message };
   }
+
+  revalidatePath("/", "layout");
+  redirect("/admin");
 }
 
 export async function createMember(data: {
   email: string;
   password: string;
-  role: "editor" | "admin";
+  role: "editor" | "admin" | "developer";
   name: string;
 }) {
   const supabase = await createAdminClient();
 
   try {
-    // Ensure the Supabase admin client is properly configured
     if (!supabase.auth.admin) {
-      throw new Error("Supabase admin client is not configured correctly.");
+      throw new Error("REGISTRATION_ERROR");
     }
 
     const createResult = await supabase.auth.admin.createUser({
@@ -60,51 +55,47 @@ export async function createMember(data: {
     });
 
     if (createResult.error) {
-      console.error("Failed to create user:", createResult.error.message);
+      const msg = createResult.error.message.toLowerCase();
 
-      // Provide more context for the error
-      if (createResult.error.message.includes("not allowed")) {
-        throw new Error(
-          "Failed to create user: Insufficient permissions or invalid configuration."
-        );
+      if (msg.includes("already") && msg.includes("registered")) {
+        throw new Error("EMAIL_ALREADY_EXISTS");
       }
 
-      throw new Error("Failed to create user: " + createResult.error.message);
+      if (msg.includes("not allowed")) {
+        throw new Error("REGISTRATION_ERROR");
+      }
+
+      throw new Error("REGISTRATION_ERROR");
     }
 
-    console.log("User created:", createResult.data.user);
+    const userId = createResult.data.user?.id;
+    if (!userId) {
+      throw new Error("REGISTRATION_ERROR");
+    }
 
     const memberResult = await supabase
       .from("members")
-      .insert({ name: data.name, id: createResult.data.user?.id });
+      .insert({ name: data.name, id: userId });
 
     if (memberResult.error) {
       console.error(
         "Failed to insert into members:",
         memberResult.error.message
       );
-      throw new Error(
-        "Failed to insert into members: " + memberResult.error.message
-      );
+      throw new Error("REGISTRATION_ERROR");
     }
-
-    console.log("Member inserted:", memberResult.data);
 
     const permissionsResult = await supabase
       .from("permissions")
-      .insert({ role: data.role, member_id: createResult.data.user?.id });
+      .insert({ role: data.role, member_id: userId });
 
     if (permissionsResult.error) {
       console.error(
         "Failed to insert into permissions:",
         permissionsResult.error.message
       );
-      throw new Error(
-        "Failed to insert into permissions: " + permissionsResult.error.message
-      );
+      throw new Error("REGISTRATION_ERROR");
     }
-
-    console.log("Permissions inserted:", permissionsResult.data);
 
     return createResult.data.user;
   } catch (err) {
@@ -288,148 +279,326 @@ export async function updateUser(
 
 export async function createNews({
   title,
-  desc,
-  image,
+  content,
+  images,
+  postToFacebook = false,
 }: {
   title: string;
-  desc: string;
-  image?: File;
-}): Promise<void> {
+  content: string;
+  images?: File[];
+  postToFacebook?: boolean;
+}): Promise<{ fbPostLink?: string } | void> {
   const supabase = await createServerClientInstance();
+  const apiKey = process.env.DEEPL_API_KEY!;
+  const endpoint = "https://api-free.deepl.com/v2/translate";
 
-  try {
-    const apiKey = process.env.DEEPL_API_KEY!;
-    const endpoint = "https://api-free.deepl.com/v2/translate";
+  // Translate title
+  const titleParams = new URLSearchParams({
+    auth_key: apiKey,
+    text: title,
+    target_lang: "EN",
+  });
+  const titleRes = await fetch(endpoint, { method: "POST", body: titleParams });
+  if (!titleRes.ok)
+    throw new Error(`DeepL error ${titleRes.status}: ${await titleRes.text()}`);
+  const {
+    translations: [titleFirst],
+  } = (await titleRes.json()) as {
+    translations: { text: string; detected_source_language: string }[];
+  };
+  const titleSourceLang = titleFirst.detected_source_language.toLowerCase();
 
-    const params1 = new URLSearchParams({
+  let title_translated = titleFirst.text;
+  if (titleSourceLang === "en") {
+    const titleParams2 = new URLSearchParams({
       auth_key: apiKey,
-      text: desc,
-      target_lang: "EN",
+      text: title,
+      target_lang: "DA",
     });
-    const r1 = await fetch(endpoint, { method: "POST", body: params1 });
-    if (!r1.ok) throw new Error(`DeepL error ${r1.status}: ${await r1.text()}`);
+    const titleR2 = await fetch(endpoint, {
+      method: "POST",
+      body: titleParams2,
+    });
+    if (!titleR2.ok)
+      throw new Error(`DeepL error ${titleR2.status}: ${await titleR2.text()}`);
     const {
-      translations: [first],
-    } = (await r1.json()) as {
-      translations: { text: string; detected_source_language: string }[];
+      translations: [titleSecond],
+    } = (await titleR2.json()) as {
+      translations: { text: string }[];
     };
-    const sourceLang = first.detected_source_language.toLowerCase();
+    title_translated = titleSecond.text;
+  }
 
-    let desc_translated = first.text;
-    if (sourceLang === "en") {
-      const params2 = new URLSearchParams({
-        auth_key: apiKey,
-        text: desc,
-        target_lang: "DA",
-      });
-      const r2 = await fetch(endpoint, { method: "POST", body: params2 });
-      if (!r2.ok)
-        throw new Error(`DeepL error ${r2.status}: ${await r2.text()}`);
-      const {
-        translations: [second],
-      } = (await r2.json()) as {
-        translations: { text: string }[];
-      };
-      desc_translated = second.text;
-    }
+  // Translate content
+  const params1 = new URLSearchParams({
+    auth_key: apiKey,
+    text: content,
+    target_lang: "EN",
+  });
+  const r1 = await fetch(endpoint, { method: "POST", body: params1 });
+  if (!r1.ok) throw new Error(`DeepL error ${r1.status}: ${await r1.text()}`);
+  const {
+    translations: [first],
+  } = (await r1.json()) as {
+    translations: { text: string; detected_source_language: string }[];
+  };
+  const sourceLang = first.detected_source_language.toLowerCase();
 
-    let imageUrl: string | null = null;
-    if (image) {
-      const uploadFile = async (file: File) => {
-        const ext = "webp";
-        const name = `${Math.random().toString(36).slice(2)}.${ext}`;
-        const { data: ud, error: ue } = await supabase.auth.getUser();
-        if (ue || !ud?.user) throw new Error("Not authenticated");
-        const path = `news-images/${ud.user.id}/${name}`;
-        const buf = await sharp(Buffer.from(await file.arrayBuffer()))
-          .rotate()
-          .resize({ width: 1024, height: 768, fit: "cover" })
-          .webp({ quality: 65 })
-          .toBuffer();
-        await supabase.storage.from("news-images").upload(path, buf, {
-          contentType: "image/webp",
-        });
-        const { data } = await supabase.storage
-          .from("news-images")
-          .getPublicUrl(path);
-        return data.publicUrl!;
-      };
-      imageUrl = await uploadFile(image);
-    }
+  let content_translated = first.text;
+  if (sourceLang === "en") {
+    const params2 = new URLSearchParams({
+      auth_key: apiKey,
+      text: content,
+      target_lang: "DA",
+    });
+    const r2 = await fetch(endpoint, { method: "POST", body: params2 });
+    if (!r2.ok) throw new Error(`DeepL error ${r2.status}: ${await r2.text()}`);
+    const {
+      translations: [second],
+    } = (await r2.json()) as {
+      translations: { text: string }[];
+    };
+    content_translated = second.text;
+  }
 
-    const { data: ud, error: ue } = await supabase.auth.getUser();
-    if (ue || !ud?.user) throw new Error("Not authenticated");
+  const { data: ud, error: ue } = await supabase.auth.getUser();
+  if (ue || !ud?.user) throw new Error("Not authenticated");
 
-    const { error } = await supabase.from("news").insert([
+  const { data: newsData, error: insertError } = await supabase
+    .from("news")
+    .insert([
       {
         title,
-        desc,
-        desc_translated,
+        title_translated,
+        content,
+        content_translated,
         source_lang: sourceLang,
-        image: imageUrl,
         creator_id: ud.user.id,
       },
-    ]);
-    if (error) throw error;
-  } catch (err) {
-    console.error("createNews error:", err);
-    throw err;
+    ])
+    .select("id")
+    .single();
+  if (insertError || !newsData?.id) throw insertError;
+
+  if (images?.length) {
+    try {
+      await Promise.all(
+        images.map(async (file, index) => {
+          const ext = "webp";
+          const name = `${Math.random().toString(36).slice(2)}.${ext}`;
+          const path = `${ud.user.id}/${name}`;
+
+          try {
+            const buf = await sharp(Buffer.from(await file.arrayBuffer()))
+              .rotate()
+              .resize({ width: 1080, height: 1080, fit: "cover" })
+              .webp({ quality: 65 })
+              .toBuffer();
+
+            const { error: uploadError } = await supabase.storage
+              .from("news-images")
+              .upload(path, buf, {
+                contentType: "image/webp",
+              });
+
+            if (uploadError) {
+              console.error(`Failed to upload image ${index}:`, uploadError);
+              throw uploadError;
+            }
+
+            const { error: insertError } = await supabase
+              .from("news_images")
+              .insert({
+                news_id: newsData.id,
+                path,
+                sort_order: index,
+              });
+
+            if (insertError) {
+              console.error(
+                `Failed to insert image record ${index}:`,
+                insertError
+              );
+              throw insertError;
+            }
+
+            console.log(`Successfully processed image ${index}: ${path}`);
+          } catch (imageError) {
+            console.error(`Error processing image ${index}:`, imageError);
+            throw imageError;
+          }
+        })
+      );
+    } catch (imagesError) {
+      console.error("Failed to process images:", imagesError);
+      // Don't throw - news creation should succeed even if image processing fails
+    }
   }
+
+  // Post to Facebook if requested
+  let fbPostLink: string | undefined;
+  if (postToFacebook) {
+    try {
+      const fbMessage = `${title}\n\n${content}`;
+
+      // Get public URLs for uploaded images
+      let imageUrls: string[] = [];
+      if (images?.length) {
+        try {
+          const imageData = await supabase
+            .from("news_images")
+            .select("path")
+            .eq("news_id", newsData.id)
+            .order("sort_order");
+
+          if (imageData.data) {
+            imageUrls = imageData.data.map((img) => {
+              const { data: publicUrl } = supabase.storage
+                .from("news-images")
+                .getPublicUrl(img.path);
+              return publicUrl.publicUrl;
+            });
+          }
+        } catch (error) {
+          console.error("Failed to get image URLs:", error);
+        }
+      }
+
+      const fbResult = await postToFacebookPage({
+        message: fbMessage,
+        imageUrls: imageUrls.length > 0 ? imageUrls : undefined,
+      });
+
+      if (fbResult?.link) {
+        fbPostLink = fbResult.link;
+      }
+
+      // Update news record with Facebook post link
+      if (fbPostLink) {
+        await supabase
+          .from("news")
+          .update({ facebook_post_link: fbPostLink })
+          .eq("id", newsData.id);
+      }
+    } catch (error) {
+      console.error("Failed to post to Facebook:", error);
+      // Don't throw error - news creation should succeed even if Facebook posting fails
+      // But we can provide more specific error information
+      if (
+        error instanceof Error &&
+        error.message.includes("Facebook token not available")
+      ) {
+        console.log(
+          "Facebook posting skipped - user not logged in with Facebook"
+        );
+      }
+    }
+  }
+
+  return fbPostLink ? { fbPostLink } : undefined;
 }
 
 export async function updateNews(
   id: number,
   title: string,
-  desc: string,
-  image: File | null,
-  created_at?: string
+  content: string,
+  images?: File[]
 ): Promise<void> {
   const supabase = await createServerClientInstance();
+  const apiKey = process.env.DEEPL_API_KEY!;
+  const endpoint = "https://api-free.deepl.com/v2/translate";
 
-  try {
-    const apiKey = process.env.DEEPL_API_KEY!;
-    const endpoint = "https://api-free.deepl.com/v2/translate";
+  // Translate title
+  const titleParams = new URLSearchParams({
+    auth_key: apiKey,
+    text: title,
+    target_lang: "EN",
+  });
+  const titleRes = await fetch(endpoint, { method: "POST", body: titleParams });
+  if (!titleRes.ok)
+    throw new Error(`DeepL error ${titleRes.status}: ${await titleRes.text()}`);
+  const {
+    translations: [titleFirst],
+  } = (await titleRes.json()) as {
+    translations: { text: string; detected_source_language: string }[];
+  };
+  const titleSourceLang = titleFirst.detected_source_language.toLowerCase();
 
-    const params1 = new URLSearchParams({
+  let title_translated = titleFirst.text;
+  if (titleSourceLang === "en") {
+    const titleParams2 = new URLSearchParams({
       auth_key: apiKey,
-      text: desc,
-      target_lang: "EN",
+      text: title,
+      target_lang: "DA",
     });
-    const r1 = await fetch(endpoint, { method: "POST", body: params1 });
-    if (!r1.ok) throw new Error(`DeepL error ${r1.status}: ${await r1.text()}`);
+    const titleR2 = await fetch(endpoint, {
+      method: "POST",
+      body: titleParams2,
+    });
+    if (!titleR2.ok)
+      throw new Error(`DeepL error ${titleR2.status}: ${await titleR2.text()}`);
     const {
-      translations: [first],
-    } = (await r1.json()) as {
-      translations: { text: string; detected_source_language: string }[];
+      translations: [titleSecond],
+    } = (await titleR2.json()) as {
+      translations: { text: string }[];
     };
-    const sourceLang = first.detected_source_language.toLowerCase();
+    title_translated = titleSecond.text;
+  }
 
-    let desc_translated = first.text;
-    if (sourceLang === "en") {
-      const params2 = new URLSearchParams({
-        auth_key: apiKey,
-        text: desc,
-        target_lang: "DA",
-      });
-      const r2 = await fetch(endpoint, { method: "POST", body: params2 });
-      if (!r2.ok)
-        throw new Error(`DeepL error ${r2.status}: ${await r2.text()}`);
-      const {
-        translations: [second],
-      } = (await r2.json()) as {
-        translations: { text: string }[];
-      };
-      desc_translated = second.text;
-    }
+  // Translate content
+  const params1 = new URLSearchParams({
+    auth_key: apiKey,
+    text: content,
+    target_lang: "EN",
+  });
+  const r1 = await fetch(endpoint, { method: "POST", body: params1 });
+  if (!r1.ok) throw new Error(`DeepL error ${r1.status}: ${await r1.text()}`);
+  const {
+    translations: [first],
+  } = (await r1.json()) as {
+    translations: { text: string; detected_source_language: string }[];
+  };
+  const sourceLang = first.detected_source_language.toLowerCase();
 
-    let imageUrl: string | null = null;
-    if (image) {
-      const uploadFile = async (file: File) => {
+  let content_translated = first.text;
+  if (sourceLang === "en") {
+    const params2 = new URLSearchParams({
+      auth_key: apiKey,
+      text: content,
+      target_lang: "DA",
+    });
+    const r2 = await fetch(endpoint, { method: "POST", body: params2 });
+    if (!r2.ok) throw new Error(`DeepL error ${r2.status}: ${await r2.text()}`);
+    const {
+      translations: [second],
+    } = (await r2.json()) as {
+      translations: { text: string }[];
+    };
+    content_translated = second.text;
+  }
+
+  const { data: ud, error: ue } = await supabase.auth.getUser();
+  if (ue || !ud?.user) throw new Error("Not authenticated");
+
+  const { error: updateError } = await supabase
+    .from("news")
+    .update({
+      title,
+      title_translated,
+      content,
+      content_translated,
+      source_lang: sourceLang,
+      creator_id: ud.user.id,
+    })
+    .eq("id", id);
+  if (updateError) throw updateError;
+
+  if (images?.length) {
+    await Promise.all(
+      images.map(async (file, index) => {
         const ext = "webp";
         const name = `${Math.random().toString(36).slice(2)}.${ext}`;
-        const { data: ud, error: ue } = await supabase.auth.getUser();
-        if (ue || !ud?.user) throw new Error("Not authenticated");
-        const path = `news-images/${ud.user.id}/${name}`;
+        const path = `${ud.user.id}/${name}`;
         const buf = await sharp(Buffer.from(await file.arrayBuffer()))
           .rotate()
           .resize({ width: 1024, height: 768, fit: "cover" })
@@ -438,49 +607,19 @@ export async function updateNews(
         await supabase.storage.from("news-images").upload(path, buf, {
           contentType: "image/webp",
         });
-        const { data } = await supabase.storage
-          .from("news-images")
-          .getPublicUrl(path);
-        return data.publicUrl!;
-      };
-      imageUrl = await uploadFile(image);
-    } else {
-      const { data: existing } = await supabase
-        .from("news")
-        .select("image")
-        .eq("id", id)
-        .single();
-      imageUrl = existing?.image ?? null;
-    }
-
-    const { data: ud, error: ue } = await supabase.auth.getUser();
-    if (ue || !ud?.user) throw new Error("Not authenticated");
-
-    const payload: {
-      title: string;
-      desc: string;
-      desc_translated: string;
-      source_lang: string;
-      image: string | null;
-      creator_id: string;
-      created_at?: string;
-    } = {
-      title,
-      desc,
-      desc_translated,
-      source_lang: sourceLang,
-      image: imageUrl,
-      creator_id: ud.user.id,
-      ...(created_at ? { created_at } : {}),
-    };
-    if (created_at) payload.created_at = created_at;
-
-    const { error } = await supabase.from("news").update(payload).eq("id", id);
-    if (error) throw error;
-  } catch (err) {
-    console.error("updateNews error:", err);
-    throw err;
+        await supabase.from("news_images").insert({
+          news_id: id,
+          path,
+          sort_order: index,
+        });
+      })
+    );
   }
+}
+
+interface NewsImage {
+  path: string;
+  sort_order: number;
 }
 
 export async function getAllNews(page = 1, limit = 6) {
@@ -488,28 +627,153 @@ export async function getAllNews(page = 1, limit = 6) {
   const offset = (page - 1) * limit;
   const { data, count, error } = await supabase
     .from("news")
-    .select("*", { count: "exact" })
+    .select("*, news_images(*)", { count: "exact" })
     .order("created_at", { ascending: false })
     .range(offset, offset + limit - 1);
   if (error) throw new Error(error.message);
-  return { news: data, total: count ?? 0 };
+
+  // Transform data to include image URLs
+  const transformedNews =
+    data?.map((newsItem) => {
+      const images =
+        (newsItem.news_images as NewsImage[] | undefined)
+          ?.sort((a, b) => a.sort_order - b.sort_order)
+          ?.map((img) => {
+            const { data: publicUrlData } = supabase.storage
+              .from("news-images")
+              .getPublicUrl(img.path);
+            return publicUrlData.publicUrl;
+          }) || [];
+
+      return {
+        ...newsItem,
+        images,
+      };
+    }) || [];
+
+  return { news: transformedNews, total: count ?? 0 };
 }
 
-export async function getNewsById(caseId: number) {
+export async function getLatestNews() {
+  const supabase = await createServerClientInstance();
+
+  const { data, error } = await supabase
+    .from("news")
+    .select("*, news_images(*)")
+    .order("created_at", { ascending: false })
+    .limit(3);
+
+  if (error) {
+    throw new Error("Failed to fetch latest news: " + error.message);
+  }
+
+  // Transform data to include image URLs
+  const transformedNews =
+    data?.map((newsItem) => {
+      const images =
+        (newsItem.news_images as NewsImage[] | undefined)
+          ?.sort((a, b) => a.sort_order - b.sort_order)
+          ?.map((img) => {
+            const { data: publicUrlData } = supabase.storage
+              .from("news-images")
+              .getPublicUrl(img.path);
+            return publicUrlData.publicUrl;
+          }) || [];
+
+      return {
+        ...newsItem,
+        images,
+      };
+    }) || [];
+
+  return transformedNews;
+}
+
+export async function getNewsById(newsId: number) {
   const supabase = await createServerClientInstance();
   const { data, error } = await supabase
     .from("news")
-    .select("*")
-    .eq("id", caseId)
+    .select("*, news_images(*)")
+    .eq("id", newsId)
     .single();
   if (error) throw new Error(error.message);
-  return data;
+
+  // Transform data to include image URLs
+  const images =
+    (data.news_images as NewsImage[] | undefined)
+      ?.sort((a, b) => a.sort_order - b.sort_order)
+      ?.map((img) => {
+        const { data: publicUrlData } = supabase.storage
+          .from("news-images")
+          .getPublicUrl(img.path);
+        return publicUrlData.publicUrl;
+      }) || [];
+
+  return {
+    ...data,
+    images,
+  };
 }
 
 export async function deleteNews(newsId: number): Promise<void> {
   const supabase = await createServerClientInstance();
-  const { error } = await supabase.from("news").delete().eq("id", newsId);
-  if (error) throw new Error(error.message);
+
+  try {
+    // 1. Hent alle billeder tilknyttet nyheden
+    const { data: images, error: imagesError } = await supabase
+      .from("news_images")
+      .select("path")
+      .eq("news_id", newsId);
+
+    if (imagesError) {
+      console.error("Error fetching news images:", imagesError);
+      throw new Error(`Failed to fetch news images: ${imagesError.message}`);
+    }
+
+    // 2. Slet billeder fra storage
+    if (images && images.length > 0) {
+      const paths = images.map((img: { path: string }) => img.path);
+      const { error: storageError } = await supabase.storage
+        .from("news-images")
+        .remove(paths);
+
+      if (storageError) {
+        console.error("Error removing images from storage:", storageError);
+        throw new Error(
+          `Failed to remove images from storage: ${storageError.message}`
+        );
+      }
+    }
+
+    // 3. Slet rækker fra news_images
+    const { error: deleteImagesError } = await supabase
+      .from("news_images")
+      .delete()
+      .eq("news_id", newsId);
+
+    if (deleteImagesError) {
+      console.error("Error deleting news images records:", deleteImagesError);
+      throw new Error(
+        `Failed to delete news images records: ${deleteImagesError.message}`
+      );
+    }
+
+    // 4. Slet selve nyheden
+    const { error: deleteNewsError } = await supabase
+      .from("news")
+      .delete()
+      .eq("id", newsId);
+
+    if (deleteNewsError) {
+      console.error("Error deleting news:", deleteNewsError);
+      throw new Error(`Failed to delete news: ${deleteNewsError.message}`);
+    }
+
+    console.log(`Successfully deleted news with ID: ${newsId}`);
+  } catch (error) {
+    console.error("Error in deleteNews function:", error);
+    throw error;
+  }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

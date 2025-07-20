@@ -12,8 +12,8 @@ const Preview = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center gap-8 px-4 h-full lg:rounded-xl">
-        <h2 className="text-xl md:text-[28px] font-bold text-center mb-5  md:mb-10">
+      <div className="flex flex-col items-center justify-center gap-8 px-4 h-full lg:rounded-xl py-10 md:py-15 lg:py-20">
+        <h2 className="text-xl md:text-[28px] font-bold text-center mb-5">
           {t("home.preview.title")}
         </h2>
         <div

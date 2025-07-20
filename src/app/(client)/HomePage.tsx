@@ -23,7 +23,7 @@ const HomePage = () => {
       <section className="h-96 md:h-[500px]">
         <PricesCards showTitle={true} />
       </section>
-      <section className="h-96">
+      <section className="h-full">
         <News />
       </section>
       <section className="h-full">

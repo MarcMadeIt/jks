@@ -3,12 +3,15 @@
 import { login } from "@/lib/server/actions";
 import React, { useState } from "react";
 import { FaEnvelope, FaKey } from "react-icons/fa6";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
+  const [serverError, setServerError] = useState("");
+  const router = useRouter();
 
   const validateEmail = (email: string) => {
     const re = /\S+@\S+\.\S+/;
@@ -31,6 +34,7 @@ const LoginPage = () => {
     }
 
     setErrors(errors);
+    setServerError(""); // Clear previous server error
 
     if (valid) {
       setLoading(true);
@@ -39,8 +43,17 @@ const LoginPage = () => {
         formData.append("email", email);
         formData.append("password", password);
 
-        await login(formData);
-      } finally {
+        const result = await login(formData);
+
+        if (result && !result.success) {
+          setServerError("Ugyldige loginoplysninger");
+          setLoading(false);
+        } else {
+          // Success - redirect will happen automatically from server action
+          router.push("/admin");
+        }
+      } catch (error) {
+        setServerError("Der opstod en fejl ved login");
         setLoading(false);
       }
     }
@@ -54,9 +67,7 @@ const LoginPage = () => {
       >
         <div className="flex flex-col items-center gap-2">
           <span className="font-bold text-lg">Admin</span>
-          <span className="text-base font-semibold">
-            Junker&#39;s Køreskole
-          </span>
+          <span className="text-sm">Arzonic Agency</span>
         </div>
         <div className="flex flex-col gap-2 relative">
           <label
@@ -111,16 +122,23 @@ const LoginPage = () => {
           className="btn btn-primary mt-2"
           disabled={loading}
         >
-          {loading ? "Logger ind..." : "Login"}
+          {loading ? (
+            <>
+              <span className="loading loading-spinner loading-xs"></span>
+              Logger ind...
+            </>
+          ) : (
+            "Login"
+          )}
         </button>
+        <span className="text-xs text-red-500 min-h-4 text-center">
+          {serverError}
+        </span>
       </form>
-      <a
-        href="https://arzonic.com"
-        className="text-zinc-400 text-[11px] items-center justify-center p-4 absolute bottom-0"
-      >
+      <span className="text-zinc-400 text-[11px] items-center justify-center p-4 absolute bottom-0">
         © {new Date().getFullYear()} Powered by{" "}
         <span className="font-semibold">Arzonic</span>
-      </a>
+      </span>
     </div>
   );
 };
