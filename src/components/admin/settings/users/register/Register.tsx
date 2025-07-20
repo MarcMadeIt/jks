@@ -60,10 +60,11 @@ const Register = ({ onUserCreated }: { onUserCreated: () => void }) => {
           name,
         });
         onUserCreated();
-      } catch (err: any) {
-        const errorCode =
-          err instanceof Error ? err.message : "REGISTRATION_ERROR";
-
+      } catch (err: unknown) {
+        let errorCode = "REGISTRATION_ERROR";
+        if (err instanceof Error) {
+          errorCode = err.message;
+        }
         if (errorCode === "EMAIL_ALREADY_EXISTS") {
           setErrors({ ...errors, email: t("messages.email_already_exists") });
         } else {

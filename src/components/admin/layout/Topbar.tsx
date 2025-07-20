@@ -78,8 +78,12 @@ const Topbar = () => {
           redirectTo: `${window.location.origin}/admin`,
         },
       });
-    } catch (error: any) {
-      console.error("Facebook linking fejl:", error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Facebook linking fejl:", error.message);
+      } else {
+        console.error("Facebook linking fejl:", error);
+      }
     } finally {
       setLoadingState("idle");
     }

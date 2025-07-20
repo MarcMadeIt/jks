@@ -44,15 +44,6 @@ const News = () => {
     fetchNews();
   }, [fetchNews]);
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return new Intl.DateTimeFormat("da-DK", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    }).format(date);
-  };
-
   if (loading) {
     return (
       <div className="flex justify-center gap-3 items-center w-full">

@@ -72,25 +72,32 @@ export async function postToFacebookPage({
   // Log alle tilgængelige sider for debugging
   console.log("📋 [SERVER] Available pages:");
   if (pagesData.data && Array.isArray(pagesData.data)) {
-    pagesData.data.forEach((p: any, index: number) => {
-      console.log(
-        `  ${index + 1}. ${p.name} (ID: ${p.id}) - Access: ${
-          p.access_token ? "Yes" : "No"
-        }`
-      );
-    });
+    pagesData.data.forEach(
+      (
+        p: { id: string; name: string; access_token?: string },
+        index: number
+      ) => {
+        console.log(
+          `  ${index + 1}. ${p.name} (ID: ${p.id}) - Access: ${
+            p.access_token ? "Yes" : "No"
+          }`
+        );
+      }
+    );
   } else {
     console.log("  No pages data or invalid format");
   }
 
   const targetPageId = pageId || "130274187739543"; // Brug den medfølgende pageId eller default
-  const page = pagesData.data?.find((p: any) => p.id === targetPageId);
+  const page = pagesData.data?.find(
+    (p: { id: string }) => p.id === targetPageId
+  );
   console.log("🔍 [SERVER] Target page found:", !!page);
   console.log("📃 [SERVER] Page details:", page);
 
   if (!page) {
     const availablePageIds =
-      pagesData.data?.map((p: any) => p.id).join(", ") || "None";
+      pagesData.data?.map((p: { id: string }) => p.id).join(", ") || "None";
     throw new Error(
       `Brugeren har ikke adgang til siden med ID ${targetPageId}. Tilgængelige sider: ${availablePageIds}. Sørg for at brugeren er admin/editor på Facebook siden og at appen har 'pages_manage_posts' permission.`
     );
@@ -102,7 +109,7 @@ export async function postToFacebookPage({
   console.log("🔐 [SERVER] Page access token exists:", !!pageAccessToken);
 
   // 2. Lav opslag
-  const postBody: any = {
+  const postBody: Record<string, string> = {
     message,
     access_token: pageAccessToken,
   };

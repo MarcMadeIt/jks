@@ -146,6 +146,13 @@
   "connectToFacebook": "Forbind Facebook",
   "disconnect": "Afbryd forbindelse",
   "disconnecting": "Afbryder forbindelse...",
+  "messages": {
+    "email_already_exists": "Der findes allerede en bruger med denne e-mail",
+    "registration_error": "Fejl ved registrering, prøv igen",
+    "password_too_short": "Adgangskode skal være mindst 6 tegn",
+    "passwords_not_matching": "Adgangskoderne matcher ikke",
+    "error_wrong": "Forkert adgangskode eller e-mail"
+  },
   "updatePackage": {
     "formTitle": "Rediger jobopslag",
     "title": "Pakkenavn",

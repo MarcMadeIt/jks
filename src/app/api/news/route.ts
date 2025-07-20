@@ -25,9 +25,6 @@ interface NewsResponse {
 
 export async function GET(request: Request) {
   try {
-    const url = new URL(request.url);
-    const uiLang = url.searchParams.get("lang") === "en" ? "en" : "da";
-
     const news = await getLatestNews();
     const raw = news as NewsRow[];
 

@@ -24,12 +24,11 @@ export async function login(formData: FormData) {
   const { error } = await supabase.auth.signInWithPassword(data);
 
   if (error) {
-    console.error("Failed to login:", error.message);
-    return { success: false, error: error.message };
+    // Return a generic error message
+    return { success: false, message: "Wrong credentials" };
+  } else {
+    return { success: true };
   }
-
-  revalidatePath("/", "layout");
-  redirect("/admin");
 }
 
 export async function createMember(data: {
