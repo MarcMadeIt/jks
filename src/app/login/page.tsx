@@ -51,7 +51,7 @@ const LoginPage = () => {
         } else {
           setServerError(t("messages.error_wrong")); // Display generic error message
         }
-      } catch (err: unknown) {
+      } catch {
         setServerError(t("messages.error_wrong")); // Fallback error message
       } finally {
         setLoading(false);

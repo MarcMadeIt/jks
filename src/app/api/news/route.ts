@@ -23,7 +23,7 @@ interface NewsResponse {
   fb_link?: string | null;
 }
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const news = await getLatestNews();
     const raw = news as NewsRow[];
