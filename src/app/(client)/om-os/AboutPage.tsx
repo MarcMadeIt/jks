@@ -2,10 +2,8 @@
 
 import Image from "next/image";
 import React from "react";
-import { useTranslation } from "react-i18next";
 
 const AboutPage = () => {
-  const { t } = useTranslation();
   return (
     <div className="p-5 sm:p-7 w-full h-full flex flex-col gap-10 md:gap-15 xl:gap-28 justify-center items-center relative my-20">
       <section className="text-center">

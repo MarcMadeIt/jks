@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FaCheck } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { getFeaturesByPackageId } from "@/lib/client/actions";
 import Image from "next/image";
 
 interface Feature {
@@ -15,7 +14,7 @@ interface Feature {
   included: boolean;
 }
 
-interface Package {
+export interface Package {
   id: string;
   label: string;
   title: string;
@@ -23,6 +22,7 @@ interface Package {
   desc: string;
   desc_eng: string;
   price: number;
+  features?: Feature[];
 }
 
 type CarPlansProps = {
@@ -32,27 +32,6 @@ type CarPlansProps = {
 const CarPlans = ({ data }: CarPlansProps) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
-
-  const [features, setFeatures] = useState<Record<string, Feature[]>>({});
-
-  useEffect(() => {
-    const loadFeatures = async () => {
-      try {
-        const featureMap: Record<string, Feature[]> = {};
-        for (const p of data) {
-          const feats = await getFeaturesByPackageId(p.id);
-          featureMap[p.id] = feats;
-        }
-        setFeatures(featureMap);
-        // Recache logic
-        localStorage.setItem("featuresCache", JSON.stringify(featureMap));
-      } catch (error) {
-        console.error("Failed to fetch features:", error);
-      }
-    };
-
-    loadFeatures();
-  }, [data]);
 
   return (
     <div className="flex flex-col gap-10 items-center justify-center w-full relative">
@@ -72,9 +51,9 @@ const CarPlans = ({ data }: CarPlansProps) => {
           const title =
             lang === "en" ? pack.title_eng || pack.title : pack.title;
           const desc = lang === "en" ? pack.desc_eng || pack.desc : pack.desc;
-          const featureList = features[pack.id] || [];
-          const included = featureList.filter((f) => f.included);
-          const extras = featureList.filter((f) => !f.included);
+          const featureList = pack.features || [];
+          const included = featureList.filter((f: Feature) => f.included);
+          const extras = featureList.filter((f: Feature) => !f.included);
 
           return (
             <div
@@ -118,7 +97,7 @@ const CarPlans = ({ data }: CarPlansProps) => {
                       </span>
                     </li>
                   )}
-                  {included.map((f) => {
+                  {included.map((f: Feature) => {
                     const featureTitle =
                       lang === "en" ? f.title_eng || f.title : f.title;
                     return (
@@ -151,7 +130,7 @@ const CarPlans = ({ data }: CarPlansProps) => {
                         "Additional services available"}
                     </h5>
                     <ul className="flex flex-col gap-3">
-                      {extras.map((f) => {
+                      {extras.map((f: Feature) => {
                         const featureTitle =
                           lang === "en" ? f.title_eng || f.title : f.title;
                         return (

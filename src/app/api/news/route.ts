@@ -10,7 +10,7 @@ interface NewsRow {
   images: string[];
   creator_id: string;
   created_at: string;
-  fb_link?: string | null;
+  linkFacebook?: string | null;
 }
 
 interface NewsResponse {
@@ -20,7 +20,7 @@ interface NewsResponse {
   creator_id: string;
   created_at: string;
   content: string;
-  fb_link?: string | null;
+  linkFacebook?: string | null;
 }
 
 export async function GET() {
@@ -29,8 +29,7 @@ export async function GET() {
     const raw = news as NewsRow[];
 
     const transformed: NewsResponse[] = raw.map((c) => {
-      // Altid brug dansk version af content
-      const content = c.content; // Brug altid original dansk content
+      const content = c.content;
 
       return {
         id: c.id,
@@ -39,7 +38,7 @@ export async function GET() {
         creator_id: c.creator_id,
         created_at: c.created_at,
         content,
-        fb_link: c.fb_link,
+        linkFacebook: c.linkFacebook,
       };
     });
 

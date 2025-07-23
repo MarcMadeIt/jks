@@ -9,15 +9,13 @@ const CreateNews = ({ onNewsCreated }: { onNewsCreated: () => void }) => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [images, setImages] = useState<File[]>([]);
-  const [postToFacebook, setPostToFacebook] = useState(true);
+  const [linkFacebook, setLinkFacebook] = useState<string | null>(null);
+  const [postToInstagram, setPostToInstagram] = useState(true);
   const [errors, setErrors] = useState({
-    title: "",
     desc: "",
     images: "",
-    general: "",
   });
   const [loading, setLoading] = useState(false);
-  const [fbPostLink, setFbPostLink] = useState<string | null>(null);
 
   const handleCreateNews = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,44 +23,32 @@ const CreateNews = ({ onNewsCreated }: { onNewsCreated: () => void }) => {
 
     if (!desc) {
       setErrors({
-        title: "",
         desc: !desc ? "Beskrivelse er påkrævet" : "",
         images: "",
-        general: "",
       });
       setLoading(false);
       return;
     }
 
     try {
-      // Pass postToFacebook to createNews
-      const result = await createNews({
+      await createNews({
         title,
         content: desc,
         images,
-        postToFacebook,
       });
       setTitle("");
       setDesc("");
       setImages([]);
-      setPostToFacebook(true);
+      setLinkFacebook(null);
+      setPostToInstagram(true);
       onNewsCreated();
-      // Hvis Facebook link returneres, vis det
-      const fbLink =
-        result && typeof result === "object" ? result.fbPostLink : undefined;
-      if (fbLink) {
-        setFbPostLink(fbLink);
-      } else {
-        setFbPostLink(null);
-      }
+
+      setLinkFacebook(null);
     } catch (error) {
       let msg = "Ukendt fejl";
       if (error instanceof Error) {
-        msg = error.message; // Special handling for Facebook authentication errors
-        if (
-          msg.includes("Facebook token mangler") ||
-          msg.includes("Facebook token not available")
-        ) {
+        msg = error.message;
+        if (msg.includes("Facebook token mangler")) {
           msg =
             "For at dele på Facebook skal du først logge ind med Facebook. Nyheden er oprettet, men ikke delt på Facebook.";
         }
@@ -70,6 +56,7 @@ const CreateNews = ({ onNewsCreated }: { onNewsCreated: () => void }) => {
         msg = error;
       }
       setErrors((prev) => ({ ...prev, general: msg }));
+      alert("Fejl ved oprettelse af nyhed: " + msg);
     } finally {
       setLoading(false);
     }
@@ -91,12 +78,12 @@ const CreateNews = ({ onNewsCreated }: { onNewsCreated: () => void }) => {
   return (
     <div className="flex flex-col gap-3 w-full p-3">
       <span className="text-lg font-bold">{t("news_creation")}</span>
-      {fbPostLink && (
+      {linkFacebook && (
         <div className="alert alert-success mt-2">
           <span>
-            Facebook opslag oprettet:
+            Facebook opslag oprettet:{" "}
             <a
-              href={fbPostLink}
+              href={linkFacebook}
               target="_blank"
               rel="noopener noreferrer"
               className="link link-primary"
@@ -113,31 +100,26 @@ const CreateNews = ({ onNewsCreated }: { onNewsCreated: () => void }) => {
         <div className="flex flex-col lg:flex-row gap-5 lg:gap-14 w-full">
           <div className="flex flex-col gap-5 ">
             <fieldset className="flex flex-col gap-2 relative w-full fieldset max-w-xs">
-              <legend className="fieldset-legend">Titel</legend>
+              <legend className="fieldset-legend">{t("title")}</legend>
               <input
                 name="title"
                 type="text"
                 className="input input-bordered input-md"
-                placeholder="Skriv en nyhedstitel..."
+                placeholder={t("write_title")}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
-              {errors.title && (
-                <span className="absolute -bottom-4 text-xs text-red-500">
-                  {errors.title}
-                </span>
-              )}
             </fieldset>
 
             <fieldset className="flex flex-col gap-2 relative w-full fieldset max-w-xs">
-              <legend className="fieldset-legend">Beskrivelse</legend>
+              <legend className="fieldset-legend">{t("desc")}</legend>
               <textarea
                 name="desc"
                 className="textarea textarea-bordered textarea-md text"
                 value={desc}
                 onChange={handleDescChange}
                 required
-                placeholder="Skriv en mindre nyhedsartikel..."
+                placeholder={t("write_desc")}
                 style={{ resize: "none" }}
                 cols={30}
                 rows={8}
@@ -155,13 +137,14 @@ const CreateNews = ({ onNewsCreated }: { onNewsCreated: () => void }) => {
 
           <div className="flex flex-col gap-5 relative">
             <fieldset className="flex flex-col gap-2 relative w-full fieldset max-w-xs">
-              <legend className="fieldset-legend">Vælg billede(r)</legend>
+              <legend className="fieldset-legend">{t("choose_images")}</legend>
               <input
                 name="images"
                 type="file"
                 className="file-input file-input-bordered file-input-md w-full"
                 onChange={handleImageChange}
                 multiple
+                required
               />
               {errors.images && (
                 <span className="absolute -bottom-4 text-xs text-red-500">
@@ -187,8 +170,8 @@ const CreateNews = ({ onNewsCreated }: { onNewsCreated: () => void }) => {
                           src={url}
                           alt={`Billede ${images.length - index}`}
                           width={192}
-                          height={192}
-                          className="w-48 h-48 object-cover rounded-box"
+                          height={128}
+                          className="w-48 h-48 object-cover"
                         />
                         <button
                           type="button"
@@ -225,11 +208,23 @@ const CreateNews = ({ onNewsCreated }: { onNewsCreated: () => void }) => {
             type="checkbox"
             name="postToFacebook"
             className="toggle toggle-primary"
-            checked={postToFacebook}
-            onChange={(e) => setPostToFacebook(e.target.checked)}
+            checked={!!linkFacebook}
+            onChange={(e) => setLinkFacebook(e.target.checked ? "" : null)}
           />
           <label htmlFor="postToFacebook" className="label-text">
-            Del på Facebook
+            {t("share_fb")}
+          </label>
+        </fieldset>
+        <fieldset className="flex items-center gap-3">
+          <input
+            type="checkbox"
+            name="postToInstagram"
+            className="toggle toggle-primary"
+            checked={postToInstagram}
+            onChange={(e) => setPostToInstagram(e.target.checked)}
+          />
+          <label htmlFor="postToInstagram" className="label-text">
+            {t("share_instagram")}
           </label>
         </fieldset>
 
@@ -238,13 +233,8 @@ const CreateNews = ({ onNewsCreated }: { onNewsCreated: () => void }) => {
           className="btn btn-primary mt-2"
           disabled={loading}
         >
-          {loading ? "Opretter" : "Opret nyhed"}
+          {loading ? t("creating") : t("create") + " " + t("news")}
         </button>
-        {errors.general && (
-          <div className="w-full mt-3 text-sm text-red-500 font-medium">
-            {errors.general}
-          </div>
-        )}
       </form>
     </div>
   );

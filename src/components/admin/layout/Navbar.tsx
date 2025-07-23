@@ -9,8 +9,6 @@ import {
   FaHouse,
   FaList,
   FaRightFromBracket,
-  FaUpRightAndDownLeftFromCenter,
-  FaUpRightFromSquare,
 } from "react-icons/fa6";
 import { readUserSession } from "@/lib/auth/readUserSession";
 import { useTranslation } from "react-i18next";

@@ -61,9 +61,9 @@ const UpdateNews = ({
   const handleUpdateNews = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    if (!title || !content) {
+    if (!content) {
       setErrors({
-        title: !title ? "Titel er påkrævet" : "",
+        title: "",
         content: !content ? "Beskrivelse er påkrævet" : "",
         images: "",
       });
@@ -126,7 +126,6 @@ const UpdateNews = ({
                 placeholder="Skriv en nyhedstitel..."
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                required
               />
               {errors.title && (
                 <span className="absolute -bottom-4 text-xs text-red-500">
@@ -188,9 +187,9 @@ const UpdateNews = ({
                       <Image
                         src={url}
                         alt={`Billede ${index + 1}`}
-                        className="w-48 h-32 object-cover"
-                        width={192}
-                        height={128}
+                        className="w-52 h-48 object-cover rounded-lg"
+                        width={200}
+                        height={200}
                       />
                       {/* Optionally, add a remove button for existing images if supported */}
                     </div>
@@ -205,7 +204,7 @@ const UpdateNews = ({
                         <Image
                           src={url}
                           alt={`Billede ${existingImages.length + index + 1}`}
-                          className="w-48 h-32 object-cover"
+                          className="w-48 h-48 object-cover rounded-lg"
                           width={192}
                           height={128}
                         />

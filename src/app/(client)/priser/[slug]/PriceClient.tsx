@@ -6,6 +6,21 @@ import CarPlans from "@/components/client/pricing/CarPlans";
 import TrailerPlans from "@/components/client/pricing/TrailerPlans";
 import TractorPlans from "@/components/client/pricing/TractorPlans";
 import RetakePlans from "@/components/client/pricing/RetakePlans";
+import type { Package } from "@/components/client/pricing/CarPlans";
+import type { TrailerPackage } from "@/components/client/pricing/TrailerPlans";
+
+type Feature = {
+  id: string;
+  name: string;
+  description?: string;
+};
+
+type PackageWithFeatures = {
+  id: string;
+  name: string;
+  price: number;
+  features: Feature[];
+};
 
 type Props = {
   slug:
@@ -13,7 +28,7 @@ type Props = {
     | "trailer-korekort"
     | "traktor-korekort"
     | "generhvervelse-korekort";
-  data: any[]; // eller mere præcis hvis du vil: PackageWithFeatures[]
+  data: Package[] | TrailerPackage[];
 };
 
 const PriceClient = ({ slug, data }: Props) => {
@@ -22,6 +37,18 @@ const PriceClient = ({ slug, data }: Props) => {
   const seoTitle = t(`pricePage.${slug}.title`);
   const seoSubTitle = t(`pricePage.${slug}.subtitle`);
   const seoBtn = t(`pricePage.common.btn`);
+
+  let filteredData: Package[] | TrailerPackage[] = data;
+
+  if (
+    slug === "bil-korekort" ||
+    slug === "traktor-korekort" ||
+    slug === "generhvervelse-korekort"
+  ) {
+    filteredData = data as Package[];
+  } else if (slug === "trailer-korekort") {
+    filteredData = data as TrailerPackage[];
+  }
 
   return (
     <section className="p-3 sm:p-7 w-full h-full flex flex-col gap-7 md:gap-15 justify-center items-center relative my-7 md:my-20">
@@ -33,10 +60,18 @@ const PriceClient = ({ slug, data }: Props) => {
       </div>
 
       <div className="flex flex-col justify-center gap-10 md:gap-15">
-        {slug === "bil-korekort" && <CarPlans data={data} />}
-        {slug === "trailer-korekort" && <TrailerPlans data={data} />}
-        {slug === "traktor-korekort" && <TractorPlans data={data} />}
-        {slug === "generhvervelse-korekort" && <RetakePlans data={data} />}
+        {slug === "bil-korekort" && (
+          <CarPlans data={filteredData as Package[]} />
+        )}
+        {slug === "trailer-korekort" && (
+          <TrailerPlans data={filteredData as TrailerPackage[]} />
+        )}
+        {slug === "traktor-korekort" && (
+          <TractorPlans data={filteredData as Package[]} />
+        )}
+        {slug === "generhvervelse-korekort" && (
+          <RetakePlans data={filteredData as Package[]} />
+        )}
 
         <div className="p-5 md:p-10 bg-base-200 rounded-lg max-w-full w-full flex-1 overflow-hidden">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between">

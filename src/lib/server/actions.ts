@@ -280,13 +280,11 @@ export async function createNews({
   title,
   content,
   images,
-  postToFacebook = false,
 }: {
   title: string;
   content: string;
   images?: File[];
-  postToFacebook?: boolean;
-}): Promise<{ fbPostLink?: string } | void> {
+}): Promise<void> {
   const supabase = await createServerClientInstance();
   const apiKey = process.env.DEEPL_API_KEY!;
   const endpoint = "https://api-free.deepl.com/v2/translate";
@@ -380,123 +378,42 @@ export async function createNews({
   if (insertError || !newsData?.id) throw insertError;
 
   if (images?.length) {
-    try {
-      await Promise.all(
-        images.map(async (file, index) => {
-          const ext = "webp";
-          const name = `${Math.random().toString(36).slice(2)}.${ext}`;
-          const path = `${ud.user.id}/${name}`;
-
-          try {
-            const buf = await sharp(Buffer.from(await file.arrayBuffer()))
-              .rotate()
-              .resize({ width: 1080, height: 1080, fit: "cover" })
-              .webp({ quality: 65 })
-              .toBuffer();
-
-            const { error: uploadError } = await supabase.storage
-              .from("news-images")
-              .upload(path, buf, {
-                contentType: "image/webp",
-              });
-
-            if (uploadError) {
-              console.error(`Failed to upload image ${index}:`, uploadError);
-              throw uploadError;
-            }
-
-            const { error: insertError } = await supabase
-              .from("news_images")
-              .insert({
-                news_id: newsData.id,
-                path,
-                sort_order: index,
-              });
-
-            if (insertError) {
-              console.error(
-                `Failed to insert image record ${index}:`,
-                insertError
-              );
-              throw insertError;
-            }
-
-            console.log(`Successfully processed image ${index}: ${path}`);
-          } catch (imageError) {
-            console.error(`Error processing image ${index}:`, imageError);
-            throw imageError;
-          }
-        })
-      );
-    } catch (imagesError) {
-      console.error("Failed to process images:", imagesError);
-      // Don't throw - news creation should succeed even if image processing fails
-    }
+    await Promise.all(
+      images.map(async (file, index) => {
+        const ext = "webp";
+        const name = `${Math.random().toString(36).slice(2)}.${ext}`;
+        const path = `${ud.user.id}/${name}`;
+        const buf = await sharp(Buffer.from(await file.arrayBuffer()))
+          .rotate()
+          .resize({ width: 1024, height: 768, fit: "cover" })
+          .webp({ quality: 65 })
+          .toBuffer();
+        await supabase.storage.from("news-images").upload(path, buf, {
+          contentType: "image/webp",
+        });
+        await supabase.from("news_images").insert({
+          news_id: newsData.id,
+          path,
+          sort_order: index,
+        });
+      })
+    );
   }
 
-  // Post to Facebook if requested
-  let fbPostLink: string | undefined;
-  if (postToFacebook) {
-    try {
-      const fbMessage = `${title}\n\n${content}`;
-
-      // Get public URLs for uploaded images
-      let imageUrls: string[] = [];
-      if (images?.length) {
-        try {
-          const imageData = await supabase
-            .from("news_images")
-            .select("path")
-            .eq("news_id", newsData.id)
-            .order("sort_order");
-
-          if (imageData.data) {
-            imageUrls = imageData.data.map((img) => {
-              const { data: publicUrl } = supabase.storage
-                .from("news-images")
-                .getPublicUrl(img.path);
-              return publicUrl.publicUrl;
-            });
-          }
-        } catch (error) {
-          console.error("Failed to get image URLs:", error);
-        }
-      }
-
-      const fbResult = await postToFacebookPage({
-        message: fbMessage,
-        imageUrls: imageUrls.length > 0 ? imageUrls : undefined,
-      });
-
-      if (fbResult?.link) {
-        fbPostLink = fbResult.link;
-      }
-
-      // Update news record with Facebook post link
-      if (fbPostLink) {
-        await supabase
-          .from("news")
-          .update({ facebook_post_link: fbPostLink })
-          .eq("id", newsData.id);
-      }
-    } catch (error) {
-      console.error("Failed to post to Facebook:", error);
-      // Don't throw error - news creation should succeed even if Facebook posting fails
-      // But we can provide more specific error information
-      if (
-        error instanceof Error &&
-        error.message.includes("Facebook token not available")
-      ) {
-        console.log(
-          "Facebook posting skipped - user not logged in with Facebook"
-        );
-      }
+  // Post to Facebook and store the link
+  try {
+    const fbMessage = `${title}\n\n${content}`;
+    const fbResult = await postToFacebookPage({ message: fbMessage });
+    if (fbResult?.link) {
+      await supabase
+        .from("news")
+        .update({ linkFacebook: fbResult.link })
+        .eq("id", newsData.id);
     }
+  } catch (error) {
+    console.error("Failed to post to Facebook:", error);
   }
-
-  return fbPostLink ? { fbPostLink } : undefined;
 }
-
 export async function updateNews(
   id: number,
   title: string,

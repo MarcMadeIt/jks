@@ -1,19 +1,19 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FaCheck } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { getFeaturesByPackageId } from "@/lib/client/actions";
 
 // Define types for TrailerPackage and Feature
-interface TrailerPackage {
+export interface TrailerPackage {
   id: string;
   title: string;
   title_eng?: string;
   desc: string;
   desc_eng?: string;
   price: number;
+  features?: Feature[];
   // Add other fields as needed
 }
 
@@ -34,25 +34,6 @@ const TrailerPlans = ({ data }: TrailerPlansProps) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
 
-  const [features, setFeatures] = useState<Feature[]>([]);
-
-  useEffect(() => {
-    const loadFeatures = async () => {
-      try {
-        if (data[0]) {
-          const feats = await getFeaturesByPackageId(data[0].id);
-          setFeatures(feats || []);
-          // Recache logic
-          localStorage.setItem("featuresCache", JSON.stringify(feats || []));
-        }
-      } catch (error) {
-        console.error("Failed to fetch features:", error);
-      }
-    };
-
-    loadFeatures();
-  }, [data]);
-
   if (!data[0]) {
     return (
       <div>{t("packageDetails.noPackage") || "No trailer package found."}</div>
@@ -62,8 +43,9 @@ const TrailerPlans = ({ data }: TrailerPlansProps) => {
   const title =
     lang === "en" ? data[0].title_eng || data[0].title : data[0].title;
   const desc = lang === "en" ? data[0].desc_eng || data[0].desc : data[0].desc;
-  const included = features.filter((f) => f.included);
-  const extras = features.filter((f) => !f.included);
+  const featureList = data[0].features || [];
+  const included = featureList.filter((f: Feature) => f.included);
+  const extras = featureList.filter((f: Feature) => !f.included);
 
   return (
     <div className="flex flex-col gap-10 items-center justify-center w-full relative ">
@@ -95,7 +77,7 @@ const TrailerPlans = ({ data }: TrailerPlansProps) => {
 
             {/* Inkluderede features */}
             <ul className="flex flex-col gap-4 items-start">
-              {included.map((f) => {
+              {included.map((f: Feature) => {
                 const featureTitle =
                   lang === "en" ? f.title_eng || f.title : f.title;
                 return (
@@ -128,7 +110,7 @@ const TrailerPlans = ({ data }: TrailerPlansProps) => {
                     "Additional services available"}
                 </h5>
                 <ul className="flex flex-col gap-3">
-                  {extras.map((f) => {
+                  {extras.map((f: Feature) => {
                     const featureTitle =
                       lang === "en" ? f.title_eng || f.title : f.title;
                     return (

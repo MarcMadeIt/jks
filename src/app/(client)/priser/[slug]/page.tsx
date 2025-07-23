@@ -47,21 +47,27 @@ const metadataMap: Record<ProductSlug, Metadata> = {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const slug = params.slug as ProductSlug;
-  if (!allowedSlugs.includes(slug)) return notFound();
-  return metadataMap[slug];
+  const { slug } = await params;
+  const typedSlug = slug as ProductSlug;
+  if (!allowedSlugs.includes(typedSlug)) return notFound();
+  return metadataMap[typedSlug];
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const slug = params.slug as ProductSlug;
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const typedSlug = slug as ProductSlug;
 
-  if (!allowedSlugs.includes(slug)) return notFound();
+  if (!allowedSlugs.includes(typedSlug)) return notFound();
 
   let packages = [];
 
-  switch (slug) {
+  switch (typedSlug) {
     case "bil-korekort":
       packages = await getCarPackages();
       break;
@@ -83,5 +89,5 @@ export default async function Page({ params }: { params: { slug: string } }) {
     }))
   );
 
-  return <PriceClient slug={slug} data={packagesWithFeatures} />;
+  return <PriceClient slug={typedSlug} data={packagesWithFeatures} />;
 }
