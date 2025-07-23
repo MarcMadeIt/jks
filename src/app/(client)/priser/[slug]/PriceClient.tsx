@@ -9,19 +9,6 @@ import RetakePlans from "@/components/client/pricing/RetakePlans";
 import type { Package } from "@/components/client/pricing/CarPlans";
 import type { TrailerPackage } from "@/components/client/pricing/TrailerPlans";
 
-type Feature = {
-  id: string;
-  name: string;
-  description?: string;
-};
-
-type PackageWithFeatures = {
-  id: string;
-  name: string;
-  price: number;
-  features: Feature[];
-};
-
 type Props = {
   slug:
     | "bil-korekort"
