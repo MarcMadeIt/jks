@@ -87,7 +87,7 @@ const Users = () => {
         </>
       )}
       {showToast && (
-        <div className="toast bottom-20 md:bottom-0 toast-end">
+        <div className="toast toast-end">
           <div className="alert alert-success text-neutral-content">
             <span className="text-base md:text-lg">{toastMessage}</span>
           </div>

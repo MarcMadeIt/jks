@@ -4,10 +4,7 @@ import React, { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import {
-  getTrailerPackages,
-  getFeaturesByPackageId,
-} from "@/lib/client/actions";
+import { getFeaturesByPackageId } from "@/lib/client/actions";
 
 // Define types for TrailerPackage and Feature
 interface TrailerPackage {
@@ -29,66 +26,60 @@ interface Feature {
   // Add other fields as needed
 }
 
-const TrailerPlans = () => {
+type TrailerPlansProps = {
+  data: TrailerPackage[];
+};
+
+const TrailerPlans = ({ data }: TrailerPlansProps) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
 
-  const [pack, setPack] = useState<TrailerPackage | null>(null);
   const [features, setFeatures] = useState<Feature[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const load = async () => {
+    const loadFeatures = async () => {
       try {
-        const trailerPackages = await getTrailerPackages();
-        if (trailerPackages && trailerPackages.length > 0) {
-          setPack(trailerPackages[0]);
-          const feats = await getFeaturesByPackageId(trailerPackages[0].id);
+        if (data[0]) {
+          const feats = await getFeaturesByPackageId(data[0].id);
           setFeatures(feats || []);
+          // Recache logic
+          localStorage.setItem("featuresCache", JSON.stringify(feats || []));
         }
       } catch (error) {
-        console.error("Failed to fetch trailer package or features:", error);
-      } finally {
-        setLoading(false);
+        console.error("Failed to fetch features:", error);
       }
     };
-    load();
-  }, []);
 
-  if (loading) {
-    return (
-      <div className="w-full flex justify-center">
-        <span className="loading text-primary loading-dots loading-xl"></span>
-      </div>
-    );
-  }
+    loadFeatures();
+  }, [data]);
 
-  if (!pack) {
+  if (!data[0]) {
     return (
       <div>{t("packageDetails.noPackage") || "No trailer package found."}</div>
     );
   }
 
-  const title = lang === "en" ? pack.title_eng || pack.title : pack.title;
-  const desc = lang === "en" ? pack.desc_eng || pack.desc : pack.desc;
+  const title =
+    lang === "en" ? data[0].title_eng || data[0].title : data[0].title;
+  const desc = lang === "en" ? data[0].desc_eng || data[0].desc : data[0].desc;
   const included = features.filter((f) => f.included);
   const extras = features.filter((f) => !f.included);
 
   return (
-    <div className="flex flex-col gap-10 items-center justify-center w-full relative">
+    <div className="flex flex-col gap-10 items-center justify-center w-full relative ">
       <div className="flex flex-col items-center gap-5">
         <span className="text-xl sm:text-xl md:text-2xl font-light text-center">
           {t("trailerPlans.subtitle")}
         </span>
       </div>
       <motion.div
-        className="flex items-center justify-center w-full h-full z-10 gap-10"
+        className="flex items-center justify-center w-full h-full z-10 gap-10 "
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
       >
-        <div className="relative" aria-label={title}>
-          <div className="flex flex-col shadow-lg w-full min-w-sm sm:min-w-[460px] h-full p-6 sm:p-8 sm:pb-20 rounded-xl bg-base-200 ring-2 shadow-base-300 ring-base-300 gap-5">
+        <div className="relative w-full" aria-label={title}>
+          <div className="flex flex-col shadow-lg w-full min-w-sm sm:min-w-[460px] h-full pb-15 p-6 sm:p-8 sm:pb-20 rounded-xl bg-base-200 ring-2 shadow-base-300 ring-base-300 gap-5">
             <div className="flex flex-col gap-3">
               <h3 className="text-2xl sm:text-3xl font-bold tracking-wide">
                 {title}
@@ -98,7 +89,7 @@ const TrailerPlans = () => {
 
             <div className="flex flex-col gap-1 items-start">
               <span className="text-2xl sm:text-3xl font-semibold tracking-wide">
-                {pack.price.toLocaleString("da-DK")} DKK
+                {data[0].price.toLocaleString("da-DK")} DKK
               </span>
             </div>
 

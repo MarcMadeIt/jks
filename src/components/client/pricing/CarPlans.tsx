@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { getCarPackages, getFeaturesByPackageId } from "@/lib/client/actions";
+import { getFeaturesByPackageId } from "@/lib/client/actions";
 import Image from "next/image";
 
 interface Feature {
@@ -25,44 +25,34 @@ interface Package {
   price: number;
 }
 
-const CarPlans = () => {
+type CarPlansProps = {
+  data: Package[];
+};
+
+const CarPlans = ({ data }: CarPlansProps) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
 
-  const [packages, setPackages] = useState<Package[]>([]);
   const [features, setFeatures] = useState<Record<string, Feature[]>>({});
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const load = async () => {
+    const loadFeatures = async () => {
       try {
-        const carPackages = await getCarPackages();
-        setPackages(carPackages);
-
         const featureMap: Record<string, Feature[]> = {};
-        for (const p of carPackages) {
+        for (const p of data) {
           const feats = await getFeaturesByPackageId(p.id);
           featureMap[p.id] = feats;
         }
-
         setFeatures(featureMap);
+        // Recache logic
+        localStorage.setItem("featuresCache", JSON.stringify(featureMap));
       } catch (error) {
-        console.error("Fejl ved hentning af pakker eller features:", error);
-      } finally {
-        setLoading(false);
+        console.error("Failed to fetch features:", error);
       }
     };
 
-    load();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="w-full flex justify-center">
-        <span className="loading text-primary loading-dots loading-xl"></span>
-      </div>
-    );
-  }
+    loadFeatures();
+  }, [data]);
 
   return (
     <div className="flex flex-col gap-10 items-center justify-center w-full relative">
@@ -78,7 +68,7 @@ const CarPlans = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
       >
-        {packages.map((pack) => {
+        {data.map((pack) => {
           const title =
             lang === "en" ? pack.title_eng || pack.title : pack.title;
           const desc = lang === "en" ? pack.desc_eng || pack.desc : pack.desc;
@@ -87,8 +77,12 @@ const CarPlans = () => {
           const extras = featureList.filter((f) => !f.included);
 
           return (
-            <div key={pack.id} className="relative" aria-label={title}>
-              <div className="flex flex-col shadow-lg w-full min-w-sm sm:min-w-[460px] h-[800px] p-6 sm:p-8 rounded-xl bg-base-200 ring-2 shadow-base-300 ring-base-300 gap-5 overflow-hidden relative">
+            <div
+              key={pack.id}
+              className="relative w-full flex justify-center items-center"
+              aria-label={title}
+            >
+              <div className="flex flex-col shadow-lg w-full min-w-sm sm:min-w-[460px] h-[800px] p-6 sm:p-8 rounded-xl bg-base-200 ring-2 shadow-base-300 ring-base-300 gap-5 overflow-hidden relative max-w-full sm:max-w-sm">
                 {pack.label === "platin" && (
                   <Image
                     src={lang === "en" ? "/all_in_eng.png" : "/all_in_da.png"}

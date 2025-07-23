@@ -1,61 +1,54 @@
-import * as cheerio from "cheerio";
+// Cache configuration
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
+let cachedCourses: Course[] | null = null;
+let cacheTimestamp: number | null = null;
 
-export type Course = {
-  id: string;
-  name: string;
-  start_date: string;
-  location: string;
-  registration_url: string;
-  fewSeatsLeft?: boolean;
-  seatsLeft?: string;
+export const fetchCourses = async (): Promise<Course[]> => {
+  // Check if we have valid cached data
+  if (
+    cachedCourses &&
+    cacheTimestamp &&
+    Date.now() - cacheTimestamp < CACHE_DURATION
+  ) {
+    console.log("Returning cached courses");
+    return cachedCourses;
+  }
+
+  try {
+    console.log("Fetching fresh courses data");
+    const response = await fetch(
+      "https://gondrive.com/api/site/school/30/lessons"
+    );
+    const data = await response.json();
+
+    // Update cache
+    cachedCourses = data.lessons;
+    cacheTimestamp = Date.now();
+
+    return data.lessons;
+  } catch (error) {
+    console.error("Error fetching courses:", error);
+    // Return cached data if available, even if expired
+    if (cachedCourses) {
+      console.log("Returning stale cached courses due to error");
+      return cachedCourses;
+    }
+    return [];
+  }
 };
 
-export async function fetchCoursesServerAction(): Promise<Course[]> {
-  const html = await fetch("https://gondrive.com/api/site/school/30/iframe/", {
-    next: { revalidate: 300 },
-  }).then((res) => res.text());
-
-  const $ = cheerio.load(html);
-  const courses: Course[] = [];
-
-  $(".gnd-item").each((i, el) => {
-    const $el = $(el);
-
-    const day = $el.find(".gnd-day").first().text().trim();
-    const month = $el.find(".gnd-month").first().text().trim();
-    const start_date = `${day} ${month}`;
-
-    const name = $el
-      .find(".flex-column")
-      .eq(1)
-      .find(".flex-row")
-      .first()
-      .text()
-      .trim();
-    const seatsLeft = $el
-      .find(".flex-column")
-      .eq(1)
-      .find(".flex-row")
-      .eq(1)
-      .text()
-      .trim();
-    const registration_url = $el.find("a.gnd-button").attr("href") ?? "#";
-    const location = name.split(" kl.")[0]?.trim() ?? "";
-
-    const id = registration_url.split("lesson=")[1] ?? `fallback-${i}`;
-
-    const fewSeatsLeft = seatsLeft.toLowerCase().includes("få");
-
-    courses.push({
-      id,
-      name,
-      start_date,
-      location,
-      registration_url,
-      seatsLeft,
-      fewSeatsLeft,
-    });
-  });
-
-  return courses;
-}
+// Define the Course type
+export type Course = {
+  id: number;
+  title: string;
+  license_type: string;
+  capacity: number;
+  reservations: number;
+  start_date: string;
+  start: string;
+  end: string;
+  address: string;
+  url: string;
+  api_link?: string;
+  api_text?: string;
+};

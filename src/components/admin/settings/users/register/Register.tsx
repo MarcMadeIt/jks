@@ -1,5 +1,6 @@
 import { createMember } from "@/lib/server/actions";
-import React, { useState } from "react";
+import { readUserSession } from "@/lib/auth/readUserSession";
+import React, { useEffect, useState } from "react";
 import { FaEnvelope, FaKey, FaShield, FaSignature } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
 
@@ -17,6 +18,16 @@ const Register = ({ onUserCreated }: { onUserCreated: () => void }) => {
     role: "",
   });
   const [loading, setLoading] = useState(false);
+  const [userRole, setUserRole] = useState<string>("");
+
+  useEffect(() => {
+    (async () => {
+      const session = await readUserSession();
+      if (session) {
+        setUserRole(session.role);
+      }
+    })();
+  }, []);
 
   const validateEmail = (email: string) => {
     const re = /\S+@\S+\.\S+/;
@@ -96,7 +107,9 @@ const Register = ({ onUserCreated }: { onUserCreated: () => void }) => {
           </option>
           <option value="editor">{t("editor")}</option>
           <option value="admin">{t("admin")}</option>
-          <option value="developer">{t("developer")}</option>
+          {userRole === "developer" && (
+            <option value="developer">{t("developer")}</option>
+          )}
         </select>
         {errors.role && (
           <p className="text-red-500 text-xs absolute -bottom-5 left-1">

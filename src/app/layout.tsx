@@ -10,32 +10,32 @@ const poppins = Manrope({
 
 export const metadata: Metadata = {
   title: {
-    default: "Junker's Køreskole",
-    template: "%s - Junker's Køreskole",
+    default: "Junkers Køreskole",
+    template: "%s - Junkers Køreskole",
   },
   description:
-    "Tag kørekort i Ribe, Grindsted eller Billund hos Junker’s Køreskole. Vi tilbyder undervisning til bil, trailer, traktor og generhvervelse – med fokus på tryghed og høj beståelsesprocent",
+    "Tag kørekort i Ribe, Grindsted eller Billund hos Junkers Køreskole. Vi tilbyder undervisning til bil, trailer, traktor og generhvervelse – med fokus på tryghed og høj beståelsesprocent",
   metadataBase: new URL("https://www.xn--junkerskreskole-dub.dk"),
 
   openGraph: {
-    title: "Junker's Køreskole",
+    title: "Junkers Køreskole",
     description:
-      "Tag dit kørekort hos Junker's Køreskole – vi tilbyder undervisning til bil, generhvervelse, trailer og traktor. Afdelinger i Billund, Ribe og Grindsted.",
+      "Tag dit kørekort hos Junkers Køreskole – vi tilbyder undervisning til bil, generhvervelse, trailer og traktor. Afdelinger i Billund, Ribe og Grindsted.",
     url: "https://www.xn--junkerskreskole-dub.dk",
-    siteName: "Junker's Køreskole",
+    siteName: "Junkers Køreskole",
     images: [
       {
         url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "Junker's Køreskole OpenGraph preview",
+        alt: "Junkers Køreskole OpenGraph preview",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Junker's Køreskole",
+    title: "Junkers Køreskole",
     description:
       "Tryg og professionel undervisning til kørekort – bil, generhvervelse, trailer og traktor. Find os i Billund, Ribe og Grindsted.",
     images: ["/opengraph-image.png"],
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#171717",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({

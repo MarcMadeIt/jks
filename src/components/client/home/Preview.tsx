@@ -17,7 +17,7 @@ const Preview = () => {
           {t("home.preview.title")}
         </h2>
         <div
-          className="relative w-full max-h-96 max-w-[800px] overflow-hidden rounded-xl cursor-pointer group"
+          className="relative w-full max-h-96 max-w-[800px] overflow-hidden rounded-lg cursor-pointer group"
           onClick={openModal}
         >
           <Image
@@ -25,7 +25,7 @@ const Preview = () => {
             alt="Video preview"
             width={855}
             height={481}
-            className="w-full h-auto block rounded-xl transition-transform group-hover:scale-101"
+            className="w-full h-auto block rounded-lg transition-transform group-hover:scale-101"
           />
           {/* Play button overlay */}
           <div className="absolute inset-0 flex items-center justify-center bg-black/45 group-hover:bg-black/35 transition-all">

@@ -29,7 +29,9 @@ const ProtectSettingsRoute = ({ children }: { children: React.ReactNode }) => {
 
   if (accessDenied) {
     return (
-      <div className="flex items-center justify-center h-60 md:h-screen"></div>
+      <div className="flex items-center justify-center h-60 md:h-screen">
+        <p>Access Denied</p>
+      </div>
     );
   }
 

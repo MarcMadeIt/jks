@@ -117,6 +117,7 @@
   "select_access_level": "Select Access Level",
   "editor": "Editor",
   "admin": "Admin",
+  "developer": "Developer",
   "loading_news": "Loading News...",
   "loading_reviews": "Loading Reviews...",
   "loading_request": "Loading Requests...",
@@ -311,7 +312,7 @@
         "car": "Car License",
         "trailer": "Trailer License",
         "tractor": "Tractor License",
-        "reacquisition": "License Reacquisition"
+        "retake": "Reinstatement"
       },
       "city": {
         "ribe": "Ribe",
@@ -392,6 +393,15 @@
     "callmailPrompt": "Call or email us",
     "emailAddress": "junkerskoreskole@gmail.com",
     "imageAlt": "contact us"
+  },
+  "infoPage": {
+    "title": "Information",
+    "description": "Welcome to Junkers Driving School. Here you will find all the important information about us – our team, how to contact us, and tools that support you in your journey.",
+    "sections": {
+      "aboutUs": "About Us",
+      "contactUs": "Contact Us",
+      "littleHelper": "The Little Helper"
+    }
   },
   "contactForm": {
     "title": "Questions about driving courses or licenses?",
@@ -592,8 +602,8 @@
       "body": "Our tractor courses offer professional training and hands-on experience.\nIdeal for young people and adults working in agriculture."
     },
     "generhvervelse-korekort": {
-      "title": "Retake of Driving License",
-      "subtitle": "",
+      "title": "License Reinstatement",
+      "subtitle": "(Category B)",
       "hero": "We’ll help you reclaim your license.",
       "cta": "Need to reacquire your license after revocation?",
       "body": "We offer targeted programs for those reacquiring their license.\nPersonal guidance and instruction to help you pass again."
@@ -610,6 +620,7 @@
     "paymentInfo": "Payment is made after registration"
   },
   "retakePlans": {
+    "subtitle": "Choose the right package",
     "vatNote": "Prices include VAT",
     "paymentInfo": "Payment is made after registration"
   },
@@ -734,7 +745,32 @@
       "image": "/grindsted.jpg"
     }
   },
-
+  "infoCards": {
+    "korekortforlob": {
+      "title": "Driver's License Course",
+      "description": "Learn how our course works – from theory to driving test."
+    },
+    "denlillehjaelper": {
+      "title": "The Little Helper",
+      "description": "Use our digital tool to understand traffic theory and rules more easily."
+    },
+    "korelaererne": {
+      "title": "Our Instructors",
+      "description": "Get to know the experienced instructors who guide you through the process."
+    },
+    "tilmelding": {
+      "title": "Registration",
+      "description": "Quickly and easily register for your driving course."
+    },
+    "kontakt": {
+      "title": "Contact Us",
+      "description": "Find phone numbers, addresses, opening hours, or send us a message."
+    },
+    "afdelinger": {
+      "title": "All Locations",
+      "description": "Find the branch closest to you and see all our locations."
+    }
+  },
   "priceCards": {
     "bil": {
       "title": "Car license"

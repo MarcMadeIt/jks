@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaEnvelope, FaKey, FaShield, FaSignature } from "react-icons/fa6";
 import { updateUser, getAllUsers } from "@/lib/server/actions";
 import { useTranslation } from "react-i18next";
+import { readUserSession } from "@/lib/auth/readUserSession";
 
 const UpdateUser = ({
   userId,
@@ -22,6 +23,7 @@ const UpdateUser = ({
     confirmPassword: "",
   });
   const [loading, setLoading] = useState(false);
+  const [userRole, setUserRole] = useState<string>("");
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -41,6 +43,15 @@ const UpdateUser = ({
     fetchUserData();
   }, [userId]);
 
+  useEffect(() => {
+    (async () => {
+      const session = await readUserSession();
+      if (session) {
+        setUserRole(session.role);
+      }
+    })();
+  }, []);
+
   const validateEmail = (email: string) => {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
@@ -56,14 +67,16 @@ const UpdateUser = ({
       valid = false;
     }
 
-    if (password && password.length < 6) {
-      errors.password = t("password_too_short");
-      valid = false;
-    }
+    if (password) {
+      if (password.length < 6) {
+        errors.password = t("password_too_short");
+        valid = false;
+      }
 
-    if (password && password !== confirmPassword) {
-      errors.confirmPassword = t("passwords_not_matching");
-      valid = false;
+      if (password !== confirmPassword) {
+        errors.confirmPassword = t("passwords_not_matching");
+        valid = false;
+      }
     }
 
     setErrors(errors);
@@ -113,7 +126,9 @@ const UpdateUser = ({
           </option>
           <option value="editor">{t("editor")}</option>
           <option value="admin">{t("admin")}</option>
-          <option value="developer">{t("developer")}</option>
+          {userRole === "developer" && (
+            <option value="developer">{t("developer")}</option>
+          )}
         </select>
       </label>
       <div className="flex flex-col gap-2 relative w-full">
@@ -164,7 +179,6 @@ const UpdateUser = ({
             placeholder={t("password")}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
             aria-label={t("aria.password_input")}
           />
         </label>
@@ -185,7 +199,6 @@ const UpdateUser = ({
             placeholder={t("confirm_password")}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            required
             aria-label={t("aria.confirm_password_input")}
           />
         </label>

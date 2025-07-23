@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa6";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
+import { fetchCourses } from "../../../lib/client/gondrive";
 
 const cityOptions = ["Grindsted", "Billund", "Ribe"] as const;
 type City = (typeof cityOptions)[number] | "Alle";
@@ -48,11 +49,25 @@ const CourseList = () => {
   const [cityFilter, setCityFilter] = useState<City>("Alle");
 
   useEffect(() => {
-    fetch("https://gondrive.com/api/site/school/30/lessons")
-      .then((res) => res.json())
-      .then((data) => setCourses(data.lessons))
-      .catch(console.error)
-      .finally(() => setLoading(false));
+    const loadCourses = async () => {
+      setLoading(true);
+      const fetchedCourses = await fetchCourses();
+      setCourses(fetchedCourses);
+      setLoading(false);
+    };
+    loadCourses();
+
+    // Set city filter based on URL parameter
+    const params = new URLSearchParams(window.location.search);
+    const cityParam = params.get("city");
+    if (cityParam) {
+      // Capitalize first letter to match cityOptions format
+      const capitalizedCity =
+        cityParam.charAt(0).toUpperCase() + cityParam.slice(1).toLowerCase();
+      if (cityOptions.includes(capitalizedCity as Exclude<City, "Alle">)) {
+        setCityFilter(capitalizedCity as City);
+      }
+    }
   }, []);
 
   const openModal = () => setModalOpen(true);
@@ -75,7 +90,7 @@ const CourseList = () => {
         onReset={() => setCityFilter("Alle")}
       >
         <input
-          className="btn btn-square md:btn-lg"
+          className="btn btn-square md:btn-lg text-2xl"
           type="reset"
           value={t("coursePage.filter.reset")}
           aria-label={t("coursePage.filter.reset")}

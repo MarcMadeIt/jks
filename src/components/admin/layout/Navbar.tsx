@@ -3,7 +3,15 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaComment, FaGear, FaHouse, FaList } from "react-icons/fa6";
+import {
+  FaComment,
+  FaGear,
+  FaHouse,
+  FaList,
+  FaRightFromBracket,
+  FaUpRightAndDownLeftFromCenter,
+  FaUpRightFromSquare,
+} from "react-icons/fa6";
 import { readUserSession } from "@/lib/auth/readUserSession";
 import { useTranslation } from "react-i18next";
 import "@/i18n/config";
@@ -134,6 +142,15 @@ const Navbar = () => {
           © {new Date().getFullYear()} Powered by{" "}
           <span className="font-bold">Arzonic</span>
         </span>
+      </div>
+      <div className="flex-col gap-10 items-center justify-center w-full p-4 absolute bottom-12 hidden sm:flex">
+        <Link
+          href="/"
+          className="btn btn-sm md:btn-md btn-soft flex items-center gap-2"
+        >
+          <span>Startside</span>
+          <FaRightFromBracket className="text-sm md:text-base" />
+        </Link>
       </div>
     </div>
   );

@@ -108,7 +108,7 @@ const Header = () => {
                   </li>
                   <li className="w-full">
                     <Link href="/priser/generhvervelse-korekort">
-                      {t("header.dropdown.prices.reacquisition")}
+                      {t("header.dropdown.prices.retake")}
                     </Link>
                   </li>
                 </motion.ul>

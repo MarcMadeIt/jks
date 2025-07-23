@@ -49,7 +49,7 @@ const AddressCards = ({ slug }: Props) => {
       </div>
       <div className="flex gap-5">
         <div>
-          <Link href="/tilmelding" className="btn btn-primary">
+          <Link href={`/tilmelding?city=${slug}`} className="btn btn-primary">
             <FaPeopleGroup size={20} />
             {registerBtn}
           </Link>

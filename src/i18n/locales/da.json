@@ -115,6 +115,7 @@
   "select_access_level": "Vælg adgangsniveau",
   "editor": "Redaktør",
   "admin": "Admin",
+  "developer": "Udvikler",
   "loading_news": "Indlæser Nyheder...",
   "loading_reviews": "Indlæser Anmeldelser...",
   "loading_request": "Indlæser Henvendelser...",
@@ -308,7 +309,7 @@
         "car": "Bil Kørekort",
         "trailer": "Trailer Kørekort",
         "tractor": "Traktor Kørekort",
-        "reacquisition": "Generhvervelse"
+        "retake": "Generhvervelse"
       },
       "city": {
         "ribe": "Ribe",
@@ -388,6 +389,15 @@
     "phoneNumber": "+45 22 77 12 46",
     "emailAddress": "junkerskoreskole@gmail.com",
     "imageAlt": "kontakt os"
+  },
+  "infoPage": {
+    "title": "Information",
+    "description": "Velkommen til Junkers Køreskole. Her finder du alle de vigtigste informationer om os – vores team, hvordan du kontakter os, og hjælpemidler der støtter dig i dit forløb.",
+    "sections": {
+      "aboutUs": "Om os",
+      "contactUs": "Kontakt os",
+      "littleHelper": "Den lille hjælper"
+    }
   },
   "contactForm": {
     "title": "Spørgsmål til kørekort eller forløb?",
@@ -624,28 +634,29 @@
       "from": "Fra"
     },
     "bil-korekort": {
-      "title": "Kørekort til bil",
+      "title": "Kørekort til Bil",
       "subtitle": "(Kategori B)",
       "hero": "Tag dit bilkørekort hos os – trygt, hurtigt og effektivt.",
       "cta": "Er du klar til at tage kørekort til bil?",
       "body": "Vi tilbyder undervisning med moderne biler og engagerede undervisere. Du får både teori og praktiske lektioner i trygge omgivelser.\nStart din rejse mod kørekortet i dag!"
     },
     "trailer-korekort": {
-      "title": "Kørekort til trailer",
+      "title": "Kørekort til Trailer",
       "subtitle": "(Kategori BE)",
       "hero": "Få lov til at køre med større trailere – vi hjælper dig hele vejen.",
       "cta": "Skal du bruge trailerkørekort til arbejde eller fritid?",
       "body": "Vores trailerkurser giver dig den nødvendige viden og færdigheder til at køre sikkert med anhænger.\nTeori, praksis og prøve – vi guider dig gennem det hele."
     },
     "traktor-korekort": {
-      "title": "Kørekort til traktor",
+      "title": "Kørekort til Traktor",
       "subtitle": "(Kategori T)",
       "hero": "Få dit traktorkørekort hurtigt og nemt hos os",
       "cta": "Har du brug for traktor-kørekort til landbrug eller erhverv?",
       "body": "Med vores traktorkurser får du professionel undervisning og praktisk erfaring.\nKurset er ideelt for unge og voksne i landbruget."
     },
     "generhvervelse-korekort": {
-      "title": "Generhvervelse af kørekort",
+      "title": "Generhvervelse",
+      "subtitle": "(Kategori B)",
       "hero": "Få dit kørekort tilbage med vores hjælp.",
       "cta": "Skal du generhverve dit kørekort efter frakendelse?",
       "body": "Vi tilbyder målrettede forløb til dig, der skal generhverve dit kørekort.\nIndividuel rådgivning og undervisning, så du kan bestå prøverne igen."
@@ -668,6 +679,7 @@
     "paymentInfo": "BEMÆRK Betaling sker efter tilmelding"
   },
   "retakePlans": {
+    "subtitle": "Vælg den rette pakke",
     "vatNote": "Priser er inkl. moms",
     "paymentInfo": "BEMÆRK Betaling sker efter tilmelding"
   },
@@ -785,6 +797,32 @@
     },
     "grindsted": {
       "title": "Grindsted"
+    }
+  },
+  "infoCards": {
+    "korekortforlob": {
+      "title": "Kørekortforløbet",
+      "description": "Se hvordan et kørekortforløb hos os foregår – fra teori til praktisk prøve."
+    },
+    "denlillehjaelper": {
+      "title": "Den lille hjælper",
+      "description": "Få overblik over teori og færdselsregler med vores digitale værktøj."
+    },
+    "korelaererne": {
+      "title": "Vores kørelærere",
+      "description": "Mød de erfarne og engagerede kørelærere, der guider dig hele vejen."
+    },
+    "tilmelding": {
+      "title": "Tilmelding",
+      "description": "Tilmeld dig hurtigt og nemt til dit næste kørekortforløb."
+    },
+    "kontakt": {
+      "title": "Kontakt os",
+      "description": "Find telefonnumre, adresser, åbningstider og skriv direkte til os."
+    },
+    "afdelinger": {
+      "title": "Alle afdelinger",
+      "description": "Se vores forskellige afdelinger og vælg den, der passer dig bedst."
     }
   },
 

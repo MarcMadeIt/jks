@@ -1,9 +1,16 @@
-"use client";
-
-import { useParams } from "next/navigation";
+// app/[slug]/page.tsx
+import {
+  getCarPackages,
+  getTrailerPackages,
+  getTractorPackages,
+  getRetakePackages,
+  getFeaturesByPackageId,
+} from "@/lib/client/actions";
 import PriceClient from "./PriceClient";
-import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+
+export const revalidate = 300;
 
 const allowedSlugs = [
   "bil-korekort",
@@ -14,19 +21,67 @@ const allowedSlugs = [
 
 type ProductSlug = (typeof allowedSlugs)[number];
 
-export default function Page() {
-  const { slug } = useParams() as { slug?: string };
-  const pathname = usePathname();
+const metadataMap: Record<ProductSlug, Metadata> = {
+  "bil-korekort": {
+    title: "Kørekort til bil",
+    description:
+      "Få overblik over priser og forløb for bilkørekort hos Junkers Køreskole – vi hjælper dig trygt hele vejen.",
+  },
+  "trailer-korekort": {
+    title: "Kørekort til trailer",
+    description:
+      "Læs om priser og forløb for trailerkørekort (BE/B+) hos Junkers Køreskole. Kør med tillid og sikkerhed.",
+  },
+  "traktor-korekort": {
+    title: "Kørekort til traktor",
+    description:
+      "Se vores priser og information for traktorkørekort. Vi gør dig klar til landevejen og landbruget.",
+  },
+  "generhvervelse-korekort": {
+    title: "Generhvervelse af kørekort",
+    description:
+      "Skal du generhverve dit kørekort? Vi guider dig trygt gennem teori og prøve – uanset årsagen.",
+  },
+};
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const slug = params.slug as ProductSlug;
+  if (!allowedSlugs.includes(slug)) return notFound();
+  return metadataMap[slug];
+}
 
-  if (!slug || !allowedSlugs.includes(slug as ProductSlug)) {
-    return <div className="p-6">Ikke fundet</div>;
+export default async function Page({ params }: { params: { slug: string } }) {
+  const slug = params.slug as ProductSlug;
+
+  if (!allowedSlugs.includes(slug)) return notFound();
+
+  let packages = [];
+
+  switch (slug) {
+    case "bil-korekort":
+      packages = await getCarPackages();
+      break;
+    case "trailer-korekort":
+      packages = await getTrailerPackages();
+      break;
+    case "traktor-korekort":
+      packages = await getTractorPackages();
+      break;
+    case "generhvervelse-korekort":
+      packages = await getRetakePackages();
+      break;
   }
 
-  const typedSlug = slug as ProductSlug;
+  const packagesWithFeatures = await Promise.all(
+    packages.map(async (p) => ({
+      ...p,
+      features: await getFeaturesByPackageId(p.id),
+    }))
+  );
 
-  return <PriceClient slug={typedSlug} />;
+  return <PriceClient slug={slug} data={packagesWithFeatures} />;
 }
