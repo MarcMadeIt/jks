@@ -10,7 +10,6 @@ import {
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import { fetchCourses } from "../../../lib/client/gondrive";
-import { div } from "framer-motion/client";
 
 const cityOptions = ["Grindsted", "Billund", "Ribe"] as const;
 type City = (typeof cityOptions)[number] | "Alle";
