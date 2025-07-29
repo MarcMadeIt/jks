@@ -39,6 +39,7 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  generateBuildId: () => String(Date.now()),
 };
 
 export default nextConfig;
