@@ -1,6 +1,6 @@
 "use client";
 
-import Cars from "@/components/client/home/Cars";
+// import Cars from "@/components/client/home/Cars";
 import Hero from "@/components/client/home/Hero";
 import Locations from "@/components/client/home/Locations";
 import News from "@/components/client/home/News";
@@ -29,9 +29,9 @@ const HomePage = () => {
       <section className="h-full">
         <Preview />
       </section>
-      <section className="h-96">
+      {/* <section className="h-96">
         <Cars />
-      </section>
+      </section> */}
     </>
   );
 };

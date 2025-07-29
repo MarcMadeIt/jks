@@ -619,6 +619,7 @@
   },
 
   "tractorPlans": {
+    "subtitle": "Get ready for the road and the fields",
     "vatNote": "Prices include VAT",
     "paymentInfo": "Payment is made after registration"
   },
