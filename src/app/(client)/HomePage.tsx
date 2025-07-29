@@ -29,9 +29,6 @@ const HomePage = () => {
       <section className="h-full">
         <Preview />
       </section>
-      {/* <section className="h-96">
-        <Cars />
-      </section> */}
     </>
   );
 };

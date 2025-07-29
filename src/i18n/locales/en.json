@@ -373,7 +373,7 @@
     },
     "loading": "Loading...",
     "noCourses": "No courses found.",
-    "seats": "Seats:",
+    "fewSeatsLeft": "Few seats left!",
     "register": "Register",
     "viewSchedule": "View schedule",
     "modal": {
@@ -557,7 +557,7 @@
     "billund": {
       "hero": "Driving School in Billund",
       "image": "/billund.webp",
-      "address": "Billund Centeret, 7190 Billund",
+      "address": "Gammelbro 70E, 7190 Billund",
       "subtitle": "Start your journey towards your license in Billund",
       "title": "Our Billund Location",
       "desc": "Our Billund department is modern, flexible, and tailored to your needs. You’ll be taught by skilled and passionate instructors who guide you safely through every step of the process. The location is central and easy to reach, and we create a relaxed and welcoming atmosphere where you’ll feel comfortable from day one."

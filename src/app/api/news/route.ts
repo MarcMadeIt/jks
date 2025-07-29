@@ -23,13 +23,17 @@ interface NewsResponse {
   linkFacebook?: string | null;
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const lang = searchParams.get("lang") || "da"; // Standard til dansk
+
     const news = await getLatestNews();
     const raw = news as NewsRow[];
 
     const transformed: NewsResponse[] = raw.map((c) => {
-      const content = c.content;
+      const content =
+        lang === c.source_lang ? c.content : c.content_translated || c.content;
 
       return {
         id: c.id,

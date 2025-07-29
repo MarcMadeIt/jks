@@ -10,6 +10,7 @@ import {
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import { fetchCourses } from "../../../lib/client/gondrive";
+import { div } from "framer-motion/client";
 
 const cityOptions = ["Grindsted", "Billund", "Ribe"] as const;
 type City = (typeof cityOptions)[number] | "Alle";
@@ -142,12 +143,12 @@ const CourseList = () => {
             return (
               <div
                 key={course.id}
-                className="w-[350px] rounded-xl border border-base-200 bg-base-200 p-6 shadow-md flex flex-col justify-between"
+                className="w-[350px] rounded-xl border border-base-200 bg-base-200 p-6 shadow-md flex flex-col justify-between relative"
               >
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-3 ">
                   <h2 className="text-xl font-bold flex items-center gap-2">
-                    <FaCalendarCheck className="text-primary" size={23} />
-                    {date}
+                    <FaCalendarCheck className="text-primary" size={21} />
+                    <span className="pt-1">{date}</span>
                   </h2>
                   <p className="flex items-center gap-2 text-sm text-base-content">
                     <FaClock className="text-base-content" />
@@ -156,9 +157,11 @@ const CourseList = () => {
                   <p className="text-sm font-semibold text-base-content">
                     {city} - {course.title}
                   </p>
-                  <p className="text-sm text-base-content">
-                    <strong>{t("coursePage.seats")}:</strong> {seatsLeft}
-                  </p>
+                  {seatsLeft <= 5 && (
+                    <p className=" font-bold absolute right-3 top-4 badge badge-error badge-soft badge-sm">
+                      {t("coursePage.fewSeatsLeft")}
+                    </p>
+                  )}
                 </div>
                 <div className="flex items-center justify-between mt-4 gap-2">
                   <a

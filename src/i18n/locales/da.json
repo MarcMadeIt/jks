@@ -369,7 +369,7 @@
     },
     "loading": "Indlæser...",
     "noCourses": "Ingen kurser fundet.",
-    "seats": "Pladser:",
+    "fewSeatsLeft": "Få pladser tilbage!",
     "register": "Tilmeld",
     "viewSchedule": "Se forløbskort",
     "modal": {
@@ -610,7 +610,7 @@
     "billund": {
       "hero": "Køreskole i Billund",
       "image": "/billund.webp",
-      "address": "Billund Centeret, 7190 Billund",
+      "address": "Gammelbro 70E, 7190 Billund",
       "subtitle": "Start din rejse mod kørekortet i Billund",
       "title": "Afdelingen i Billund",
       "desc": "Vores afdeling i Billund er moderne, fleksibel og skræddersyet til dine behov. Du bliver undervist af dygtige og engagerede kørelærere, som hjælper dig trygt igennem hele forløbet. Afdelingen ligger centralt og er let tilgængelig, og vi skaber en rar og afslappet stemning, hvor du kan føle dig hjemme fra første dag."

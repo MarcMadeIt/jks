@@ -28,7 +28,7 @@ const News = () => {
   const fetchNews = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/news?lang=${i18n.language}`);
+      const res = await fetch(`/api/news?lang=${i18n.language}`); // Tilføj sprogparameter
       if (!res.ok) throw new Error("Failed to load news");
       const { news } = await res.json();
       setNewsItems(news);
