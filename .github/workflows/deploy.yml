@@ -33,6 +33,13 @@ jobs:
           cd /home/jks/htdocs/ny.junkerskøreskole.dk
           npx next telemetry disable
 
+      - name: 🧹 Clean previous Next.js build
+        run: |
+          echo "🧹 Removing old .next and public/_next folders..."
+          cd /home/jks/htdocs/ny.junkerskøreskole.dk
+          rm -rf .next
+          rm -rf public/_next
+
       - name: 🔧 Build Next.js project
         run: |
           echo "⚡ Building Next.js app..."
