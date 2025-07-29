@@ -104,7 +104,7 @@ const CreateNews = ({ onNewsCreated }: { onNewsCreated: () => void }) => {
               <input
                 name="title"
                 type="text"
-                className="input input-bordered input-md"
+                className="input input-md"
                 placeholder={t("write_title")}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
