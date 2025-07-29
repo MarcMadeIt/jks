@@ -115,7 +115,7 @@ const CreateNews = ({ onNewsCreated }: { onNewsCreated: () => void }) => {
               <legend className="fieldset-legend">{t("desc")}</legend>
               <textarea
                 name="desc"
-                className="textarea textarea-bordered textarea-md text"
+                className="textarea textarea-md text"
                 value={desc}
                 onChange={handleDescChange}
                 required
