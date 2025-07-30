@@ -13,27 +13,26 @@ const Preview = () => {
   return (
     <>
       <div className="flex flex-col items-center justify-center gap-8 px-4 h-full lg:rounded-xl py-10 md:py-15 lg:py-20">
-        <h2 className="text-xl md:text-[28px] font-bold text-center mb-5">
+        {/* <h2 className="text-xl md:text-[28px] font-bold text-center mb-5">
           {t("home.preview.title")}
-        </h2>
+        </h2> */}
         <div
           className="relative w-full max-h-96 max-w-[750px] overflow-hidden rounded-lg cursor-pointer group"
           onClick={openModal}
         >
           <Image
-            src="/thumbnail2.png"
+            src="/thumbnail.png"
             alt="Video preview"
             width={855}
             height={481}
             className="w-full h-auto block rounded-lg transition-transform group-hover:scale-101"
           />
           {/* Play button overlay */}
-          <div className="absolute inset-0 flex items-center justify-center bg-black/45 group-hover:bg-black/35 transition-all">
+          <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-all">
             <div className="flex flex-col items-center justify-center gap-4 mt-7">
-              <div className="bg-white bg-opacity-90 rounded-full p-4 md:p-6 shadow-lg group-hover:bg-opacity-100 transition-all">
+              <div className="bg-base-200 bg-opacity-90 rounded-2xl p-4 md:p-6 shadow-lg group-hover:bg-opacity-100 transition-all">
                 <FaPlay className="text-2xl md:text-4xl text-gray-800 ml-1" />
               </div>
-              <h5 className="text-base-100 font-bold">Se video</h5>
             </div>
           </div>
         </div>
@@ -54,9 +53,9 @@ const Preview = () => {
                 controls
                 autoPlay
                 className="w-full h-full rounded-lg"
-                poster="/thumbnail2.png"
+                poster="/thumbnail.png"
               >
-                <source src="/video/jk-preview.mp4" type="video/mp4" />
+                <source src="/video/animation.mp4" type="video/mp4" />
               </video>
             </div>
           </div>

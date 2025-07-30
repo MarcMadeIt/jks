@@ -22,7 +22,6 @@ export async function createRequest(
     const { error } = await supabase.from("requests").insert([
       {
         name,
-        company,
         mobile,
         mail,
         category,
