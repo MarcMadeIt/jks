@@ -23,31 +23,31 @@ jobs:
       - name: 🔄 Pull latest code from GitHub
         run: |
           echo "⚠️ Pulling latest changes..."
-          cd /home/jks/htdocs/ny.junkerskøreskole.dk
+          cd /home/jks/htdocs/junkerskøreskole.dk
           git fetch --all
           git reset --hard origin/main
 
       - name: 🧹 Clean previous Next.js build
         run: |
           echo "🧹 Removing old .next and public/_next folders..."
-          cd /home/jks/htdocs/ny.junkerskøreskole.dk
+          cd /home/jks/htdocs/junkerskøreskole.dk
           rm -rf .next .next/cache public/_next
 
       - name: 📦 Install fresh dependencies
         run: |
           echo "📦 Installing dependencies cleanly..."
-          cd /home/jks/htdocs/ny.junkerskøreskole.dk
+          cd /home/jks/htdocs/junkerskøreskole.dk
           npm install
 
       - name: 🔇 Disable Next.js telemetry
         run: |
-          cd /home/jks/htdocs/ny.junkerskøreskole.dk
+          cd /home/jks/htdocs/junkerskøreskole.dk
           npx next telemetry disable
 
       - name: 🔧 Build Next.js project
         run: |
           echo "⚡ Building Next.js app..."
-          cd /home/jks/htdocs/ny.junkerskøreskole.dk
+          cd /home/jks/htdocs/junkerskøreskole.dk
           npm run build
           if [ ! -d ".next" ]; then
             echo "❌ ERROR: .next/ folder not found after build"
@@ -58,7 +58,7 @@ jobs:
         run: |
           echo "🔄 Restarting PM2 process..."
           export PATH=$PATH:/home/jks/.npm-global/bin
-          cd /home/jks/htdocs/ny.junkerskøreskole.dk
+          cd /home/jks/htdocs/junkerskøreskole.dk
 
           echo "🧹 Cleaning up old PM2 instance if any..."
           pm2 delete jks-app || true
