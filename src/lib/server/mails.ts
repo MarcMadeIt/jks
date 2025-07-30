@@ -26,10 +26,10 @@ ${message}`;
   const adminHtml = `
 <div style="max-width: 600px; margin: 40px auto; background-color: #ffffff; padding: 32px 24px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); font-family: Arial, sans-serif; color: #333;">
   <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 24px;">
-    <img src="https://ny.junkerskøreskole.dk/logo-jk.webp" alt="Junkers Logo" width="180" style="display: block;" />
+    <img src="https://junkerskøreskole.dk/logo-jk.webp" alt="Junkers Logo" width="180" style="display: block;" />
   </div>
   <p style="margin-bottom: 16px;">En ny kunde har udfyldt kontaktformularen på <strong>junkerskøreskole.dk</strong>.</p>
-  <a href="https://ny.junkerskøreskole.dk/admin/messages" style="display: inline-block; background-color: #CC222C; color: white; text-decoration: none; padding: 12px 20px; border-radius: 6px; font-weight: 500;">
+  <a href="https://junkerskøreskole.dk/admin/messages" style="display: inline-block; background-color: #CC222C; color: white; text-decoration: none; padding: 12px 20px; border-radius: 6px; font-weight: 500;">
     Se kundebesked
   </a>
   <p style="font-size: 12px; color: #888; margin-top: 32px;">Dette er en automatisk notifikation fra Junkers Køreskole.</p>
@@ -44,7 +44,7 @@ ${message}`;
   const userHtml = `
 <div style="font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; padding: 32px 24px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); color: #333; text-align: start;">
   <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 24px;">
-    <img src="https://ny.junkerskøreskole.dk/logo-jk.webp" alt="Junkers Logo" width="180" style="display: block;" />
+    <img src="https://junkerskøreskole.dk/logo-jk.webp" alt="Junkers Logo" width="180" style="display: block;" />
   </div>
   <h2 style="color: #1a1a1a; font-size: 20px; margin: 0 0 16px;">Tak for din besked, ${name}!</h2>
   <div style="background-color: #f9f9f9; padding: 16px; border-radius: 8px; margin: 16px 0;">
@@ -54,7 +54,7 @@ ${message}`;
   </div>
   <p>Imens er du velkommen til at læse mere om kørekort forløbet her:</p>
   <div style="margin: 16px 0;">
-    <a href="https://ny.junkerskøreskole.dk/korekort-forlob" style="background-color: #CC222C; color: #fff; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; display: inline-block;">
+    <a href="https://junkerskøreskole.dk/korekort-forlob" style="background-color: #CC222C; color: #fff; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; display: inline-block;">
       Læs om kørekortforløbet
     </a>
   </div>
