@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaAngleLeft } from "react-icons/fa6";
-import { fetchTeacherById, updateTeacher } from "@/lib/server/actions";
+import { updateTeacher } from "@/lib/server/actions";
 
 interface TeacherData {
   id: string;
@@ -28,7 +28,7 @@ const SetupTeachersEdit = ({
   const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [teacherData, setTeacherData] = useState<TeacherData>({
-    id: "", // Initialize id
+    id: "",
     name: "",
     desc: "",
     image: "",
