@@ -31,7 +31,7 @@ export default function ClientLayout({
       <Script
         async
         defer
-        src="https://stats.junkerskøreskole.com/script.js"
+        src="https://stats.junkerskøreskole.dk/script.js"
         data-website-id="ad99d227-c708-43a7-b302-c5c2a7becf37"
       />
       <div className="sm:h-lvh h-dvh max-w-screen-2xl mx-auto pt-[96px] ">
