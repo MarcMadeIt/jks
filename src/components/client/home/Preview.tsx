@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { FaXmark, FaPlay } from "react-icons/fa6";
-import { useTranslation } from "next-i18next";
 
 const Preview = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const { t } = useTranslation();
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
