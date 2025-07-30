@@ -1,5 +1,6 @@
 "use client";
 
+import CTA from "@/components/client/home/CTA";
 // import Cars from "@/components/client/home/Cars";
 import Hero from "@/components/client/home/Hero";
 import Locations from "@/components/client/home/Locations";
@@ -28,6 +29,9 @@ const HomePage = () => {
       </section>
       <section className="h-full">
         <Preview />
+      </section>
+      <section className="h-full">
+        <CTA />
       </section>
     </>
   );

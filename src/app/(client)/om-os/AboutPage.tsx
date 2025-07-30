@@ -3,27 +3,26 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const AboutPage = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="p-5 sm:p-7 w-full h-full flex flex-col gap-10 md:gap-15 xl:gap-28 justify-center items-start md:items-center relative my-7 md:my-20">
-      <div className="max-w-md md:max-w-xl">
+      <div className="max-w-md md:max-w-3xl">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold">
-          Om Junkers Køreskole
+          {t("aboutPage.title")}
         </h1>
       </div>
+
       {/* Intro */}
       <section className="text-start md:text-center ">
         <p className="text-lg max-w-3xl mx-auto mb-4">
-          Junkers Køreskole blev stiftet af Morten Hede Junker i november 2017
-          med første afdeling i Grindsted. Kort efter begyndte vi at undervise
-          elever fra Billund, og siden har vi med succes hjulpet over 1.000
-          elever.
+          {t("aboutPage.intro.paragraph1")}
         </p>
-        <p className="text-lg  max-w-3xl mx-auto">
-          I 2024 overtog vi Køreskolen Ribe og skabte{" "}
-          <strong>Junkers Kørekort Ribe</strong> – en udvidelse af vores
-          engagement i at levere personlig og faglig stærk undervisning.
+        <p className="text-lg max-w-3xl mx-auto">
+          {t("aboutPage.intro.paragraph2")}
         </p>
       </section>
 
@@ -31,20 +30,13 @@ const AboutPage = () => {
       <section className="flex flex-col-reverse md:flex-row gap-12 items-center">
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold">
-            Sjov, tryg og lærerig undervisning
+            {t("aboutPage.teaching.title")}
           </h2>
+          <p className="text-gray-700">{t("aboutPage.teaching.p1")}</p>
+          <p className="text-gray-700">{t("aboutPage.teaching.p2")}</p>
           <p className="text-gray-700">
-            Det skal være sjovt og lærerigt at tage kørekort. Vi vægter det
-            sociale miljø højt, så du føler dig godt tilpas under hele forløbet.
-          </p>
-          <p className="text-gray-700">
-            Vi tror på, at det bedste læringsmiljø opstår, når undervisningen er
-            en oplevelse. Derfor gør vi meget ud af at engagere og motivere hver
-            enkelt elev.
-          </p>
-          <p className="text-gray-700">
-            <strong>Vi elsker at køre i fede biler</strong> – og vi glæder os
-            til at give dig den samme glæde bag rattet.
+            <strong>{t("aboutPage.teaching.p3.bold")}</strong>{" "}
+            {t("aboutPage.teaching.p3.rest")}
           </p>
         </div>
         <div className="aspect-w-16 aspect-h-9 w-full rounded-lg overflow-hidden shadow-md">
@@ -60,25 +52,20 @@ const AboutPage = () => {
       {/* Morten Junker billede */}
       <section className="grid md:grid-cols-2 gap-12 items-center">
         <Image
-          src="/mortenjunker.jpg" // ← udskift med korrekt sti
-          alt="Morten Junker – indehaver"
+          src="/mortenjunker.jpg"
+          alt={t("aboutPage.morten.alt")}
           width={600}
           height={400}
           className="rounded-lg shadow-md object-cover w-full h-auto"
         />
         <div className="space-y-4">
-          <h2 className="text-2xl font-semibold">Mød Morten Junker</h2>
-          <p className="text-gray-700">
-            Morten er indehaver af Junkers Køreskole og underviser i både bil
-            (B) og motorcykel (A). Med passion for undervisning og engagement i
-            hver enkelt elev har han skabt en køreskole, du aldrig glemmer.
-          </p>
-          <p className="text-gray-700">
-            I dag består teamet af seks dygtige kørelærere, som underviser i B,
-            BE og A.
-          </p>
+          <h2 className="text-2xl font-semibold">
+            {t("aboutPage.morten.title")}
+          </h2>
+          <p className="text-gray-700">{t("aboutPage.morten.p1")}</p>
+          <p className="text-gray-700">{t("aboutPage.morten.p2")}</p>
           <Link href="/korelaererne" className="btn">
-            Mød alle kørelærerne
+            {t("aboutPage.morten.button")}
           </Link>
         </div>
       </section>
@@ -88,16 +75,15 @@ const AboutPage = () => {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
           <div className="flex flex-col gap-3 mb-5">
             <h2 className="text-xl md:text-2xl font-semibold">
-              Klar til at tage kørekort?
+              {t("aboutPage.cta.title")}
             </h2>
             <p className="max-w-md text-base tracking-wide">
-              Tag første skridt. Se vores kommende hold og tilmeld dig, når du
-              er klar – vi hjælper dig godt på vej.
+              {t("aboutPage.cta.text")}
             </p>
           </div>
           <div className="justify-end">
             <Link href="/tilmelding" className="btn md:btn-lg btn-primary">
-              Tilmeld dig nu
+              {t("aboutPage.cta.button")}
             </Link>
           </div>
         </div>

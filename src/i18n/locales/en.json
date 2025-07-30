@@ -361,6 +361,35 @@
       "alt": "Schedule overview"
     }
   },
+  "aboutPage": {
+    "title": "About Junkers Køreskole",
+    "intro": {
+      "paragraph1": "Junkers Køreskole was founded by Morten Hede Junker in November 2017 with the first location in Grindsted. Shortly after, we began teaching students from Billund, and since then we've successfully helped over 1,000 students.",
+      "paragraph2": "In 2024, we took over Køreskolen Ribe and created Junkers Kørekort Ribe – an extension of our commitment to deliver personal and high-quality instruction."
+    },
+    "teaching": {
+      "title": "Fun, Safe, and Educational Instruction",
+      "p1": "Getting a driver's license should be fun and educational. We value a social environment so you feel comfortable throughout the process.",
+      "p2": "We believe the best learning happens when the experience is enjoyable. That’s why we focus on engaging and motivating every student.",
+      "p3": {
+        "bold": "We love driving awesome cars",
+        "rest": " – and we can’t wait to give you the same joy behind the wheel."
+      }
+    },
+    "morten": {
+      "title": "Meet Morten Junker",
+      "p1": "Morten is the founder of Junkers Køreskole and teaches both car (B) and motorcycle (A) licenses. With a passion for teaching and dedication to each student, he has created a driving school you won’t forget.",
+      "p2": "Today, the team consists of six skilled instructors teaching B, BE, and A licenses.",
+      "alt": "Morten Junker – owner",
+      "button": "Meet all instructors"
+    },
+    "cta": {
+      "title": "Ready to get your driver’s license?",
+      "text": "Take the first step. See our upcoming classes and sign up when you’re ready – we’ll guide you all the way.",
+      "button": "Sign up now"
+    }
+  },
+
   "korelaerernePage": {
     "title": "Meet Our Driving Instructors",
     "subtitle": "Professional and Dedicated Instructors",

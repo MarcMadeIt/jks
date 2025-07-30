@@ -61,7 +61,7 @@ const News = () => {
   }
 
   return (
-    <div className="flex flex-col items-center py-10 md:py-15 lg:py-20 w-full bg-base-200 p-3 sm:p-4 lg:p-7 ">
+    <div className="flex flex-col items-center py-10 md:py-15 lg:py-20 w-full bg-base-200 p-3 sm:p-4 lg:p-7 rounded-lg">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 max-w-5xl">
         {newsItems.map((item, index) => (
           <motion.article
