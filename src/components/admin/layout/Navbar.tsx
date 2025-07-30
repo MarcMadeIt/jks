@@ -146,7 +146,7 @@ const Navbar = () => {
           href="/"
           className="btn btn-sm md:btn-md btn-soft flex items-center gap-2"
         >
-          <span>Startside</span>
+          <span>{t("go_website")}</span>
           <FaRightFromBracket className="text-sm md:text-base" />
         </Link>
       </div>

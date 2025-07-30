@@ -53,14 +53,18 @@
   "news_more": "Nyheder",
   "review": "Anmeldelse",
   "reviews": "Anmeldelser",
+  "teacher": "Kørelærer",
+  "teachers": "Kørelærere",
+  "packages": "Pakker",
+  "package": "Pakke",
   "requests": "Henvendelser",
   "bookings": "Bookings",
   "request_details": "Detaljer for henvendelse",
   "request_time": "Tidspunkt for henvendelse",
+  "deleted_teacher": "Kørelærer slettet",
   "deleted_news": "Nyhed slettet",
   "deleted_request": "Henvendelse slettet",
   "deleted_review": "Anmeldelse slettet",
-  "deleted_application": "Ansøgning slettet",
   "delete_news_confirmation": "Sletning af nyhed",
   "delete_news_prompt": "Er du sikker på, at du vil slette denne nyhed?",
   "delete_newswarning": "Denne handling kan ikke fortrydes.",
@@ -71,15 +75,16 @@
   "delete_review_confirmation": "Slet anmeldelse",
   "delete_review_prompt": "Er du sikker på, at du vil slette denne anmeldelse?",
   "delete_review_warning": "Denne handling kan ikke fortrydes.",
-  "delete_application_confirmation": "Slet ansøgning",
-  "delete_application_prompt": "Er du sikker på, at du vil slette denne ansøgning?",
-  "delete_application_warning": "Denne handling kan ikke fortrydes.",
+  "delete_teacher_confirmation": "Slet kørelærer",
+  "delete_teacher_prompt": "Er du sikker på, at du vil slette denne kørelærer?",
+  "delete_teacher_warning": "Denne handling kan ikke fortrydes.",
   "delete_job_confirmation": "Slet jobopslag",
   "delete_job_prompt": "Er du sikker på, at du vil slette dette jobopslag?",
   "delete_job_warning": "Denne handling kan ikke fortrydes.",
   "news_creation": "Oprettelse af Nyhed",
   "review_creation": "Oprettelse af Anmeldelse",
   "news_editing": "Redigering af Nyhed",
+  "teachers_editing": "Redigering af Kørelærer",
   "review_editing": "Redigering af Anmeldelse",
   "customer": "kunde",
   "customers": "Kunder",
@@ -100,6 +105,9 @@
   "user_created": "Bruger oprettet",
   "user_updated": "Bruger opdateret",
   "user_deleted": "Bruger slettet",
+  "teacher_created": "Kørelærer oprettet",
+  "teacher_updated": "Kørelærer opdateret",
+  "teacher_deleted": "Kørelærer slettet",
   "news_created": "Nyhed oprettet",
   "news_updated": "Nyhed opdateret",
   "news_deleted": "Nyhed slettet",
@@ -136,7 +144,6 @@
   "site": "Side",
   "site_setup": "Sideopsætning",
   "layout_settings": "Sideopsætning",
-  "packages": "Pakker",
   "rating": "Bedømmelse",
   "write_review_desc": "Skriv din anmeldelse her...",
   "review_name": "Navn (eller kontaktperson)",
@@ -150,6 +157,7 @@
   "connectToFacebook": "Forbind Facebook",
   "disconnect": "Afbryd forbindelse",
   "disconnecting": "Afbryder forbindelse...",
+  "go_website": "Gå til hjemmeside",
   "messages": {
     "email_already_exists": "Der findes allerede en bruger med denne e-mail",
     "registration_error": "Fejl ved registrering, prøv igen",
@@ -183,8 +191,7 @@
     "placeholders": {
       "name": "Skriv lærerens navn...",
       "since": "Vælg dato for start som kørelærer...",
-      "desc": "Skriv om kørelæreren...",
-      "descEng": "Skriv om kørelæreren på engelsk..."
+      "desc": "Skriv om kørelæreren..."
     }
   },
   "updateTeacher": {
@@ -198,8 +205,7 @@
     "placeholders": {
       "name": "Rediger lærerens navn...",
       "since": "Opdater dato for start som kørelærer...",
-      "desc": "Skriv om kørelæreren...",
-      "descEng": "Skriv om kørelæreren på engelsk..."
+      "desc": "Skriv om kørelæreren..."
     }
   },
 
@@ -235,32 +241,6 @@
       "unknown": "Ukendt",
       "since": "Kørelærer siden"
     }
-  },
-
-  "setup": {
-    "packages": "Pakker",
-    "teachers": "Kørelærere",
-    "create": "Opret",
-    "package": "pakke",
-    "teacher": "kørelærer",
-    "package_details": "Pakke detaljer",
-    "unknown": "Ukendt",
-    "mobile": "Telefonnummer",
-    "email": "E-mail",
-    "consent_status": "Samtykke",
-    "consent_given": "Givet",
-    "consent_missing": "Mangler",
-    "creation_date": "Oprettet",
-    "cv_and_application": "CV og ansøgning",
-    "view_cv": "Se CV",
-    "view_application": "Se ansøgning",
-    "delete": "Slet",
-    "cancel": "Annuller",
-    "delete_confirmation": "Bekræft sletning",
-    "delete_application_prompt": "Er du sikker på, at du vil slette denne ansøgning?",
-    "delete_application_warning": "Dette kan ikke fortrydes.",
-    "back": "Tilbage",
-    "aria_delete_button": "Slet ansøgning"
   },
   "image_upload": {
     "change_image": "Skift billede",

@@ -1202,75 +1202,252 @@ export async function fetchTeacherById(teacherId: string) {
 export async function createTeacher({
   name,
   desc,
-  desc_eng,
   since,
   image,
 }: {
   name: string;
   desc: string;
-  desc_eng: string;
   since: string;
   image?: File;
 }): Promise<void> {
   const supabase = await createServerClientInstance();
+  const apiKey = process.env.DEEPL_API_KEY!;
+  const endpoint = "https://api-free.deepl.com/v2/translate";
+
+  // Translate desc
+  const params1 = new URLSearchParams({
+    auth_key: apiKey,
+    text: desc,
+    target_lang: "EN",
+  });
+  const r1 = await fetch(endpoint, { method: "POST", body: params1 });
+  if (!r1.ok) throw new Error(`DeepL error ${r1.status}: ${await r1.text()}`);
+  const {
+    translations: [first],
+  } = (await r1.json()) as {
+    translations: { text: string; detected_source_language: string }[];
+  };
+  const sourceLang = first.detected_source_language.toLowerCase();
+
+  let desc_translated = first.text;
+  if (sourceLang === "en") {
+    const params2 = new URLSearchParams({
+      auth_key: apiKey,
+      text: desc,
+      target_lang: "DA",
+    });
+    const r2 = await fetch(endpoint, { method: "POST", body: params2 });
+    if (!r2.ok) throw new Error(`DeepL error ${r2.status}: ${await r2.text()}`);
+    const {
+      translations: [second],
+    } = (await r2.json()) as {
+      translations: { text: string }[];
+    };
+    desc_translated = second.text;
+  }
+
+  let imageUrl: string | null = null;
+  if (image) {
+    const safeName = name
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9-]/g, "");
+
+    const timestamp = Date.now();
+    const filename = `${safeName}-${timestamp}.webp`;
+
+    const buffer = await sharp(Buffer.from(await image.arrayBuffer()))
+      .rotate()
+      .resize({ width: 800, height: 800, fit: "cover" })
+      .webp({ quality: 70 })
+      .toBuffer();
+
+    const { error: uploadError } = await supabase.storage
+      .from("teacher-images")
+      .upload(filename, buffer, {
+        contentType: "image/webp",
+        upsert: true,
+      });
+
+    if (uploadError) {
+      console.error("Fejl ved upload til Supabase Storage:", uploadError);
+      throw uploadError;
+    }
+
+    const { data } = supabase.storage
+      .from("teacher-images")
+      .getPublicUrl(filename);
+
+    if (!data?.publicUrl) {
+      throw new Error("Kunne ikke hente public URL fra Supabase.");
+    }
+
+    imageUrl = data.publicUrl;
+  }
+
+  const { error: insertError } = await supabase.from("teachers").insert([
+    {
+      name,
+      desc,
+      desc_translated,
+      since,
+      image: imageUrl,
+      source_lang: sourceLang,
+    },
+  ]);
+
+  if (insertError) {
+    console.error("Fejl ved insert i teachers:", insertError);
+    throw insertError;
+  }
+}
+
+export async function updateTeacher({
+  id,
+  name,
+  desc,
+  since,
+  image,
+}: {
+  id: string;
+  name: string;
+  desc: string;
+  since: string;
+  image?: File;
+}): Promise<void> {
+  const supabase = await createServerClientInstance();
+  const apiKey = process.env.DEEPL_API_KEY!;
+  const endpoint = "https://api-free.deepl.com/v2/translate";
+
+  // Translate desc
+  const params1 = new URLSearchParams({
+    auth_key: apiKey,
+    text: desc,
+    target_lang: "EN",
+  });
+  const r1 = await fetch(endpoint, { method: "POST", body: params1 });
+  if (!r1.ok) throw new Error(`DeepL error ${r1.status}: ${await r1.text()}`);
+  const {
+    translations: [first],
+  } = (await r1.json()) as {
+    translations: { text: string; detected_source_language: string }[];
+  };
+  const sourceLang = first.detected_source_language.toLowerCase();
+
+  let desc_translated = first.text;
+  if (sourceLang === "en") {
+    const params2 = new URLSearchParams({
+      auth_key: apiKey,
+      text: desc,
+      target_lang: "DA",
+    });
+    const r2 = await fetch(endpoint, { method: "POST", body: params2 });
+    if (!r2.ok) throw new Error(`DeepL error ${r2.status}: ${await r2.text()}`);
+    const {
+      translations: [second],
+    } = (await r2.json()) as {
+      translations: { text: string }[];
+    };
+    desc_translated = second.text;
+  }
+
+  let imageUrl: string | null = null;
+  if (image) {
+    const safeName = name
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9-]/g, "");
+
+    const timestamp = Date.now();
+    const filename = `${safeName}-${timestamp}.webp`;
+
+    const buffer = await sharp(Buffer.from(await image.arrayBuffer()))
+      .rotate()
+      .resize({ width: 800, height: 800, fit: "cover" })
+      .webp({ quality: 70 })
+      .toBuffer();
+
+    const { error: uploadError } = await supabase.storage
+      .from("teacher-images")
+      .upload(filename, buffer, {
+        contentType: "image/webp",
+        upsert: true,
+      });
+
+    if (uploadError) {
+      console.error("Fejl ved upload til Supabase Storage:", uploadError);
+      throw uploadError;
+    }
+
+    const { data } = supabase.storage
+      .from("teacher-images")
+      .getPublicUrl(filename);
+
+    if (!data?.publicUrl) {
+      throw new Error("Kunne ikke hente public URL fra Supabase.");
+    }
+
+    imageUrl = data.publicUrl;
+  }
+
+  const { error: updateError } = await supabase
+    .from("teachers")
+    .update({
+      name,
+      desc,
+      desc_translated,
+      since,
+      image: imageUrl,
+      source_lang: sourceLang,
+    })
+    .eq("id", id);
+
+  if (updateError) {
+    console.error("Fejl ved update i teachers:", updateError);
+    throw updateError;
+  }
+}
+
+export async function deleteTeacher(teacherId: string): Promise<void> {
+  const supabase = await createServerClientInstance();
 
   try {
-    let imageUrl: string | null = null;
+    // Delete teacher's image from storage
+    const { data: teacher, error: fetchError } = await supabase
+      .from("teachers")
+      .select("image")
+      .eq("id", teacherId)
+      .single();
 
-    if (image) {
-      const safeName = name
-        .toLowerCase()
-        .replace(/\s+/g, "-")
-        .replace(/[^a-z0-9-]/g, "");
-
-      const timestamp = Date.now();
-      const filename = `${safeName}-${timestamp}.webp`;
-
-      const buffer = await sharp(Buffer.from(await image.arrayBuffer()))
-        .rotate()
-        .resize({ width: 800, height: 800, fit: "cover" })
-        .webp({ quality: 70 })
-        .toBuffer();
-
-      const { error: uploadError } = await supabase.storage
-        .from("teacher-images")
-        .upload(filename, buffer, {
-          contentType: "image/webp",
-          upsert: true,
-        });
-
-      if (uploadError) {
-        console.error("Fejl ved upload til Supabase Storage:", uploadError);
-        throw uploadError;
-      }
-
-      const { data } = supabase.storage
-        .from("teacher-images")
-        .getPublicUrl(filename);
-
-      if (!data?.publicUrl) {
-        throw new Error("Kunne ikke hente public URL fra Supabase.");
-      }
-
-      imageUrl = data.publicUrl;
+    if (fetchError) {
+      throw new Error(`Failed to fetch teacher: ${fetchError.message}`);
     }
 
-    const { error: insertError } = await supabase.from("teachers").insert([
-      {
-        name,
-        desc,
-        desc_eng,
-        since,
-        image: imageUrl,
-      },
-    ]);
+    if (teacher?.image) {
+      const imagePath = teacher.image.split("/teacher-images/")[1];
+      const { error: deleteImageError } = await supabase.storage
+        .from("teacher-images")
+        .remove([imagePath]);
 
-    if (insertError) {
-      console.error("Fejl ved insert i teachers:", insertError);
-      throw insertError;
+      if (deleteImageError) {
+        console.error(
+          "Failed to delete teacher image from storage:",
+          deleteImageError
+        );
+      }
+    }
+
+    // Delete teacher record from database
+    const { error: deleteError } = await supabase
+      .from("teachers")
+      .delete()
+      .eq("id", teacherId);
+
+    if (deleteError) {
+      throw new Error(`Failed to delete teacher: ${deleteError.message}`);
     }
   } catch (err) {
-    console.error("createTeacher error:", err);
+    console.error("Unexpected error during teacher deletion:", err);
     throw err;
   }
 }

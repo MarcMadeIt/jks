@@ -109,18 +109,14 @@ const Setup = () => {
       {showToast && (
         <div className="toast bottom-20 md:bottom-0 toast-end">
           <div className="alert alert-success text-neutral-content">
-            <span className="text-base md:text-lg">
-              {t("setup.deleted_package")}
-            </span>
+            <span className="text-base md:text-lg">{t("deleted_package")}</span>
           </div>
         </div>
       )}
       {showTeacherToast && (
         <div className="toast bottom-20 md:bottom-0 toast-end">
           <div className="alert alert-success text-neutral-content">
-            <span className="text-base md:text-lg">
-              {t("setup.deleted_teacher")}
-            </span>
+            <span className="text-base md:text-lg">{t("deleted_teacher")}</span>
           </div>
         </div>
       )}

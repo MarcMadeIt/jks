@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 import { FaAngleLeft } from "react-icons/fa6";
 import { format } from "date-fns";
 import { da, enUS } from "date-fns/locale";
-import { fetchTeacherById } from "@/lib/server/actions";
 import Image from "next/image";
 
 interface Teacher {
@@ -17,6 +16,8 @@ interface Teacher {
   image: string;
   priority: number;
   since: string;
+  source_lang?: string;
+  desc_translated?: string;
 }
 
 interface SetupTeachersDetailsProps {
@@ -42,8 +43,17 @@ const SetupTeachersDetails = ({
   useEffect(() => {
     async function fetchTeacher() {
       try {
-        const teacherData = await fetchTeacherById(teacherId);
-        setTeacher(teacherData);
+        const res = await fetch(`/api/teachers?lang=${i18n.language}`);
+        if (!res.ok) throw new Error("Failed to load teacher data");
+        const { teachers } = await res.json();
+        const teacherData = teachers.find((t: Teacher) => t.id === teacherId);
+        if (teacherData) {
+          const desc =
+            i18n.language === teacherData.source_lang
+              ? teacherData.desc
+              : teacherData.desc_translated || teacherData.desc;
+          setTeacher({ ...teacherData, desc });
+        }
       } catch (error) {
         console.error("Failed to load teacher:", error);
       } finally {
@@ -61,7 +71,7 @@ const SetupTeachersDetails = ({
     return () => {
       window.removeEventListener("teacherDeleted", handleTeacherDeleted);
     };
-  }, [teacherId]);
+  }, [teacherId, i18n.language]);
 
   const handleSave = (updatedTeacher: Teacher) => {
     setTeacher(updatedTeacher);
@@ -101,7 +111,10 @@ const SetupTeachersDetails = ({
             </button>
             <SetupTeachersDetailsActions
               onEdit={() => setIsEditing(true)}
-              onDelete={onDelete}
+              onDelete={() => {
+                onDelete();
+              }}
+              teacherId={teacherId} // Pass teacherId explicitly
             />
           </div>
 
@@ -136,7 +149,13 @@ const SetupTeachersDetails = ({
             <div className="flex flex-col gap-2 w-full md:w-1/2 2xl:w-1/3">
               <div className="rounded-xl w-40 h-40 overflow-hidden">
                 <Image
-                  src={teacher?.image || "/no-image.webp"}
+                  src={
+                    teacher?.image && typeof teacher.image !== "string"
+                      ? URL.createObjectURL(teacher.image as File)
+                      : teacher?.image && teacher.image.trim() !== ""
+                      ? teacher.image
+                      : "/no-image.webp"
+                  }
                   alt=""
                   width={150}
                   height={150}
@@ -158,11 +177,9 @@ const SetupTeachersDetails = ({
       )}
 
       {(showToast || updateToast) && (
-        <div className="toast bottom-20 md:bottom-0 toast-end">
+        <div className="toast bottom-20 md:bottom-3 toast-end">
           <div className="alert alert-success text-neutral-content">
-            <span className="text-base md:text-lg">
-              {t("teachersDetails.updated_teacher")}
-            </span>
+            <span className="text-base md:text-lg">{t("teacher_updated")}</span>
           </div>
         </div>
       )}

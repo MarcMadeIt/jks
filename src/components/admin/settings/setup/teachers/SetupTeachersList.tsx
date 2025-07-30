@@ -2,12 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { getTeachers } from "@/lib/server/actions";
 import { FaAngleRight } from "react-icons/fa6";
 
 interface Teacher {
   id: string;
   name: string;
+  desc: string;
 }
 
 interface SetupTeachersListProps {
@@ -15,16 +15,17 @@ interface SetupTeachersListProps {
 }
 
 const SetupTeachersList = ({ onViewDetails }: SetupTeachersListProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [teachers, setTeachers] = useState<Teacher[]>([]);
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchTeachers() {
       try {
-        const teachers = await getTeachers();
+        const res = await fetch(`/api/teachers?lang=${i18n.language}`);
+        if (!res.ok) throw new Error("Failed to load teachers");
+        const { teachers } = await res.json();
         setTeachers(teachers);
       } catch (error) {
         console.error("Kunne ikke hente lærere:", error);
@@ -33,7 +34,7 @@ const SetupTeachersList = ({ onViewDetails }: SetupTeachersListProps) => {
       }
     }
     fetchTeachers();
-  }, []);
+  }, [i18n.language]);
 
   if (loading) {
     return (

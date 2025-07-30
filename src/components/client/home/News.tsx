@@ -62,7 +62,7 @@ const News = () => {
 
   return (
     <div className="flex flex-col items-center py-10 md:py-15 lg:py-20 w-full bg-base-200 p-3 sm:p-4 lg:p-7 ">
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 max-w-5xl">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 max-w-5xl">
         {newsItems.map((item, index) => (
           <motion.article
             key={item.id}
@@ -70,7 +70,7 @@ const News = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1, duration: 0.4 }}
             className={`rounded-xl overflow-hidden bg-base-100 shadow-md hover:shadow-xl transition-shadow duration-300 ${
-              index === 2 ? "hidden sm:block" : ""
+              index === 2 ? "hidden md:block" : ""
             }`}
           >
             {item.linkFacebook ? (

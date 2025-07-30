@@ -3,15 +3,18 @@
 import React, { useState } from "react";
 import { FaEllipsis, FaPen, FaTrash } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
+import { deleteTeacher } from "@/lib/server/actions";
 
 interface SetupTeachersDetailsActionsProps {
   onEdit: () => void;
   onDelete: () => void;
+  teacherId: string; // Ensure teacherId is passed as a prop
 }
 
 const SetupTeachersDetailsActions = ({
   onEdit,
   onDelete,
+  teacherId,
 }: SetupTeachersDetailsActionsProps) => {
   const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
@@ -19,10 +22,13 @@ const SetupTeachersDetailsActions = ({
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
-  // TODO: Implement deleteTeacher and updateTeacher actions
   const handleDelete = async () => {
+    if (!teacherId) {
+      console.error("Invalid teacherId:", teacherId);
+      return;
+    }
     try {
-      // await deleteTeacher(teacherId);
+      await deleteTeacher(teacherId);
       closeModal();
       onDelete();
       window.dispatchEvent(new Event("teacherDeleted"));
@@ -91,18 +97,18 @@ const SetupTeachersDetailsActions = ({
         <div className="modal modal-open">
           <div className="modal-box">
             <h3 className="font-bold text-lg">
-              {t("teachersDetails.delete_teacher_confirmation")}
+              {t("delete_teacher_confirmation")}
             </h3>
-            <p className="py-4">{t("teachersDetails.delete_teacher_prompt")}</p>
+            <p className="py-4">{t("delete_teacher_prompt")}</p>
             <p className="text-sm text-warning">
-              {t("teachersDetails.delete_teacher_warning")}
+              {t("delete_teacher_warning")}
             </p>
             <div className="modal-action">
               <button className="btn" onClick={closeModal}>
-                {t("teachersDetails.cancel")}
+                {t("cancel")}
               </button>
               <button className="btn btn-error" onClick={handleDelete}>
-                {t("teachersDetails.delete")}
+                {t("delete")}
               </button>
             </div>
           </div>

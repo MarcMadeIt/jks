@@ -17,11 +17,11 @@ const Preview = () => {
           {t("home.preview.title")}
         </h2>
         <div
-          className="relative w-full max-h-96 max-w-[800px] overflow-hidden rounded-lg cursor-pointer group"
+          className="relative w-full max-h-96 max-w-[750px] overflow-hidden rounded-lg cursor-pointer group"
           onClick={openModal}
         >
           <Image
-            src="/grindsted.webp"
+            src="/thumbnail2.png"
             alt="Video preview"
             width={855}
             height={481}
@@ -54,7 +54,7 @@ const Preview = () => {
                 controls
                 autoPlay
                 className="w-full h-full rounded-lg"
-                poster="/thumbnail-video.png"
+                poster="/thumbnail2.png"
               >
                 <source src="/video/jk-preview.mp4" type="video/mp4" />
               </video>

@@ -3,13 +3,15 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaAngleLeft } from "react-icons/fa6";
+import { fetchTeacherById, updateTeacher } from "@/lib/server/actions";
 
 interface TeacherData {
+  id: string;
   name: string;
   desc: string;
-  descEng: string;
   image: File | string;
   since: string;
+  sourceLang: string;
 }
 
 interface SetupTeachersEditProps {
@@ -23,19 +25,19 @@ const SetupTeachersEdit = ({
   onSave,
   onBackToDetails,
 }: SetupTeachersEditProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [teacherData, setTeacherData] = useState<TeacherData>({
+    id: "", // Initialize id
     name: "",
     desc: "",
-    descEng: "",
     image: "",
     since: "",
+    sourceLang: "",
   });
   const [errors, setErrors] = useState({
     name: "",
     desc: "",
-    descEng: "",
     image: "",
     since: "",
   });
@@ -43,35 +45,52 @@ const SetupTeachersEdit = ({
   useEffect(() => {
     async function fetchTeacher() {
       try {
-        // TODO: Implement fetchTeacherById
-        // const teacher = await fetchTeacherById(teacherId);
-        // setTeacherData(teacher);
+        const res = await fetch(`/api/teachers?lang=${i18n.language}`);
+        if (!res.ok) throw new Error("Failed to load teacher data");
+        const { teachers } = await res.json();
+        const teacher = teachers.find((t: TeacherData) => t.id === teacherId);
+        if (teacher) {
+          setTeacherData({
+            id: teacher.id,
+            name: teacher.name,
+            desc: teacher.desc,
+            image: teacher.image,
+            since: teacher.since,
+            sourceLang: teacher.source_lang,
+          });
+        }
       } catch (err) {
         console.error("Failed to load teacher data", err);
       }
     }
     fetchTeacher();
-  }, [teacherId]);
+  }, [teacherId, i18n.language]);
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const { name, desc, descEng, image, since } = teacherData;
-    if (!name || !desc || !descEng || !image || !since) {
+    const { name, desc, image, since } = teacherData;
+    if (!name || !desc || !since) {
       setErrors({
         name: !name ? t("updateTeacher.errors.name") : "",
         desc: !desc ? t("updateTeacher.errors.desc") : "",
-        descEng: !descEng ? t("updateTeacher.errors.descEng") : "",
-        image: !image ? t("updateTeacher.errors.image") : "",
+        image: "",
         since: !since ? t("updateTeacher.errors.since") : "",
       });
       setLoading(false);
       return;
     }
     try {
+      const imageFile = typeof image === "string" ? undefined : image;
+      await updateTeacher({
+        id: teacherId,
+        name,
+        desc,
+        since,
+        image: imageFile,
+      });
       onSave(teacherData);
       onBackToDetails();
-      // TODO: Implement updateTeacher(teacherId, teacherData)
     } catch (error) {
       console.error("Failed to update teacher:", error);
       alert("Could not update teacher.");
@@ -83,11 +102,6 @@ const SetupTeachersEdit = ({
   const handleDescChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length <= 150) {
       setTeacherData({ ...teacherData, desc: e.target.value });
-    }
-  };
-  const handleDescEngChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target.value.length <= 150) {
-      setTeacherData({ ...teacherData, descEng: e.target.value });
     }
   };
 
@@ -125,6 +139,7 @@ const SetupTeachersEdit = ({
             <legend className="fieldset-legend">
               {t("updateTeacher.image")}
             </legend>
+
             <input
               type="file"
               accept="image/png, image/webp, image/jpeg, image/jpg"
@@ -134,7 +149,7 @@ const SetupTeachersEdit = ({
                 if (file) {
                   setTeacherData({ ...teacherData, image: file });
                 } else {
-                  setTeacherData({ ...teacherData, image: "" });
+                  setTeacherData({ ...teacherData, image: teacherData.image });
                 }
               }}
             />
@@ -163,47 +178,25 @@ const SetupTeachersEdit = ({
               <span className="text-xs text-red-500">{errors.since}</span>
             )}
           </fieldset>
-          <div className="flex flex-col lg:flex-row gap-5">
-            <fieldset className="fieldset md:w-md">
-              <legend className="fieldset-legend">
-                {t("updateTeacher.desc")}
-              </legend>
-              <textarea
-                className="textarea textarea-bordered textarea-md w-full resize-none"
-                placeholder={t("updateTeacher.placeholders.desc")}
-                value={teacherData.desc}
-                onChange={handleDescChange}
-                rows={5}
-                maxLength={150}
-              />
-              <div className="text-right text-xs font-medium text-gray-500">
-                {teacherData.desc.length} / 150
-              </div>
-              {errors.desc && (
-                <span className="text-xs text-red-500">{errors.desc}</span>
-              )}
-            </fieldset>
-
-            <fieldset className="fieldset md:w-md">
-              <legend className="fieldset-legend">
-                {t("updateTeacher.descEng")}
-              </legend>
-              <textarea
-                className="textarea textarea-bordered textarea-md w-full resize-none"
-                placeholder={t("updateTeacher.placeholders.descEng")}
-                value={teacherData.descEng}
-                onChange={handleDescEngChange}
-                rows={5}
-                maxLength={150}
-              />
-              <div className="text-right text-xs font-medium text-gray-500">
-                {teacherData.descEng.length} / 150
-              </div>
-              {errors.descEng && (
-                <span className="text-xs text-red-500">{errors.descEng}</span>
-              )}
-            </fieldset>
-          </div>
+          <fieldset className="fieldset">
+            <legend className="fieldset-legend">
+              {t("updateTeacher.desc")}
+            </legend>
+            <textarea
+              className="textarea textarea-bordered textarea-md w-full resize-none"
+              placeholder={t("updateTeacher.placeholders.desc")}
+              value={teacherData.desc}
+              onChange={handleDescChange}
+              rows={5}
+              maxLength={150}
+            />
+            <div className="text-right text-xs font-medium text-gray-500">
+              {teacherData.desc.length} / 150
+            </div>
+            {errors.desc && (
+              <span className="text-xs text-red-500">{errors.desc}</span>
+            )}
+          </fieldset>
           <div>
             <button
               type="submit"
