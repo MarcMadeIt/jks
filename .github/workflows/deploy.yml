@@ -15,12 +15,23 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: 🧰 Setup Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
       - name: 🔄 Pull latest code from GitHub
         run: |
           echo "⚠️ Pulling latest changes..."
           cd /home/jks/htdocs/ny.junkerskøreskole.dk
           git fetch --all
           git reset --hard origin/main
+
+      - name: 🧹 Clean previous Next.js build
+        run: |
+          echo "🧹 Removing old .next and public/_next folders..."
+          cd /home/jks/htdocs/ny.junkerskøreskole.dk
+          rm -rf .next .next/cache public/_next
 
       - name: 📦 Install fresh dependencies
         run: |
@@ -32,13 +43,6 @@ jobs:
         run: |
           cd /home/jks/htdocs/ny.junkerskøreskole.dk
           npx next telemetry disable
-
-      - name: 🧹 Clean previous Next.js build
-        run: |
-          echo "🧹 Removing old .next and public/_next folders..."
-          cd /home/jks/htdocs/ny.junkerskøreskole.dk
-          rm -rf .next
-          rm -rf public/_next
 
       - name: 🔧 Build Next.js project
         run: |
@@ -53,7 +57,7 @@ jobs:
       - name: 🚀 Restart PM2 process
         run: |
           echo "🔄 Restarting PM2 process..."
-          export PATH=$PATH:/home/jks/.npm-global/bin  # Juster hvis nødvendigt
+          export PATH=$PATH:/home/jks/.npm-global/bin
           cd /home/jks/htdocs/ny.junkerskøreskole.dk
 
           echo "🧹 Cleaning up old PM2 instance if any..."
