@@ -786,27 +786,27 @@
   "infoCards": {
     "korekortforlob": {
       "title": "Kørekortforløbet",
-      "description": "Se hvordan et kørekortforløb hos os foregår – fra teori til praktisk prøve."
+      "description": "Se hvordan et kørekortforløb hos os foregår – fra teori til praktisk prøve"
     },
     "denlillehjaelper": {
       "title": "Den lille hjælper",
-      "description": "Få overblik over teori og færdselsregler med vores digitale værktøj."
+      "description": "Få overblik over teori og færdselsregler med vores digitale værktøj"
     },
     "korelaererne": {
       "title": "Vores kørelærere",
-      "description": "Mød de erfarne og engagerede kørelærere, der guider dig hele vejen."
+      "description": "Mød de erfarne og engagerede kørelærere, der guider dig hele vejen"
     },
     "tilmelding": {
       "title": "Tilmelding",
-      "description": "Tilmeld dig hurtigt og nemt til dit næste kørekortforløb."
+      "description": "Tilmeld dig hurtigt og nemt til dit næste kørekortforløb"
     },
     "kontakt": {
       "title": "Kontakt os",
-      "description": "Find telefonnumre, adresser, åbningstider og skriv direkte til os."
+      "description": "Find telefonnumre, adresser, åbningstider og skriv direkte til os"
     },
-    "afdelinger": {
-      "title": "Alle afdelinger",
-      "description": "Se vores forskellige afdelinger og vælg den, der passer dig bedst."
+    "about": {
+      "title": "Om køreskolen",
+      "description": "Få indblik i, hvem vi er, og hvad vi lægger vægt på som køreskole"
     }
   },
 

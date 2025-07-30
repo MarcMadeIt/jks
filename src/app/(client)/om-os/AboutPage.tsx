@@ -6,17 +6,21 @@ import React from "react";
 
 const AboutPage = () => {
   return (
-    <div className="p-5 sm:p-10 w-full max-w-6xl mx-auto flex flex-col gap-20">
+    <div className="p-5 sm:p-7 w-full h-full flex flex-col gap-10 md:gap-15 xl:gap-28 justify-center items-start md:items-center relative my-7 md:my-20">
+      <div className="max-w-md md:max-w-xl">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold">
+          Om Junkers Køreskole
+        </h1>
+      </div>
       {/* Intro */}
-      <section className="text-center">
-        <h1 className="text-4xl font-bold mb-6">Om Junkers Køreskole</h1>
-        <p className="text-lg text-gray-700 max-w-3xl mx-auto mb-4">
+      <section className="text-start md:text-center ">
+        <p className="text-lg max-w-3xl mx-auto mb-4">
           Junkers Køreskole blev stiftet af Morten Hede Junker i november 2017
           med første afdeling i Grindsted. Kort efter begyndte vi at undervise
           elever fra Billund, og siden har vi med succes hjulpet over 1.000
           elever.
         </p>
-        <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+        <p className="text-lg  max-w-3xl mx-auto">
           I 2024 overtog vi Køreskolen Ribe og skabte{" "}
           <strong>Junkers Kørekort Ribe</strong> – en udvidelse af vores
           engagement i at levere personlig og faglig stærk undervisning.
@@ -24,7 +28,7 @@ const AboutPage = () => {
       </section>
 
       {/* Undervisning */}
-      <section className="grid md:grid-cols-2 gap-12 items-center">
+      <section className="flex flex-col-reverse md:flex-row gap-12 items-center">
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold">
             Sjov, tryg og lærerig undervisning

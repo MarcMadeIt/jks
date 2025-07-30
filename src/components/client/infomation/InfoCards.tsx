@@ -39,10 +39,10 @@ const InfoCards = () => {
         href="/kontakt"
       />
       <InfoCard
-        title={t("infoCards.afdelinger.title")}
-        description={t("infoCards.afdelinger.description")}
+        title={t("infoCards.about.title")}
+        description={t("infoCards.about.description")}
         icon={<FaTreeCity className="text-2xl text-primary" />}
-        href="/afdelinger"
+        href="/om-os"
       />
     </div>
   );

@@ -41,7 +41,7 @@ const PricesCards = ({ showTitle = true }: PricesCardsProps) => {
           {t("home.prices.title")}
         </h2>
       )}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-7 p-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-7 p-4">
         {prices.map((price, index) => (
           <motion.div
             key={index}
@@ -52,11 +52,11 @@ const PricesCards = ({ showTitle = true }: PricesCardsProps) => {
           >
             <Link
               href={price.href}
-              className="flex justify-center items-center rounded-xl bg-base-200 ring-2  ring-base-300 md:hover:bg-base-300 active:scale-[0.99] focus-visible:ring-2 focus-visible:ring-primary transition-all duration-300 ease-in-out gap-3 shadow-lg relative p-2 w-36 h-22 md:w-50 md:h-28"
+              className="flex justify-center items-center rounded-xl bg-base-200 ring-2  ring-base-300 md:hover:bg-base-300 active:scale-[0.99] focus-visible:ring-2 focus-visible:ring-primary transition-all duration-300 ease-in-out gap-3 shadow-lg relative p-2 w-36 h-22 lg:w-50 lg:h-28"
             >
               <div className="flex flex-col items-center gap-3">
-                <span className="text-3xl md:text-[40px] "> {price.icon}</span>
-                <h2 className="text-sm md:text-lg font-semibold">
+                <span className="text-3xl lg:text-[40px] "> {price.icon}</span>
+                <h2 className="text-sm lg:text-lg font-semibold">
                   {t(`priceCards.${price.key}.title`)}
                 </h2>
               </div>
