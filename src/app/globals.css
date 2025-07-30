@@ -9,7 +9,7 @@
   color-scheme: "light";
   --color-base-100: #FFF;
   --color-base-200: #F7F8FA;
-  --color-base-300: oklch(92% 0.004 286.32);
+  --color-base-300: #F2F2F2;
   --color-base-content: oklch(21% 0.006 285.885);
   --color-primary: #CC222C;
   --color-primary-content: #fff;

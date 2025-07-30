@@ -30,7 +30,7 @@ const LocationCards = () => {
         >
           <Link
             href={location.href}
-            className="flex items-center gap-2 md:gap-3 rounded-xl bg-base-200 ring-2 ring-base-300 p-3 md:p-4 lg:p-5 md:hover:bg-base-300 active:scale-[0.95]  transition-all duration-300 ease-in-out shadow-lg max-w-[500px]"
+            className="flex items-center gap-2 md:gap-3 rounded-lg md:rounded-xl bg-base-200 ring-2 ring-base-300 p-3 md:p-4 lg:p-5 md:hover:bg-base-300 active:scale-[0.95]  transition-all duration-300 ease-in-out shadow-lg max-w-[500px]"
           >
             <FaMapMarkerAlt className="text-base md:text-xl lg:text-2xl text-primary" />
             <h2 className="text-base md:text-lg lg:text-xl font-semibold">

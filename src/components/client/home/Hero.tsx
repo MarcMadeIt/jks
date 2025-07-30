@@ -18,10 +18,10 @@ const Hero = () => {
           priority
           quality={80}
         />
-        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-zinc-800/70 via-zinc-800/30 to-transparent" />
+        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-zinc-800/70 via-zinc-800/50 to-transparent" />
       </div>
       <div className="relative z-10 text-neutral-content text-center max-w-xl lg:max-w-2xl flex flex-col justify-center items-center mx-auto">
-        <h1 className="mb-5 text-2xl md:text-4xl lg:text-5xl font-bold filter drop-shadow-[0_0_4px_rgba(150,150,150,0.7)]">
+        <h1 className="mb-2 text-2xl md:text-4xl lg:text-5xl font-bold filter drop-shadow-[0_0_4px_rgba(150,150,150,0.9)]">
           Ribe, Billund & Grindsted
         </h1>
         <p className="mb-7 text-lg font-medium md:text-2xl lg:text-3xl filter drop-shadow-[0_0_4px_rgba(150,150,150,0.7)]">

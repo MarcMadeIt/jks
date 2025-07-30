@@ -7,7 +7,7 @@ import { FaPeopleGroup, FaRoute, FaTreeCity } from "react-icons/fa6";
 const InfoCards = () => {
   const { t } = useTranslation();
   return (
-    <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3 max-w-6xl">
+    <div className="grid gap-7 md:gap-6 md:grid-cols-2 xl:grid-cols-3 max-w-6xl">
       <InfoCard
         title={t("infoCards.korekortforlob.title")}
         description={t("infoCards.korekortforlob.description")}
