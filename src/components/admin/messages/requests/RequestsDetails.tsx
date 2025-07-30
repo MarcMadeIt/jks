@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { differenceInDays, addDays } from "date-fns";
-import { da } from "date-fns/locale";
 
 import { FaCircleCheck, FaCircleXmark, FaPhoneVolume } from "react-icons/fa6";
 import RequestsActions from "./RequestsActions";
