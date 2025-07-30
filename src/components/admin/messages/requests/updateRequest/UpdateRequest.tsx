@@ -17,14 +17,11 @@ const UpdateRequest = ({
   setShowToast,
   onUpdateRequest,
 }: UpdateRequestProps) => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
   const [name, setName] = useState("");
-  const [company, setCompany] = useState("");
   const [category, setCategory] = useState("");
   const [mobile, setMobile] = useState("");
   const [mail, setMail] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
   const [message, setMessage] = useState("");
   const [charCount, setCharCount] = useState(0);
   const charLimit = 500;
@@ -35,12 +32,9 @@ const UpdateRequest = ({
         const requestData = await getRequestById(requestId);
         if (requestData) {
           setName(requestData.name || "");
-          setCompany(requestData.company || "");
           setCategory(requestData.category || "");
           setMobile(requestData.mobile?.toString() || "");
           setMail(requestData.mail || "");
-          setAddress(requestData.address || "");
-          setCity(requestData.city || "");
           setMessage(requestData.message || "");
           setCharCount(requestData.message?.length || 0);
         }
@@ -64,12 +58,9 @@ const UpdateRequest = ({
     e.preventDefault();
     const updatedData: Partial<Request> = {
       name,
-      company,
       category,
       mobile,
       mail,
-      address,
-      city,
       message,
     };
     onUpdateRequest(requestId, updatedData);
@@ -100,18 +91,6 @@ const UpdateRequest = ({
         <form className="flex flex-col gap-10 w-full" onSubmit={handleSubmit}>
           <div className="flex flex-col lg:flex-row gap-5 lg:gap-14 w-full">
             <div className="flex flex-col gap-5 items-center w-full lg:w-1/3">
-              <fieldset className="flex flex-col gap-2 relative w-full fieldset">
-                <legend className="fieldset-legend">Company</legend>
-                <input
-                  type="text"
-                  className="input input-bordered input-md "
-                  placeholder="Tilføj virksomhed"
-                  value={company}
-                  onChange={(e) => setCompany(e.target.value)}
-                  required
-                  aria-label={t("aria.updateRequest.companyInput")}
-                />
-              </fieldset>
               <fieldset className="flex flex-col gap-2 relative w-full fieldset">
                 <legend className="fieldset-legend">Mailadresse</legend>
                 <input
@@ -149,21 +128,26 @@ const UpdateRequest = ({
                   <option value="" disabled>
                     {t("task_interest")}
                   </option>
-                  <option value="Website">Website</option>
-                  <option value="Web App">Web App</option>
-                  <option value="3D Visualization">3D Visualization</option>
-                  <option value="Branding">Branding</option>
-                  <option value="Social Media Content">
-                    Social Media Content
+                  <option value="Kørekort til Bil">
+                    {t("taskSelect.options.car")}
                   </option>
-                  <option value="Other">Other</option>
+                  <option value="Kørekort til Trailer">
+                    {t("taskSelect.options.trailer")}
+                  </option>
+                  <option value="Kørekort til Traktor">
+                    {t("taskSelect.options.traktor")}
+                  </option>
+                  <option value="Generhvervelse af kørekort">
+                    {t("taskSelect.options.generhvervelse")}
+                  </option>
+                  <option value="Other">{t("taskSelect.options.other")}</option>
                 </select>
               </fieldset>
             </div>
 
             <div className="flex flex-col gap-5 items-center w-full lg:w-1/3">
               <fieldset className="flex flex-col gap-2 relative w-full fieldset">
-                <legend className="fieldset-legend">Kontaktperson</legend>
+                <legend className="fieldset-legend">Navn</legend>
                 <input
                   type="text"
                   className="input input-bordered input-md"
@@ -172,31 +156,6 @@ const UpdateRequest = ({
                   onChange={(e) => setName(e.target.value)}
                   required
                   aria-label={t("aria.updateRequest.nameInput")}
-                />
-              </fieldset>
-              <fieldset className="flex flex-col gap-2 relative w-full fieldset">
-                <legend className="fieldset-legend">Adresse & husnr.</legend>
-                <input
-                  type="text"
-                  className="input input-bordered input-md"
-                  placeholder="Tilføj addresse"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  required
-                  aria-label={t("aria.updateRequest.addressInput")}
-                />
-              </fieldset>
-
-              <fieldset className="flex flex-col gap-2 relative w-full fieldset">
-                <legend className="fieldset-legend">Postnr. & By</legend>
-                <input
-                  type="text"
-                  className="input input-bordered input-md"
-                  placeholder="Tilføj by"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  required
-                  aria-label={t("aria.updateRequest.cityInput")}
                 />
               </fieldset>
               <fieldset className="flex flex-col gap-2 relative w-full fieldset">
@@ -225,7 +184,7 @@ const UpdateRequest = ({
               type="submit"
               aria-label={t("aria.updateRequest.submitButton")}
             >
-              {t("update")}
+              {t("save")}
             </button>
           </div>
         </form>

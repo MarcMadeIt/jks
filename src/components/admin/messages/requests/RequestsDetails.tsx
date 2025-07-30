@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { format, differenceInDays, addDays } from "date-fns";
+import { differenceInDays, addDays } from "date-fns";
 import { da } from "date-fns/locale";
-import RequestNote from "./createNote/RequestNote";
-import {
-  FaCircleCheck,
-  FaCircleXmark,
-  FaLocationArrow,
-  FaPhoneVolume,
-} from "react-icons/fa6";
+
+import { FaCircleCheck, FaCircleXmark, FaPhoneVolume } from "react-icons/fa6";
 import RequestsActions from "./RequestsActions";
 import UpdateRequest from "./updateRequest/UpdateRequest";
 import { Request } from "./RequestsList";
@@ -109,6 +104,17 @@ const RequestsDetails = ({
     );
   }
 
+  const formattedDate = created_at
+    ? new Intl.DateTimeFormat("da-DK", {
+        timeZone: "Europe/Copenhagen",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }).format(new Date(created_at))
+    : t("invalid_date");
+
   return (
     <div className="flex flex-col gap-10 w-full p-3 ">
       <h2 className="text-lg font-bold">{t("request_details")}</h2>{" "}
@@ -123,26 +129,6 @@ const RequestsDetails = ({
           >
             <FaPhoneVolume /> {t("contact_customer")}
           </a>
-
-          <div
-            className="tooltip tooltip-bottom"
-            data-tip={!requestDetails.address ? t("no_address") : undefined}
-          >
-            <a
-              href={`https://www.google.com/maps?q=${encodeURIComponent(
-                requestDetails.address
-              )}%20${encodeURIComponent(requestDetails.city)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`text-lg font-semibold btn btn-sm sm:btn-md btn-neutral ${
-                !requestDetails.address ? "btn-disabled" : ""
-              }`}
-              aria-label={t("aria.requestsDetails.mapLink")}
-            >
-              <span className="hidden md:block">{t("show_route")}</span>
-              <FaLocationArrow />
-            </a>
-          </div>
         </div>
         <RequestsActions
           requestId={requestId}
@@ -184,30 +170,22 @@ const RequestsDetails = ({
             <span className="text-sm font-medium text-gray-400">
               {t("request_time")}
             </span>
-            <span className="text-lg font-semibold">
-              {created_at
-                ? format(new Date(created_at), "d. MMMM yyyy 'kl.' HH:mm", {
-                    locale: da,
-                  })
-                : t("invalid_date")}
-            </span>
+            <span className="text-lg font-semibold">{formattedDate}</span>
           </div>
         </div>
         <div className="flex flex-col md:flex-row gap-10 md:gap-0">
           <div className="flex flex-col gap-2 w-full md:w-1/2 2xl:w-1/3">
-            <p className="text-sm font-medium text-gray-400">
-              {t("company_name")}
-            </p>
-            <span className="text-lg font-semibold">
-              {requestDetails.company || t("unknown")}
-            </span>
-          </div>
-          <div className="flex flex-col gap-2 w-full md:w-1/2 2xl:w-1/3">
-            <p className="text-sm font-medium text-gray-400">
-              {t("contact_person")}
-            </p>
+            <p className="text-sm font-medium text-gray-400">{t("name")}</p>
             <span className="text-lg font-semibold">
               {requestDetails.name || t("unknown")}
+            </span>
+          </div>
+          <div className="flex flex-col gap-2 ">
+            <p className="text-sm font-medium text-gray-400">
+              {t("task_interest")}
+            </p>
+            <span className="text-lg font-semibold">
+              {requestDetails.category || t("unknown")}
             </span>
           </div>
         </div>
@@ -225,25 +203,7 @@ const RequestsDetails = ({
             </span>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row gap-10 md:gap-0">
-          <div className="flex flex-col gap-2 md:w-1/2 2xl:w-1/3">
-            <p className="text-sm font-medium text-gray-400">
-              {t("address_and_city")}
-            </p>
-            <span className="text-lg font-semibold">
-              {requestDetails.address || t("unknown")},{" "}
-              {requestDetails.city || t("unknown")}
-            </span>
-          </div>
-          <div className="flex flex-col gap-2 ">
-            <p className="text-sm font-medium text-gray-400">
-              {t("task_interest")}
-            </p>
-            <span className="text-lg font-semibold">
-              {requestDetails.category || t("unknown")}
-            </span>
-          </div>
-        </div>
+
         <div className="flex flex-col md:flex-row gap-10 md:gap-0">
           <div className="flex flex-col gap-2 w-full md:w-1/2 2xl:w-1/3">
             <p className="text-sm font-medium text-gray-400">
@@ -270,9 +230,6 @@ const RequestsDetails = ({
             </div>
           </div>
         </div>
-      </div>
-      <div>
-        <RequestNote requestId={requestId} />
       </div>
       {showToast && (
         <div className="toast bottom-20 md:bottom-0 toast-end">

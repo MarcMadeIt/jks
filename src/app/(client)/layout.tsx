@@ -31,8 +31,8 @@ export default function ClientLayout({
       <Script
         async
         defer
-        src="https://stats.arzonic.com/script.js"
-        data-website-id="3226dc67-1feb-4d8c-9f6d-75f7dd0d23d7"
+        src="https://stats.junkerskøreskole.com/script.js"
+        data-website-id="ad99d227-c708-43a7-b302-c5c2a7becf37"
       />
       <div className="sm:h-lvh h-dvh max-w-screen-2xl mx-auto pt-[96px] ">
         <header>
