@@ -35,7 +35,7 @@ const PricesCards = ({ showTitle = true }: PricesCardsProps) => {
   ];
 
   return (
-    <div className="h-full w-full text-7xl flex flex-col justify-center items-center">
+    <div className="h-full w-full text-7xl flex flex-col justify-center items-center py-10 md:py-15 lg:py-20">
       {showTitle && (
         <h2 className="text-xl md:text-[28px] font-bold text-center mb-5  md:mb-10">
           {t("home.prices.title")}

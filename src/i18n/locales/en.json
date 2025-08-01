@@ -330,14 +330,16 @@
       "title": "A glimpse into life at the driving school"
     },
     "prices": {
-      "title": "which driving license do you need?"
+      "title": "Which driving license do you need?"
     }
   },
   "cta": {
     "heading": "Ready to get your driver’s license?",
     "text": "We’re ready to help you get started. Sign up for a class – or learn more about the course process.",
     "buttoncourses": "See Courses",
-    "buttonLincenseProgram": "See License Program"
+    "buttonLincenseProgram": "See License Program",
+    "heading2": "Ready to get your driver’s license?",
+    "text2": "Take the first step. See our upcoming classes and sign up when you’re ready – we’ll guide you all the way."
   },
 
   "taskSelect": {
@@ -854,9 +856,9 @@
       "title": "Contact Us",
       "description": "Find phone numbers, addresses, opening hours, or send us a message."
     },
-    "afdelinger": {
-      "title": "All Locations",
-      "description": "Find the branch closest to you and see all our locations."
+    "about": {
+      "title": "About the School",
+      "description": "Learn more about Junker's Køreskole, our history, and our values."
     }
   },
   "priceCards": {

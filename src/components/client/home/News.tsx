@@ -95,7 +95,7 @@ const News = () => {
                   {/* Gradient + tekst */}
                   <div className="absolute bottom-0 left-0 right-0 z-10 p-4 bg-gradient-to-t from-black/80 to-transparent text-white">
                     <h2 className="text-base font-bold mb-1">{item.title}</h2>
-                    <p className="text-xs font-light line-clamp-2">
+                    <p className="text-sm font-light line-clamp-2">
                       {item.content}
                     </p>
                   </div>

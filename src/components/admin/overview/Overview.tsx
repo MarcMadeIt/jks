@@ -40,7 +40,7 @@ const Overview = () => {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="bg-base-200 rounded-lg shadow-md p-3 md:p-7">
+      <div className="bg-base-100 rounded-lg shadow-md p-3 md:p-7">
         <div className="flex justify-end items-center mb-5">
           <div role="tablist" className="tabs tabs-border">
             <button
@@ -93,7 +93,7 @@ const Overview = () => {
           </div>
         )}
       </div>
-      <div className="bg-base-200 rounded-lg shadow-md p-3 md:p-7">
+      <div className="bg-base-100 rounded-lg shadow-md p-3 md:p-7">
         <h3 className="text-lg font-semibold">{t("analytics.most_visited")}</h3>
         {loading ? (
           <div className="flex justify-start items-center h-32 gap-3">
@@ -115,7 +115,7 @@ const Overview = () => {
           <p className="text-neutral-400 mt-3">Ingen data endnu</p>
         )}
       </div>
-      <div className="bg-base-200 rounded-lg shadow-md p-3 md:p-7">
+      <div className="bg-base-100 rounded-lg shadow-md p-3 md:p-7">
         <h3 className="text-lg font-semibold">{t("analytics.devices")}</h3>
         {loading ? (
           <div className="flex justify-start items-center h-32 gap-3">

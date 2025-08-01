@@ -10,12 +10,12 @@ const Preview = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center gap-8 px-4 h-full lg:rounded-xl py-10 md:py-15 lg:py-20">
+      <div className="flex flex-col items-center justify-center gap-8 px-9 h-full lg:rounded-xl py-10 md:py-15 lg:py-20">
         {/* <h2 className="text-xl md:text-[28px] font-bold text-center mb-5">
           {t("home.preview.title")}
         </h2> */}
         <div
-          className="relative w-full max-h-96 max-w-[750px] overflow-hidden rounded-lg cursor-pointer group"
+          className="relative w-full max-h-[400px] max-w-[750px] overflow-hidden rounded-lg cursor-pointer group"
           onClick={openModal}
         >
           <Image
@@ -28,7 +28,7 @@ const Preview = () => {
           {/* Play button overlay */}
           <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-all">
             <div className="flex flex-col items-center justify-center gap-4 mt-7">
-              <div className="bg-base-200 bg-opacity-90 rounded-2xl p-4 md:p-6 shadow-lg group-hover:bg-opacity-100 transition-all">
+              <div className="bg-base-200 bg-opacity-90 rounded-2xl p-4 md:p-6 shadow-lg group-hover:bg-opacity-100 transition-all btn btn-lg">
                 <FaPlay className="text-2xl md:text-4xl text-gray-800 ml-1" />
               </div>
             </div>
