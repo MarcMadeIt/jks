@@ -3,69 +3,69 @@
 
 
 @plugin "daisyui/theme" {
-  name: "JK";
-  default: true;
-  prefersdark: true;
-  color-scheme: "light";
-  --color-base-100: #FFF;
-  --color-base-200: #F7F8FA;
-  --color-base-300: #F2F2F2;
-  --color-base-content: oklch(21% 0.006 285.885);
-  --color-primary: #CC222C;
-  --color-primary-content: #fff;
-  --color-secondary: #303848;
-  --color-secondary-content: #fff;
-  --color-accent: oklch(0% 0 0);
-  --color-accent-content: oklch(100% 0 0);
-  --color-neutral: oklch(37% 0.013 285.805);
-  --color-neutral-content: oklch(98% 0 0);
-  --color-info: oklch(70% 0.165 254.624);
-  --color-info-content: oklch(28% 0.091 267.935);
-  --color-success: #127701;
-  --color-success-content: #F7F8FA;
-  --color-warning: oklch(85% 0.199 91.936);
-  --color-warning-content: oklch(28% 0.066 53.813);
-  --color-error: #B31E27;
-  --color-error-content: #F7F8FA;
-  --radius-selector: 0.5rem;
-  --radius-field: 0.4rem;
-  --radius-box: 0.5rem;
-  --size-selector: 0.25rem;
-  --size-field: 0.25rem;
-  --border: 1px;
-  --depth: 0;
-  --noise: 0;
+    name: "JK";
+    default: true;
+    prefersdark: true;
+    color-scheme: "light";
+    --color-base-100: #FFF;
+    --color-base-200: #F7F8FA;
+    --color-base-300: #F2F2F2;
+    --color-base-content: oklch(21% 0.006 285.885);
+    --color-primary: #CC222C;
+    --color-primary-content: #fff;
+    --color-secondary: #303848;
+    --color-secondary-content: #fff;
+    --color-accent: oklch(0% 0 0);
+    --color-accent-content: oklch(100% 0 0);
+    --color-neutral: oklch(37% 0.013 285.805);
+    --color-neutral-content: oklch(98% 0 0);
+    --color-info: oklch(70% 0.165 254.624);
+    --color-info-content: oklch(28% 0.091 267.935);
+    --color-success: #127701;
+    --color-success-content: #F7F8FA;
+    --color-warning: oklch(85% 0.199 91.936);
+    --color-warning-content: oklch(28% 0.066 53.813);
+    --color-error: #B31E27;
+    --color-error-content: #F7F8FA;
+    --radius-selector: 0.5rem;
+    --radius-field: 0.4rem;
+    --radius-box: 0.5rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 0;
+    --noise: 0;
 }
 
 
 
 /* Bullet & number list fix */
 .tiptap-list-style ul {
-  padding-left: 0.7rem;
-  list-style-position: inside;
+    padding-left: 0.7rem;
+    list-style-position: inside;
 }
 
 .tiptap-list-style ul>li {
-  list-style-type: disc;
-  display: list-item;
+    list-style-type: disc;
+    display: list-item;
 }
 
 
 .tiptap-list-style li>p {
-  margin: 0;
-  display: inline;
+    margin: 0;
+    display: inline;
 }
 
 .tiptap-list-style h3 {
-  @apply text-lg font-bold mt-3 mb-2;
+    @apply text-lg font-bold mt-3 mb-2;
 }
 
 .tiptap-list-style h4 {
-  @apply text-lg font-medium mt-2 mb-1;
+    @apply text-lg font-medium mt-2 mb-1;
 }
 
 .modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.9);
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.9);
 }
