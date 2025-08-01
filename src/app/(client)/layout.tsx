@@ -1,56 +1,88 @@
-"use client";
+import type { Metadata, Viewport } from "next";
+import { Manrope } from "next/font/google";
+import "./globals.css";
+import React from "react";
+import I18nProvider from "@/i18n/i18nProvider";
 
-import Header from "@/components/client/layout/Header";
-import { FaAngleUp } from "react-icons/fa6";
-import { useEffect, useState } from "react";
-import Footer from "@/components/client/layout/Footer";
-import Script from "next/script";
+const poppins = Manrope({
+  subsets: ["latin"],
+});
 
-export default function ClientLayout({
+export const metadata: Metadata = {
+  title: {
+    default: "Junkers Køreskole",
+    template: "%s - Junkers Køreskole",
+  },
+  description:
+    "Tag kørekort i Ribe, Grindsted eller Billund hos Junkers Køreskole. Vi tilbyder både teoriundervisning og praktisk køretræning til bil, trailer, traktor og generhvervelse – med fokus på tryghed og høj beståelsesprocent.",
+  metadataBase: new URL("https://www.xn--junkerskreskole-dub.dk"),
+  alternates: {
+    canonical: "/",
+  },
+  manifest: "/manifest.json",
+  openGraph: {
+    title: "Junkers Køreskole",
+    description:
+      "Tryg og professionel undervisning til kørekort – bil, generhvervelse, trailer og traktor. Vi holder til i Billund, Ribe og Grindsted.",
+    url: "https://www.xn--junkerskreskole-dub.dk",
+    siteName: "Junkers Køreskole",
+    images: [
+      {
+        url: "/opengraph-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Junkers Køreskole OpenGraph preview",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Junkers Køreskole",
+    description:
+      "Tryg og professionel undervisning til kørekort – bil, generhvervelse, trailer og traktor. Vi holder til i Billund, Ribe og Grindsted.",
+    images: ["/opengraph-image.jpg"],
+  },
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
+};
+
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [showScroll, setShowScroll] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowScroll(window.scrollY > 400);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
-    <>
-      <Script
-        async
-        defer
-        src="https://stats.junkerskøreskole.dk/script.js"
-        data-website-id="ad99d227-c708-43a7-b302-c5c2a7becf37"
-      />
-      <div className="sm:h-lvh h-dvh max-w-screen-2xl mx-auto pt-[96px] ">
-        <header>
-          <Header />
-        </header>
-        <main>{children}</main>
-        <footer>
-          <Footer />
-        </footer>
-        {showScroll && (
-          <button
-            onClick={scrollToTop}
-            className="fixed bottom-9 right-8 p-2 bg-base-100 ring-2 ring-secondary text-secondary rounded-lg shadow-lg z-50  cursor-pointer block md:hidden"
-          >
-            <FaAngleUp size={17} />
-          </button>
-        )}
-      </div>
-    </>
+    <html lang="da" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Junker's Køreskole",
+              url: "https://www.xn--junkerskreskole-dub.dk",
+              logo: "https://www.xn--junkerskreskole-dub.dk/icon-search-512x512.png",
+            }),
+          }}
+        />
+      </head>
+      <body className={poppins.className}>
+        <I18nProvider>{children}</I18nProvider>
+      </body>
+    </html>
   );
 }

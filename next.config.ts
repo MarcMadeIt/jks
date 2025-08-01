@@ -37,8 +37,19 @@ const nextConfig: NextConfig = {
         destination: "/afdelinger/grindsted",
         permanent: true,
       },
+      {
+        source: "/home",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/hjem",
+        destination: "/",
+        permanent: true,
+      },
     ];
   },
+
   generateBuildId: () => String(Date.now()),
 };
 
