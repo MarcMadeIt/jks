@@ -14,18 +14,21 @@ export const metadata: Metadata = {
     template: "%s - Junkers Køreskole",
   },
   description:
-    "Tag kørekort i Ribe, Grindsted eller Billund hos Junkers Køreskole. Vi tilbyder undervisning til bil, trailer, traktor og generhvervelse – med fokus på tryghed og høj beståelsesprocent",
+    "Tag kørekort i Ribe, Grindsted eller Billund hos Junkers Køreskole. Vi tilbyder både teoriundervisning og praktisk køretræning til bil, trailer, traktor og generhvervelse – med fokus på tryghed og høj beståelsesprocent.",
   metadataBase: new URL("https://www.xn--junkerskreskole-dub.dk"),
-
+  alternates: {
+    canonical: "/",
+  },
+  manifest: "/manifest.json",
   openGraph: {
     title: "Junkers Køreskole",
     description:
-      "Tag dit kørekort hos Junkers Køreskole – vi tilbyder undervisning til bil, generhvervelse, trailer og traktor. Afdelinger i Billund, Ribe og Grindsted.",
+      "Tryg og professionel undervisning til kørekort – bil, generhvervelse, trailer og traktor. Vi holder til i Billund, Ribe og Grindsted.",
     url: "https://www.xn--junkerskreskole-dub.dk",
     siteName: "Junkers Køreskole",
     images: [
       {
-        url: "/opengraph-image.png",
+        url: "/opengraph-image.jpg",
         width: 1200,
         height: 630,
         alt: "Junkers Køreskole OpenGraph preview",
@@ -37,13 +40,18 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Junkers Køreskole",
     description:
-      "Tryg og professionel undervisning til kørekort – bil, generhvervelse, trailer og traktor. Find os i Billund, Ribe og Grindsted.",
-    images: ["/opengraph-image.png"],
+      "Tryg og professionel undervisning til kørekort – bil, generhvervelse, trailer og traktor. Vi holder til i Billund, Ribe og Grindsted.",
+    images: ["/opengraph-image.jpg"],
   },
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
     apple: "/favicon.png",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
   },
 };
 
