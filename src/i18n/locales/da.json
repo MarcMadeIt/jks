@@ -329,6 +329,12 @@
       "title": "Hvilket kørekort er du interesseret i?"
     }
   },
+  "cta": {
+    "heading": "Klar til at tage kørekort?",
+    "text": "Vi er klar til at hjælpe dig godt i gang. Tilmeld dig et hold – eller læs mere om hvordan forløbet foregår.",
+    "buttoncourses": "Se holdstart",
+    "buttonLincenseProgram": "Se vores kørekortforløb"
+  },
 
   "taskSelect": {
     "legend": "Hvilket kørekort er du interesseret i?",
@@ -587,6 +593,13 @@
     "driving_test": {
       "title": "Den praktiske prøve",
       "text": "Køreprøven er den sidste test, inden du får dit kørekort i hånden. Du skal vise, at dine kørekundskaber, praktiske færdigheder og din adfærd i trafikken er sikker og lovlig, sådan som det er fastsat i køreuddannelsen. Du skal ikke nødvendigvis køre fejlfrit, men dine fejl må ikke være større, end du kan løse dem sikkert og alene."
+    },
+    "timeline": {
+      "theory": "Teoriundervisning",
+      "maneuver": "Manøvrebane",
+      "theoryTest": "Teoriprøve",
+      "techCourse": "Glatbane",
+      "drivingTest": "Praktisk prøve"
     }
   },
 
@@ -796,9 +809,14 @@
     "sloganSince": "Med dig hele vejen - siden 2017",
     "aboutUs": "Om os",
     "jobs": "Jobs",
-    "legal": "Juridisk",
     "departments": "Afdelinger",
-    "contactUs": "Kontakt os"
+    "legal": "Juridisk",
+    "registration": "Tilmelding",
+    "info": "Information",
+    "teachers": "Kørelærerne",
+    "prices": "Priser",
+    "contact": "Kontakt os",
+    "about": "Om køreskolen"
   },
 
   "locationCards": {

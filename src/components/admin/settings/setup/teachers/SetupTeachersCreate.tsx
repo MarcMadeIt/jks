@@ -73,21 +73,24 @@ const SetupTeachersCreate = ({
     <div className="flex flex-col gap-10 w-full">
       <div>
         <button onClick={onBack} className="btn btn-ghost">
-          <FaAngleLeft /> {t("setup.back")}
+          <FaAngleLeft /> {t("back")}
         </button>
       </div>
       <div className="flex flex-col gap-5 w-full">
         <span className="text-lg font-bold">
           {t("createTeacher.formTitle")}
         </span>
-        <form onSubmit={handleSave} className="flex flex-col gap-5 w-full">
+        <form
+          onSubmit={handleSave}
+          className="flex flex-col gap-5 w-full md:max-w-sm"
+        >
           <fieldset className="fieldset">
             <legend className="fieldset-legend">
               {t("createTeacher.name")}
             </legend>
             <input
               type="text"
-              className="input input-bordered input-md"
+              className="input input-md w-full"
               placeholder={t("createTeacher.placeholders.name")}
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -104,7 +107,7 @@ const SetupTeachersCreate = ({
             <input
               type="file"
               accept="image/png, image/webp, image/jpeg, image/jpg"
-              className="file-input"
+              className="file-input w-full"
               onChange={(e) => {
                 const file = e.target.files?.[0];
                 if (file) {
@@ -128,7 +131,7 @@ const SetupTeachersCreate = ({
             </legend>
             <input
               type="date"
-              className="input input-bordered input-md"
+              className="input input-md w-full"
               placeholder={t("createTeacher.placeholders.since")}
               value={since}
               onChange={(e) => setSince(e.target.value)}
@@ -138,12 +141,12 @@ const SetupTeachersCreate = ({
             )}
           </fieldset>
 
-          <fieldset className="fieldset md:w-md">
+          <fieldset className="fieldset">
             <legend className="fieldset-legend">
               {t("createTeacher.desc")}
             </legend>
             <textarea
-              className="textarea textarea-bordered textarea-md w-full resize-none"
+              className="textarea textarea-md w-full resize-none"
               placeholder={t("createTeacher.placeholders.desc")}
               value={desc}
               onChange={(e) => setDesc(e.target.value)}

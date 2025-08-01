@@ -333,6 +333,12 @@
       "title": "which driving license do you need?"
     }
   },
+  "cta": {
+    "heading": "Ready to get your driver’s license?",
+    "text": "We’re ready to help you get started. Sign up for a class – or learn more about the course process.",
+    "buttoncourses": "See Courses",
+    "buttonLincenseProgram": "See our license program"
+  },
 
   "taskSelect": {
     "legend": "What type of license?",
@@ -387,7 +393,7 @@
     "cta": {
       "title": "Ready to get your driver’s license?",
       "text": "Take the first step. See our upcoming classes and sign up when you’re ready – we’ll guide you all the way.",
-      "button": "Sign up now"
+      "button": "See courses"
     }
   },
 
@@ -547,6 +553,69 @@
     "driving_dark.1": "Dim your lights 200–300 m before oncoming car/motorcycle",
     "driving_dark.2": "Dim your lights 100–150 m before cyclist or pedestrian",
     "driving_dark.3": "Reduce speed before dimming. On narrow roads: max 40 km/h when meeting oncoming traffic."
+  },
+
+  "stepsContent": {
+    "title": "The Driver's License Program",
+    "subtitle": "What is the process like at Junkers Driving School?",
+    "intro": "On your first day at Junkers Driving School, your instructor will walk you through the entire course and make sure everyone is informed about what to expect.\n\nWe believe that a fast and efficient program is the way forward, which is why theory lessons only take 4 weeks with us.\n\nThis gives you a great overview as a student, so you can focus on learning and not be confused by what’s coming next.\n\nAll questions will be answered thoroughly – there are no stupid questions.",
+    "requirements": {
+      "title": "Legal Requirements for a Driver's License",
+      "1": "29 theory lessons (we offer 32)",
+      "2": "4 lessons on a closed maneuvering course",
+      "3": "16 on-road driving lessons",
+      "4": "4 lessons on a technical driving course (slippery surface)",
+      "5": "A traffic-related first aid certificate and an approved medical certificate",
+      "6": "Pass the theory test",
+      "7": "Pass the practical driving test"
+    },
+    "theory": {
+      "title": "Theory Lessons",
+      "text": "At Junkers Driving School, theory is taught in a classroom setting with a strong focus on dialogue and interaction. You’ll never be left on your own."
+    },
+    "maneuver": {
+      "title": "Closed Course Training",
+      "text": "On the closed maneuvering course – often called 'the playpen' – you’ll learn the basics of driving and how to handle the car.",
+      "1": "Starting and stopping",
+      "2": "Driving in figure eights",
+      "3": "Forward and reverse driving with emergency braking",
+      "4": "Reversing with steering",
+      "5": "Slalom parking forward and reverse along the roadside",
+      "6": "2nd gear turns and possibly hard braking without wheel lock",
+      "7": "Turning around",
+      "8": "Parking in marked bays",
+      "road": "After the closed course, your on-road driving lessons will begin."
+    },
+    "theory_test": {
+      "title": "Theory Test",
+      "text": "Once you’ve completed the required theory lessons, you’ll take the theory test at the Danish Road Traffic Authority. Make sure to arrive on time – if you’re late or don’t show up, you’ll need to pay a new fee of 1,170 DKK."
+    },
+    "tech_course": {
+      "title": "Technical Driving Course (Slippery Track)",
+      "text": "Once your instructor says you’re ready and you’ve completed your driving lessons, you’ll attend a slippery road course. Here, you’ll learn to handle emergencies and get familiar with how different weather conditions affect driving.",
+      "transport": "We drive at technical courses in both Varde and Skjern. All students from Grindsted and Ribe are transported by minibus to Varde."
+    },
+    "driving_test": {
+      "title": "The Practical Driving Test",
+      "text": "The driving test is your final step before getting your license. You’ll need to demonstrate safe and lawful driving behavior as required by the curriculum. You’re not expected to drive perfectly, but your mistakes must be minor and handled independently and safely."
+    },
+    "timeline": {
+      "theory": "Theory Lessons",
+      "maneuver": "Closed Course",
+      "theoryTest": "Theory Test",
+      "techCourse": "Slippery Track",
+      "drivingTest": "Driving Test"
+    }
+  },
+
+  "stepsMenu": {
+    "overview": "Overview",
+    "requirements": "Requirements",
+    "theory": "Theory Lessons",
+    "maneuver": "Closed Course",
+    "theoryTest": "Theory Test",
+    "techCourse": "Slippery Track",
+    "drivingTest": "Driving Test"
   },
 
   "departmentPage": {
@@ -742,9 +811,13 @@
     "sloganSince": "With you all the way - since 2017",
     "aboutUs": "About Us",
     "departments": "Departments",
-    "jobs": "Jobs",
     "legal": "Legal",
-    "contactUs": "Contact Us"
+    "registration": "Registration",
+    "info": "Information",
+    "teachers": "Our Driving Instructors",
+    "prices": "Prices",
+    "contact": "Contact us",
+    "about": "About us"
   },
   "locationCards": {
     "ribe": {

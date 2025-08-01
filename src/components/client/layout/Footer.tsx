@@ -27,32 +27,53 @@ const Footer = () => {
         <nav>
           <h5 className="footer-title">{t("footer.aboutUs")}</h5>
           <Link
-            href="/tilmelding"
+            href="/om-os"
             className="link link-hover"
-            aria-label={t("aria.footer.linkToAbout", "Go to about us")}
+            aria-label={t("aria.footer.linkToJobs", "Go to jobs")}
           >
-            Tilmelding
-          </Link>
-
-          <Link
-            href="/information"
-            className="link link-hover"
-            aria-label={t("aria.footer.linkToContact", "Go to contact")}
-          >
-            Information
+            {t("footer.about")}
           </Link>
           <Link
             href="/korelaererne"
             className="link link-hover"
             aria-label={t("aria.footer.linkToJobs", "Go to jobs")}
           >
-            Kørelærerne
+            {t("footer.teachers")}
+          </Link>
+          <Link
+            href="/information"
+            className="link link-hover"
+            aria-label={t("aria.footer.linkToJobs", "Go to jobs")}
+          >
+            {t("footer.info")}
+          </Link>
+          <Link
+            href="/kontakt"
+            className="link link-hover"
+            aria-label={t("aria.footer.linkToJobs", "Go to jobs")}
+          >
+            {t("footer.contact")}
           </Link>
         </nav>
+
         <nav>
-          <h5 className="footer-title">{t("footer.legal", "Legal")}</h5>
+          <h5 className="footer-title">{t("footer.legal")}</h5>
           <TermsModal buttonText={t("terms_of_service")} variant="hover" />
           <ConsentModal buttonText={t("privacy_policy")} variant="hover" />
+          <Link
+            href="/tilmelding"
+            className="link link-hover"
+            aria-label={t("aria.footer.linkToAbout", "Go to about us")}
+          >
+            {t("footer.registration")}
+          </Link>
+          <Link
+            href="/priser"
+            className="link link-hover"
+            aria-label={t("aria.footer.linkToJobs", "Go to jobs")}
+          >
+            {t("footer.prices")}
+          </Link>
         </nav>
       </footer>
       <footer className="footer bg-base-100 text-base-content px-10 py-4">

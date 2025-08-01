@@ -26,7 +26,7 @@ const SetupTeachers = ({ onDetails, onCreate }: SetupTeachersProps) => {
       </div>
 
       <div>
-        <button className="btn btn-sm btn-primary" onClick={onCreate}>
+        <button className="btn btn-primary" onClick={onCreate}>
           {t("create")} {t("teacher")}
         </button>
       </div>

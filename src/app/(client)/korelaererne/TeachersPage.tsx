@@ -9,7 +9,8 @@ import { getAllTeachers } from "@/lib/client/actions";
 interface Teacher {
   name: string;
   desc: string;
-  desc_eng: string;
+  desc_translated: string | null;
+  source_lang: string;
   image?: string;
   since?: string;
 }
@@ -41,50 +42,52 @@ const TeachersPage = () => {
         transition={{ duration: 0.4 }}
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full">
-          {team.map(({ name, desc, desc_eng, image, since }, i) => {
-            let years = 0;
-            if (since) {
-              const sinceDate = new Date(since);
-              const now = new Date();
-              years = now.getFullYear() - sinceDate.getFullYear();
+          {team.map(
+            ({ name, desc, desc_translated, source_lang, image, since }, i) => {
+              let years = 0;
+              if (since) {
+                const sinceDate = new Date(since);
+                const now = new Date();
+                years = now.getFullYear() - sinceDate.getFullYear();
 
-              const hasHadAnniversary =
-                now.getMonth() > sinceDate.getMonth() ||
-                (now.getMonth() === sinceDate.getMonth() &&
-                  now.getDate() >= sinceDate.getDate());
-              if (!hasHadAnniversary) years--;
-            }
-            return (
-              <motion.div
-                key={i}
-                className="card bg-base-100 flex-1 h-[550px]"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-              >
-                <figure className="px-1 pt-2">
-                  <Image
-                    src={image || "/no-image.webp"}
-                    alt={`${name} – ${
-                      i18n.language === "en" ? desc_eng : desc
-                    }`}
-                    width={350}
-                    height={350}
-                    className="rounded-lg"
-                  />
-                </figure>
-                <div className="card-body p-5">
-                  <h2 className="card-title tex">{name}</h2>
-                  <p className="text-sm">
-                    {i18n.language === "en" ? desc_eng : desc}
-                  </p>
-                  <div className="card-actions text-primary font-semibold">
-                    {years > 0 ? `${years} år som kørelærer` : null}
+                const hasHadAnniversary =
+                  now.getMonth() > sinceDate.getMonth() ||
+                  (now.getMonth() === sinceDate.getMonth() &&
+                    now.getDate() >= sinceDate.getDate());
+                if (!hasHadAnniversary) years--;
+              }
+
+              const description =
+                i18n.language === source_lang ? desc : desc_translated || desc;
+
+              return (
+                <motion.div
+                  key={i}
+                  className="card bg-base-100 flex-1 h-[550px]"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <figure className="px-1 pt-2">
+                    <Image
+                      src={image || "/no-image.webp"}
+                      alt={`${name} – ${description}`}
+                      width={350}
+                      height={350}
+                      className="rounded-lg"
+                    />
+                  </figure>
+                  <div className="card-body p-5">
+                    <h2 className="card-title tex">{name}</h2>
+                    <p className="text-sm">{description}</p>
+                    <div className="card-actions text-primary font-semibold">
+                      {years > 0 ? `${years} år som kørelærer` : null}
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            );
-          })}
+                </motion.div>
+              );
+            }
+          )}
         </div>
       </motion.div>
     </div>

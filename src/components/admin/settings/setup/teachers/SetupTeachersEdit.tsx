@@ -112,18 +112,21 @@ const SetupTeachersEdit = ({
           <FaAngleLeft /> {t("back")}
         </button>
       </div>
-      <div className="flex flex-col gap-5 w-full">
+      <div className="flex flex-col gap-5 w-full ">
         <span className="text-lg font-bold">
           {t("updateTeacher.formTitle")}
         </span>
-        <form onSubmit={handleSave} className="flex flex-col gap-5 w-full">
+        <form
+          onSubmit={handleSave}
+          className="flex flex-col gap-5 w-full md:max-w-sm"
+        >
           <fieldset className="fieldset">
             <legend className="fieldset-legend">
               {t("updateTeacher.name")}
             </legend>
             <input
               type="text"
-              className="input input-bordered input-md"
+              className="input input-md w-full"
               placeholder={t("updateTeacher.placeholders.name")}
               value={teacherData.name}
               onChange={(e) =>
@@ -143,7 +146,7 @@ const SetupTeachersEdit = ({
             <input
               type="file"
               accept="image/png, image/webp, image/jpeg, image/jpg"
-              className="file-input"
+              className="file-input w-full"
               onChange={(e) => {
                 const file = e.target.files?.[0];
                 if (file) {
@@ -167,7 +170,7 @@ const SetupTeachersEdit = ({
             </legend>
             <input
               type="date"
-              className="input input-bordered input-md"
+              className="input input-md w-full"
               placeholder={t("updateTeacher.placeholders.since")}
               value={teacherData.since}
               onChange={(e) =>
@@ -183,7 +186,7 @@ const SetupTeachersEdit = ({
               {t("updateTeacher.desc")}
             </legend>
             <textarea
-              className="textarea textarea-bordered textarea-md w-full resize-none"
+              className="textarea textarea-md w-full resize-none"
               placeholder={t("updateTeacher.placeholders.desc")}
               value={teacherData.desc}
               onChange={handleDescChange}

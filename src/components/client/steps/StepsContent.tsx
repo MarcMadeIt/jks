@@ -32,8 +32,8 @@ const StepsContent = () => {
 
       <ul className="timeline timeline-vertical lg:timeline-horizontal">
         <li>
-          <div className="timeline-end timeline-box border-2 border-base-300 ">
-            Teoriundervisning
+          <div className="timeline-end timeline-box border-2 border-base-300">
+            {t("stepsContent.timeline.theory")}
           </div>
           <div className="timeline-middle">
             <FaCheckCircle className="text-primary" size={25} />
@@ -42,8 +42,8 @@ const StepsContent = () => {
         </li>
         <li>
           <hr />
-          <div className="timeline-start timeline-box border-2 border-base-300 ">
-            Manøvrebane
+          <div className="timeline-start timeline-box border-2 border-base-300">
+            {t("stepsContent.timeline.maneuver")}
           </div>
           <div className="timeline-middle">
             <FaCheckCircle className="text-primary" size={25} />
@@ -52,8 +52,8 @@ const StepsContent = () => {
         </li>
         <li>
           <hr />
-          <div className="timeline-end timeline-box border-2 border-base-300 ">
-            Teoriprøve
+          <div className="timeline-end timeline-box border-2 border-base-300">
+            {t("stepsContent.timeline.theoryTest")}
           </div>
           <div className="timeline-middle">
             <FaCheckCircle className="text-primary" size={25} />
@@ -62,8 +62,8 @@ const StepsContent = () => {
         </li>
         <li>
           <hr />
-          <div className="timeline-start timeline-box border-2 border-base-300 ">
-            Glatbane
+          <div className="timeline-start timeline-box border-2 border-base-300">
+            {t("stepsContent.timeline.techCourse")}
           </div>
           <div className="timeline-middle">
             <FaCheckCircle className="text-primary" size={25} />
@@ -72,8 +72,8 @@ const StepsContent = () => {
         </li>
         <li>
           <hr />
-          <div className="timeline-end timeline-box border-2 border-base-300 ">
-            Praktisk prøve
+          <div className="timeline-end timeline-box border-2 border-base-300">
+            {t("stepsContent.timeline.drivingTest")}
           </div>
           <div className="timeline-middle">
             <FaCheckCircle className="text-primary" size={25} />
