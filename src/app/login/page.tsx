@@ -66,16 +66,16 @@ const LoginPage = () => {
           onSubmit={handleSubmit}
           className="bg-base-100 p-11 rounded-lg shadow-lg flex flex-col gap-5"
         >
-          <div className="flex flex-col items-center gap-2">
-            <span className="font-bold text-lg">Admin</span>
-            <span className="text-sm">Junkers Køreskole</span>
+          <div className="flex flex-col items-center gap-1">
+            <span className="font-bold text-lg">ADMIN</span>
+            <span className="text-base font-semibold">Junkers Køreskole</span>
           </div>
           <div className="flex flex-col gap-2 relative">
             <label
               htmlFor="email"
               className="input input-bordered flex items-center gap-2 "
             >
-              <FaEnvelope />
+              <FaEnvelope size={18} />
               <input
                 id="email"
                 name="email"
@@ -99,7 +99,7 @@ const LoginPage = () => {
               htmlFor="password"
               className="input input-bordered flex items-center gap-2"
             >
-              <FaKey />
+              <FaKey size={18} />
               <input
                 id="password"
                 name="password"
