@@ -53,17 +53,6 @@ const ContactForm = () => {
     try {
       await createRequest(name, "", mobile, mail, category, isChecked, message);
 
-      const emailBody = [
-        `Phone: ${mobile}`,
-        `Category: ${category}`,
-        `Consent given: ${isChecked ? "Yes" : "No"}`,
-        "",
-        "Message:",
-        message,
-      ].join("\n");
-
-      const lang = (localStorage.getItem("i18nextLng") as "en" | "da") || "en";
-
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: {
