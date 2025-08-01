@@ -2,10 +2,6 @@
 
 import { createServerClientInstance } from "@/utils/supabase/server";
 
-interface Identity {
-  provider: string;
-}
-
 export async function readUserSession() {
   const supabase = await createServerClientInstance();
 
@@ -22,22 +18,31 @@ export async function readUserSession() {
     .single();
   if (roleError || !roleResult) return null;
 
-  const facebookLinked = (user.identities as Identity[]).some(
-    (i) => i.provider === "facebook"
-  );
-
-  let facebookToken: string | null = null;
-  if (facebookLinked) {
-    const {
-      data: { session },
-    } = await supabase.auth.getSession(); // kun til token
-    facebookToken = session?.provider_token ?? null;
-  }
-
   return {
     user,
     role: roleResult.role as "admin" | "editor" | "developer",
-    facebookLinked,
-    facebookToken,
   };
+}
+
+// Client-side function to fetch and set user session in Zustand store
+export async function fetchAndSetUserSession() {
+  "use client";
+
+  try {
+    const { useAuthStore } = await import("./useAuthStore");
+    const session = await readUserSession();
+
+    if (!session) {
+      useAuthStore.getState().clearSession();
+      return;
+    }
+
+    const { user, role } = session;
+    useAuthStore.getState().setUser({ id: user.id, email: user.email });
+    useAuthStore.getState().setRole(role);
+  } catch (err) {
+    console.error("fetchAndSetUserSession failed:", err);
+    const { useAuthStore } = await import("./useAuthStore");
+    useAuthStore.getState().clearSession();
+  }
 }

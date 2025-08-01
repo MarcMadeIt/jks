@@ -47,7 +47,10 @@ const News = () => {
             <FaAngleLeft />
             {t("back")}
           </button>
-          <CreateNews onNewsCreated={handleNewsCreated} />
+          <CreateNews
+            onNewsCreated={handleNewsCreated}
+            setShowCreateNews={setShowCreateNews}
+          />
         </div>
       ) : showUpdateNews && selectedNewsId !== null ? (
         <div className="flex flex-col items-start gap-5">

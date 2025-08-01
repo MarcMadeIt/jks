@@ -7,7 +7,11 @@ import {
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import sharp from "sharp";
-import { postToFacebookPage } from "./some";
+import {
+  deleteFacebookPost,
+  postToFacebookPage,
+  postToInstagram,
+} from "./some";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // AUTHENTICATION
@@ -280,140 +284,279 @@ export async function createNews({
   title,
   content,
   images,
+  sharedFacebook = false,
+  sharedInstagram = false,
 }: {
   title: string;
   content: string;
   images?: File[];
-}): Promise<void> {
-  const supabase = await createServerClientInstance();
-  const apiKey = process.env.DEEPL_API_KEY!;
-  const endpoint = "https://api-free.deepl.com/v2/translate";
-
-  // Translate title
-  const titleParams = new URLSearchParams({
-    auth_key: apiKey,
-    text: title,
-    target_lang: "EN",
-  });
-  const titleRes = await fetch(endpoint, { method: "POST", body: titleParams });
-  if (!titleRes.ok)
-    throw new Error(`DeepL error ${titleRes.status}: ${await titleRes.text()}`);
-  const {
-    translations: [titleFirst],
-  } = (await titleRes.json()) as {
-    translations: { text: string; detected_source_language: string }[];
-  };
-  const titleSourceLang = titleFirst.detected_source_language.toLowerCase();
-
-  let title_translated = titleFirst.text;
-  if (titleSourceLang === "en") {
-    const titleParams2 = new URLSearchParams({
-      auth_key: apiKey,
-      text: title,
-      target_lang: "DA",
-    });
-    const titleR2 = await fetch(endpoint, {
-      method: "POST",
-      body: titleParams2,
-    });
-    if (!titleR2.ok)
-      throw new Error(`DeepL error ${titleR2.status}: ${await titleR2.text()}`);
-    const {
-      translations: [titleSecond],
-    } = (await titleR2.json()) as {
-      translations: { text: string }[];
-    };
-    title_translated = titleSecond.text;
-  }
-
-  // Translate content
-  const params1 = new URLSearchParams({
-    auth_key: apiKey,
-    text: content,
-    target_lang: "EN",
-  });
-  const r1 = await fetch(endpoint, { method: "POST", body: params1 });
-  if (!r1.ok) throw new Error(`DeepL error ${r1.status}: ${await r1.text()}`);
-  const {
-    translations: [first],
-  } = (await r1.json()) as {
-    translations: { text: string; detected_source_language: string }[];
-  };
-  const sourceLang = first.detected_source_language.toLowerCase();
-
-  let content_translated = first.text;
-  if (sourceLang === "en") {
-    const params2 = new URLSearchParams({
-      auth_key: apiKey,
-      text: content,
-      target_lang: "DA",
-    });
-    const r2 = await fetch(endpoint, { method: "POST", body: params2 });
-    if (!r2.ok) throw new Error(`DeepL error ${r2.status}: ${await r2.text()}`);
-    const {
-      translations: [second],
-    } = (await r2.json()) as {
-      translations: { text: string }[];
-    };
-    content_translated = second.text;
-  }
-
-  const { data: ud, error: ue } = await supabase.auth.getUser();
-  if (ue || !ud?.user) throw new Error("Not authenticated");
-
-  const { data: newsData, error: insertError } = await supabase
-    .from("news")
-    .insert([
-      {
-        title,
-        title_translated,
-        content,
-        content_translated,
-        source_lang: sourceLang,
-        creator_id: ud.user.id,
-      },
-    ])
-    .select("id")
-    .single();
-  if (insertError || !newsData?.id) throw insertError;
-
-  if (images?.length) {
-    await Promise.all(
-      images.map(async (file, index) => {
-        const ext = "webp";
-        const name = `${Math.random().toString(36).slice(2)}.${ext}`;
-        const path = `${ud.user.id}/${name}`;
-        const buf = await sharp(Buffer.from(await file.arrayBuffer()))
-          .rotate()
-          .resize({ width: 1024, height: 768, fit: "cover" })
-          .webp({ quality: 65 })
-          .toBuffer();
-        await supabase.storage.from("news-images").upload(path, buf, {
-          contentType: "image/webp",
-        });
-        await supabase.from("news_images").insert({
-          news_id: newsData.id,
-          path,
-          sort_order: index,
-        });
-      })
-    );
-  }
-
-  // Post to Facebook and store the link
+  sharedFacebook?: boolean;
+  sharedInstagram?: boolean;
+}): Promise<{ linkFacebook?: string; linkInstagram?: string }> {
   try {
-    const fbMessage = `${title}\n\n${content}`;
-    const fbResult = await postToFacebookPage({ message: fbMessage });
-    if (fbResult?.link) {
-      await supabase
-        .from("news")
-        .update({ linkFacebook: fbResult.link })
-        .eq("id", newsData.id);
+    // Input validation
+    if (!content || content.trim().length === 0) {
+      throw new Error("Content is required");
     }
+
+    const supabase = await createServerClientInstance();
+    const apiKey = process.env.DEEPL_API_KEY;
+
+    if (!apiKey) {
+      throw new Error("Translation service not configured");
+    }
+
+    const endpoint = "https://api-free.deepl.com/v2/translate";
+
+    // Authenticate user
+    const { data: ud, error: ue } = await supabase.auth.getUser();
+    if (ue || !ud?.user) {
+      throw new Error("Not authenticated");
+    }
+
+    // Skip title translation if empty to save API calls
+    let title_translated = title;
+    let titleSourceLang = "da"; // Default assumption
+
+    if (title && title.trim()) {
+      try {
+        const titleParams = new URLSearchParams({
+          auth_key: apiKey,
+          text: title,
+          target_lang: "EN",
+        });
+        const titleRes = await fetch(endpoint, {
+          method: "POST",
+          body: titleParams,
+        });
+        if (!titleRes.ok) {
+          const errorText = await titleRes.text();
+          throw new Error(`Translation error ${titleRes.status}: ${errorText}`);
+        }
+        const titleResult = await titleRes.json();
+        const titleFirst = titleResult.translations?.[0];
+
+        if (titleFirst) {
+          titleSourceLang =
+            titleFirst.detected_source_language?.toLowerCase() || "da";
+          title_translated = titleFirst.text;
+
+          if (titleSourceLang === "en") {
+            const titleParams2 = new URLSearchParams({
+              auth_key: apiKey,
+              text: title,
+              target_lang: "DA",
+            });
+            const titleR2 = await fetch(endpoint, {
+              method: "POST",
+              body: titleParams2,
+            });
+            if (titleR2.ok) {
+              const titleResult2 = await titleR2.json();
+              const titleSecond = titleResult2.translations?.[0];
+              if (titleSecond) {
+                title_translated = titleSecond.text;
+              }
+            }
+          }
+        }
+      } catch (titleError) {
+        console.error("Title translation error:", titleError);
+        // Continue with original title if translation fails
+        title_translated = title;
+      }
+    }
+
+    // Translate content
+    let content_translated = content;
+    let sourceLang = "da";
+
+    try {
+      const params1 = new URLSearchParams({
+        auth_key: apiKey,
+        text: content,
+        target_lang: "EN",
+      });
+      const r1 = await fetch(endpoint, { method: "POST", body: params1 });
+      if (!r1.ok) {
+        const errorText = await r1.text();
+        throw new Error(`Translation error ${r1.status}: ${errorText}`);
+      }
+      const result1 = await r1.json();
+      const first = result1.translations?.[0];
+
+      if (first) {
+        sourceLang = first.detected_source_language?.toLowerCase() || "da";
+        content_translated = first.text;
+
+        if (sourceLang === "en") {
+          const params2 = new URLSearchParams({
+            auth_key: apiKey,
+            text: content,
+            target_lang: "DA",
+          });
+          const r2 = await fetch(endpoint, { method: "POST", body: params2 });
+          if (r2.ok) {
+            const result2 = await r2.json();
+            const second = result2.translations?.[0];
+            if (second) {
+              content_translated = second.text;
+            }
+          }
+        }
+      }
+    } catch (contentError) {
+      console.error("Content translation error:", contentError);
+      // Continue with original content if translation fails
+      content_translated = content;
+    }
+
+    // Insert news into database
+    const { data: newsData, error: insertError } = await supabase
+      .from("news")
+      .insert([
+        {
+          title: title || "",
+          title_translated,
+          content,
+          content_translated,
+          source_lang: sourceLang,
+          creator_id: ud.user.id,
+        },
+      ])
+      .select("id")
+      .single();
+
+    if (insertError || !newsData?.id) {
+      console.error("Database insert error:", insertError);
+      throw new Error("Failed to create news in database");
+    }
+
+    // Upload images and collect URLs - only after news is created
+    const imageUrls: string[] = [];
+    if (images?.length) {
+      try {
+        await Promise.all(
+          images.map(async (file, index) => {
+            const ext = "webp";
+            const name = `${Math.random().toString(36).slice(2)}.${ext}`;
+            const path = `${ud.user.id}/${name}`;
+
+            const buf = await sharp(Buffer.from(await file.arrayBuffer()))
+              .rotate()
+              .resize({ width: 1024, height: 768, fit: "cover" })
+              .webp({ quality: 65 })
+              .toBuffer();
+
+            const { error: uploadError } = await supabase.storage
+              .from("news-images")
+              .upload(path, buf, {
+                contentType: "image/webp",
+              });
+
+            if (uploadError) {
+              console.error("Image upload error:", uploadError);
+              return; // Skip this image but continue with others
+            }
+
+            // Get public URL
+            const { data: publicUrlData } = supabase.storage
+              .from("news-images")
+              .getPublicUrl(path);
+            imageUrls.push(publicUrlData.publicUrl);
+
+            await supabase.from("news_images").insert({
+              news_id: newsData.id,
+              path,
+              sort_order: index,
+            });
+          })
+        );
+      } catch (imageError) {
+        console.error("Image processing error:", imageError);
+        // Continue without images if upload fails
+      }
+    }
+
+    // Post to Facebook if requested
+    let fbResult: { link?: string } | null = null;
+    if (sharedFacebook) {
+      try {
+        console.log("🔄 [SERVER] Attempting Facebook post...");
+        const fbMessage = title ? `${title}\n\n${content}` : content;
+        fbResult = await postToFacebookPage({
+          message: fbMessage,
+          imageUrls: imageUrls.length > 0 ? imageUrls : undefined,
+        });
+
+        if (fbResult?.link) {
+          console.log(
+            "✅ [SERVER] Facebook post successful, updating database..."
+          );
+          await supabase
+            .from("news")
+            .update({
+              linkFacebook: fbResult.link,
+              sharedFacebook: true,
+            })
+            .eq("id", newsData.id);
+        }
+      } catch (fbError) {
+        console.error("❌ [SERVER] Failed to post to Facebook:", fbError);
+        // Don't fail the entire news creation if Facebook fails
+        // Just log the error and continue
+      }
+    }
+
+    // Post to Instagram if requested
+    let igResult: { success: boolean; id?: string } | null = null;
+    if (sharedInstagram && imageUrls.length > 0) {
+      try {
+        console.log("🔄 [SERVER] Attempting Instagram post...");
+        const igCaption = title ? `${title}\n\n${content}` : content;
+        igResult = await postToInstagram({
+          caption: igCaption,
+          imageUrl: imageUrls[0], // Instagram only supports single image for now
+        });
+
+        if (igResult?.success && igResult?.id) {
+          console.log(
+            "✅ [SERVER] Instagram post successful, updating database..."
+          );
+          await supabase
+            .from("news")
+            .update({
+              linkInstagram: `https://www.instagram.com/p/${igResult.id}`,
+              sharedInstagram: true,
+            })
+            .eq("id", newsData.id);
+        }
+      } catch (igError) {
+        console.error("❌ [SERVER] Failed to post to Instagram:", igError);
+        // Don't fail the entire news creation if Instagram fails
+        // Just log the error and continue
+      }
+    }
+
+    return {
+      linkFacebook: fbResult?.link,
+      linkInstagram:
+        igResult?.success && igResult?.id
+          ? `https://www.instagram.com/p/${igResult.id}`
+          : undefined,
+    };
   } catch (error) {
-    console.error("Failed to post to Facebook:", error);
+    console.error("createNews error:", error);
+
+    // Re-throw with a sanitized error message for production
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    } else {
+      throw new Error("An unexpected error occurred while creating news");
+    }
   }
 }
+
 export async function updateNews(
   id: number,
   title: string,
@@ -634,62 +777,52 @@ export async function getNewsById(newsId: number) {
 export async function deleteNews(newsId: number): Promise<void> {
   const supabase = await createServerClientInstance();
 
-  try {
-    // 1. Hent alle billeder tilknyttet nyheden
-    const { data: images, error: imagesError } = await supabase
-      .from("news_images")
-      .select("path")
-      .eq("news_id", newsId);
+  // Get news data before deletion to check for Facebook post
+  const { data: newsData } = await supabase
+    .from("news")
+    .select("linkFacebook")
+    .eq("id", newsId)
+    .single();
 
-    if (imagesError) {
-      console.error("Error fetching news images:", imagesError);
-      throw new Error(`Failed to fetch news images: ${imagesError.message}`);
-    }
-
-    // 2. Slet billeder fra storage
-    if (images && images.length > 0) {
-      const paths = images.map((img: { path: string }) => img.path);
-      const { error: storageError } = await supabase.storage
-        .from("news-images")
-        .remove(paths);
-
-      if (storageError) {
-        console.error("Error removing images from storage:", storageError);
-        throw new Error(
-          `Failed to remove images from storage: ${storageError.message}`
-        );
+  // Delete Facebook post if it exists
+  if (newsData?.linkFacebook) {
+    try {
+      const postId = newsData.linkFacebook.split("/").pop();
+      if (postId) {
+        await deleteFacebookPost(postId);
       }
+    } catch (error) {
+      console.error("Failed to delete Facebook post:", error);
+      // Continue with news deletion even if Facebook deletion fails
     }
-
-    // 3. Slet rækker fra news_images
-    const { error: deleteImagesError } = await supabase
-      .from("news_images")
-      .delete()
-      .eq("news_id", newsId);
-
-    if (deleteImagesError) {
-      console.error("Error deleting news images records:", deleteImagesError);
-      throw new Error(
-        `Failed to delete news images records: ${deleteImagesError.message}`
-      );
-    }
-
-    // 4. Slet selve nyheden
-    const { error: deleteNewsError } = await supabase
-      .from("news")
-      .delete()
-      .eq("id", newsId);
-
-    if (deleteNewsError) {
-      console.error("Error deleting news:", deleteNewsError);
-      throw new Error(`Failed to delete news: ${deleteNewsError.message}`);
-    }
-
-    console.log(`Successfully deleted news with ID: ${newsId}`);
-  } catch (error) {
-    console.error("Error in deleteNews function:", error);
-    throw error;
   }
+
+  // 1. Hent alle billeder tilknyttet nyheden
+  const { data: images, error: imagesError } = await supabase
+    .from("news_images")
+    .select("path")
+    .eq("news_id", newsId);
+  if (imagesError) throw new Error(imagesError.message);
+
+  // 2. Slet billeder fra storage
+  if (images && images.length > 0) {
+    const paths = images.map((img: { path: string }) => img.path);
+    const { error: storageError } = await supabase.storage
+      .from("news-images")
+      .remove(paths);
+    if (storageError) throw new Error(storageError.message);
+  }
+
+  // 3. Slet rækker fra news_images
+  const { error: deleteImagesError } = await supabase
+    .from("news_images")
+    .delete()
+    .eq("news_id", newsId);
+  if (deleteImagesError) throw new Error(deleteImagesError.message);
+
+  // 4. Slet selve nyheden
+  const { error } = await supabase.from("news").delete().eq("id", newsId);
+  if (error) throw new Error(error.message);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

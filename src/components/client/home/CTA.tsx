@@ -15,7 +15,7 @@ const CTA = () => {
       </div>
       <div className="flex items-center flex-col sm:flex-row gap-4 justify-center">
         <Link href="/tilmelding" className="btn btn-primary md:btn-lg">
-          Se hold og tilmeld dig
+          Se holdstart
         </Link>
         <Link href="/korekort-forlob" className="btn btn-soft ">
           Læs om kørekortforløbet

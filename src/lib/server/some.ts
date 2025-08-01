@@ -1,176 +1,254 @@
-import { readUserSession } from "@/lib/auth/readUserSession";
+const PAGE_ID = process.env.FB_SYSTEM_PAGE_ID!;
+const PAGE_ACCESS_TOKEN = process.env.FB_SYSTEM_PAGE_TOKEN!;
+
+export async function getPageAccessToken(): Promise<string> {
+  const sysToken = process.env.FB_SYSTEM_PAGE_TOKEN!;
+  const pageId = process.env.FB_SYSTEM_PAGE_ID!;
+
+  const res = await fetch(
+    `https://graph.facebook.com/v20.0/me/accounts?access_token=${sysToken}`
+  );
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Kunne ikke hente page token: ${err}`);
+  }
+
+  const data = await res.json();
+  const page = data.data?.find((p: { id: string }) => p.id === pageId);
+
+  if (!page?.access_token) {
+    throw new Error("Page access token ikke fundet");
+  }
+
+  return page.access_token;
+}
 
 export async function postToFacebookPage({
   message,
   imageUrls,
-  pageId,
 }: {
   message: string;
   imageUrls?: string[];
-  pageId?: string; // Gør pageId optional så det kan komme fra brugeren
 }): Promise<{ link?: string } | null> {
-  console.log("🚀 [SERVER] Starting Facebook post...");
-  console.log("📝 [SERVER] Message:", message);
-  console.log("🖼️ [SERVER] Image URLs:", imageUrls);
+  console.log("🚀 [SERVER] Starting Facebook post via system user...");
+  console.log("📝 Message:", message);
 
-  // Use readUserSession to get Facebook token
-  const userSession = await readUserSession();
-
-  if (!userSession) {
-    throw new Error("User not authenticated");
+  if (!PAGE_ACCESS_TOKEN || !PAGE_ID) {
+    throw new Error("Facebook systembruger token eller page ID mangler");
   }
 
-  console.log("👤 [SERVER] User exists:", !!userSession.user);
-  console.log("🔗 [SERVER] Facebook linked:", userSession.facebookLinked);
-  console.log(
-    "🔑 [SERVER] Facebook token exists:",
-    !!userSession.facebookToken
-  );
+  const selectedPageId = PAGE_ID;
 
-  // Debug the actual token value (first few chars only for security)
-  if (userSession.facebookToken) {
-    console.log(
-      "🔑 [SERVER] Token preview:",
-      userSession.facebookToken.substring(0, 20) + "..."
-    );
-  }
+  // Get proper page access token
+  const pageAccessToken = await getPageAccessToken();
+  console.log("🔑 [SERVER] Retrieved page access token");
 
-  if (!userSession.facebookLinked) {
-    throw new Error(
-      "Du skal logge ind med Facebook for at dele opslag. Gå til indstillinger og tilknyt din Facebook konto."
-    );
-  }
+  try {
+    // Hvis der kun er ét billede - brug /photos endpoint direkte
+    if (imageUrls && imageUrls.length === 1) {
+      const res = await fetch(
+        `https://graph.facebook.com/v20.0/${selectedPageId}/photos`,
+        {
+          method: "POST",
+          body: new URLSearchParams({
+            url: imageUrls[0],
+            message,
+            published: "true", // Publiser direkte
+            access_token: pageAccessToken,
+          }),
+        }
+      );
+      const data = await res.json();
 
-  const userAccessToken = userSession.facebookToken;
-  if (!userAccessToken) {
-    throw new Error(
-      "Facebook token er udløbet eller ikke tilgængeligt. Log venligst ind med Facebook igen eller gå til indstillinger for at genopfriske din Facebook forbindelse."
-    );
-  }
-
-  // 1. Hent sider brugeren har adgang til
-  console.log("📄 [SERVER] Fetching Facebook pages...");
-  const pagesRes = await fetch(
-    `https://graph.facebook.com/v19.0/me/accounts?access_token=${userAccessToken}`
-  );
-
-  if (!pagesRes.ok) {
-    const errorText = await pagesRes.text();
-    console.error(
-      "❌ [SERVER] Failed to fetch pages:",
-      pagesRes.status,
-      errorText
-    );
-    throw new Error(
-      `Failed to fetch Facebook pages: ${pagesRes.status} - ${errorText}`
-    );
-  }
-
-  const pagesData = await pagesRes.json();
-  console.log("📄 [SERVER] Pages data:", pagesData);
-
-  // Log alle tilgængelige sider for debugging
-  console.log("📋 [SERVER] Available pages:");
-  if (pagesData.data && Array.isArray(pagesData.data)) {
-    pagesData.data.forEach(
-      (
-        p: { id: string; name: string; access_token?: string },
-        index: number
-      ) => {
-        console.log(
-          `  ${index + 1}. ${p.name} (ID: ${p.id}) - Access: ${
-            p.access_token ? "Yes" : "No"
-          }`
-        );
+      if (!res.ok) {
+        console.error("Photo post error:", data);
+        throw new Error(`Fejl ved billede-opslag: ${data.error?.message}`);
       }
-    );
-  } else {
-    console.log("  No pages data or invalid format");
-  }
 
-  const targetPageId = pageId || "130274187739543"; // Brug den medfølgende pageId eller default
-  const page = pagesData.data?.find(
-    (p: { id: string }) => p.id === targetPageId
-  );
-  console.log("🔍 [SERVER] Target page found:", !!page);
-  console.log("📃 [SERVER] Page details:", page);
-
-  if (!page) {
-    const availablePageIds =
-      pagesData.data?.map((p: { id: string }) => p.id).join(", ") || "None";
-    throw new Error(
-      `Brugeren har ikke adgang til siden med ID ${targetPageId}. Tilgængelige sider: ${availablePageIds}. Sørg for at brugeren er admin/editor på Facebook siden og at appen har 'pages_manage_posts' permission.`
-    );
-  }
-
-  const pageAccessToken = page.access_token;
-  const selectedPageId = page.id;
-
-  console.log("🔐 [SERVER] Page access token exists:", !!pageAccessToken);
-
-  // 2. Lav opslag
-  const postBody: Record<string, string> = {
-    message,
-    access_token: pageAccessToken,
-  };
-
-  // Add images if provided
-  if (imageUrls && imageUrls.length > 0) {
-    console.log("🖼️ [SERVER] Adding image to post...");
-    if (imageUrls.length === 1) {
-      // Single image
-      postBody.url = imageUrls[0];
-      console.log("📷 [SERVER] Single image URL:", imageUrls[0]);
-    } else {
-      // Multiple images - use attached_media (requires uploading images first)
-      // For now, just use the first image URL
-      postBody.url = imageUrls[0];
-      console.log("📷 [SERVER] Multiple images, using first:", imageUrls[0]);
+      console.log(
+        "✅ [SERVER] Facebook photo post created successfully:",
+        data.id
+      );
+      return {
+        link: data.id ? `https://www.facebook.com/${data.id}` : undefined,
+      };
     }
-  }
 
-  console.log("📤 [SERVER] Post body:", postBody);
-  console.log("🌐 [SERVER] Posting to Facebook...");
+    // For posts uden billeder eller med flere billeder - brug /feed endpoint
+    const postBody: Record<string, string> = {
+      message,
+      access_token: pageAccessToken,
+    };
 
-  // Convert to form data for Facebook API
-  const formData = new FormData();
-  Object.keys(postBody).forEach((key) => {
-    formData.append(key, postBody[key]);
-  });
+    // Hvis flere billeder - upload dem først som published photos, så del dem
+    if (imageUrls && imageUrls.length > 1) {
+      const photoIds: string[] = [];
 
-  const postRes = await fetch(
-    `https://graph.facebook.com/v19.0/${selectedPageId}/feed`,
-    {
-      method: "POST",
-      body: formData, // Use FormData instead of JSON
+      for (const url of imageUrls) {
+        const res = await fetch(
+          `https://graph.facebook.com/v20.0/${selectedPageId}/photos`,
+          {
+            method: "POST",
+            body: new URLSearchParams({
+              url,
+              published: "true", // Publiser direkte
+              no_story: "true", // Undgå at lave separate posts
+              access_token: pageAccessToken,
+            }),
+          }
+        );
+        const data = await res.json();
+        if (!res.ok) {
+          console.error("Photo upload error:", data);
+          throw new Error(`Kunne ikke uploade billede: ${data.error?.message}`);
+        }
+        photoIds.push(data.id);
+      }
+
+      // Opret samlende post der refererer til billederne
+      postBody.child_attachments = JSON.stringify(
+        photoIds.map((id) => ({ media_fbid: id }))
+      );
     }
-  );
 
-  const postData = await postRes.json();
-  console.log("📬 [SERVER] Facebook response status:", postRes.status);
-  console.log("📬 [SERVER] Facebook response data:", postData);
+    // Opret post (kun hvis ikke single photo)
+    if (!imageUrls || imageUrls.length !== 1) {
+      const postRes = await fetch(
+        `https://graph.facebook.com/v20.0/${selectedPageId}/feed`,
+        {
+          method: "POST",
+          body: new URLSearchParams(postBody),
+        }
+      );
+      const postData = await postRes.json();
 
-  if (!postRes.ok) {
-    console.error("❌ [SERVER] Facebook post failed:", postData);
-    throw new Error(`Fejl ved opslag: ${postData.error?.message}`);
+      if (!postRes.ok) {
+        console.error("Facebook post error:", postData);
+        throw new Error(`Fejl ved opslag: ${postData.error?.message}`);
+      }
+
+      console.log(
+        "✅ [SERVER] Facebook post created successfully:",
+        postData.id
+      );
+      return {
+        link: postData.id
+          ? `https://www.facebook.com/${postData.id}`
+          : undefined,
+      };
+    }
+
+    // If we got here, it was a single photo post that was already handled
+    return null;
+  } catch (error) {
+    console.error("❌ [SERVER] Facebook posting failed:", error);
+    throw error;
   }
-
-  console.log("✅ [SERVER] Facebook post successful!");
-  const result = {
-    ...postData,
-    link: postData.id ? `https://www.facebook.com/${postData.id}` : undefined,
-  };
-  console.log("🔗 [SERVER] Final result:", result);
-
-  // Returnér postData og evt. link til opslaget
-  return result;
 }
 
-export async function publishMessage(formData: FormData) {
-  const message = formData.get("message") as string;
-  const pageId = formData.get("pageId") as string | undefined;
+export async function deleteFacebookPost(
+  postId: string
+): Promise<{ success: boolean }> {
+  console.log("🗑️ [SERVER] Deleting Facebook post:", postId);
 
-  if (!message) throw new Error("Besked mangler");
+  if (!PAGE_ACCESS_TOKEN || !PAGE_ID) {
+    throw new Error("Facebook system-token eller page ID mangler");
+  }
 
-  return await postToFacebookPage({ message, pageId });
+  // Get proper page access token
+  const pageAccessToken = await getPageAccessToken();
+
+  const res = await fetch(`https://graph.facebook.com/v20.0/${postId}`, {
+    method: "DELETE",
+    body: new URLSearchParams({
+      access_token: pageAccessToken,
+    }),
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    console.error("❌ [SERVER] Facebook deletion failed:", errorData);
+    throw new Error(`Fejl ved sletning: ${errorData.error?.message}`);
+  }
+
+  console.log("✅ [SERVER] Facebook post deleted successfully!");
+  return { success: true };
+}
+
+export async function postToInstagram({
+  caption,
+  imageUrl,
+}: {
+  caption: string;
+  imageUrl: string;
+}): Promise<{ success: boolean; id?: string }> {
+  console.log("🚀 [SERVER] Starting Instagram post...");
+  console.log("📝 Caption:", caption);
+
+  const instagramBusinessId = process.env.INSTAGRAM_BUSINESS_ID!;
+  const sysToken = process.env.FB_SYSTEM_PAGE_TOKEN!;
+
+  if (!sysToken) {
+    throw new Error("Instagram system token mangler");
+  }
+
+  try {
+    // Step 1: Upload the image to Instagram
+    const mediaRes = await fetch(
+      `https://graph.facebook.com/v20.0/${instagramBusinessId}/media`,
+      {
+        method: "POST",
+        body: new URLSearchParams({
+          image_url: imageUrl,
+          caption,
+          access_token: sysToken,
+        }),
+      }
+    );
+
+    const mediaData = await mediaRes.json();
+
+    if (!mediaRes.ok) {
+      console.error("Instagram media upload error:", mediaData);
+      throw new Error(
+        `Kunne ikke uploade billede: ${mediaData.error?.message}`
+      );
+    }
+
+    console.log(
+      "✅ [SERVER] Instagram media uploaded successfully:",
+      mediaData.id
+    );
+
+    // Step 2: Publish the uploaded media
+    const publishRes = await fetch(
+      `https://graph.facebook.com/v20.0/${instagramBusinessId}/media_publish`,
+      {
+        method: "POST",
+        body: new URLSearchParams({
+          creation_id: mediaData.id,
+          access_token: sysToken,
+        }),
+      }
+    );
+
+    const publishData = await publishRes.json();
+
+    if (!publishRes.ok) {
+      console.error("Instagram publish error:", publishData);
+      throw new Error(
+        `Kunne ikke publicere opslag: ${publishData.error?.message}`
+      );
+    }
+
+    console.log(
+      "✅ [SERVER] Instagram post published successfully:",
+      publishData.id
+    );
+    return { success: true, id: publishData.id };
+  } catch (error) {
+    console.error("❌ [SERVER] Instagram posting failed:", error);
+    throw error;
+  }
 }

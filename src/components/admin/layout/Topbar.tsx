@@ -1,102 +1,24 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import { signOut } from "@/lib/server/actions";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import "@/i18n/config";
-import { FaEllipsis, FaFacebook, FaRightFromBracket } from "react-icons/fa6";
+import { FaEllipsis, FaRightFromBracket } from "react-icons/fa6";
 
 import LanguageAdmin from "./LanguageAdmin";
 import ThemeAdmin from "./ThemeAdmin";
 
-import { createClient } from "@/utils/supabase/client";
-import { useAuthStore } from "@/lib/auth/useAuthStore";
-import {
-  disconnectFacebook,
-  fetchAndSetUserSession,
-  setupAuthListener,
-} from "@/lib/auth/clientAuth";
+import { fetchAndSetUserSession } from "@/lib/auth/readUserSession";
 
 const Topbar = () => {
   const pathname = usePathname();
   const { t } = useTranslation();
-  const supabase = createClient();
-
-  const facebookLinked = useAuthStore((state) => state.facebookLinked);
-  const [loadingState, setLoadingState] = useState<
-    "idle" | "connecting" | "disconnecting"
-  >("idle");
-  const [isDisconnectingView, setIsDisconnectingView] = useState(false);
-
-  const dropdownRef = useRef<HTMLUListElement>(null);
-
-  // Reset visning når facebookLinked ændrer sig
-  useEffect(() => {
-    if (!facebookLinked) setIsDisconnectingView(false);
-  }, [facebookLinked]);
-
-  // Luk disconnect-view når man klikker udenfor dropdown
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        isDisconnectingView &&
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsDisconnectingView(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isDisconnectingView]);
 
   useEffect(() => {
-    const sub = setupAuthListener();
     fetchAndSetUserSession();
-    return () => sub.unsubscribe();
   }, []);
-
-  const handleFacebookConnect = async () => {
-    setLoadingState("connecting");
-    try {
-      await supabase.auth.linkIdentity({
-        provider: "facebook",
-        options: {
-          scopes: [
-            "public_profile",
-            "email",
-            "pages_show_list",
-            "pages_manage_posts",
-            "pages_read_engagement",
-            "instagram_basic",
-            "instagram_content_publish",
-          ].join(","),
-          redirectTo: `${window.location.origin}/admin`,
-        },
-      });
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error("Facebook linking fejl:", error.message);
-      } else {
-        console.error("Facebook linking fejl:", error);
-      }
-    } finally {
-      setLoadingState("idle");
-    }
-  };
-
-  const handleFacebookDisconnect = async () => {
-    setLoadingState("disconnecting");
-    const result = await disconnectFacebook();
-    if (result.success) {
-      await fetchAndSetUserSession();
-    }
-    setLoadingState("idle");
-  };
 
   const pageTitles: Record<string, string> = {
     "/admin": t("overview"),
@@ -124,60 +46,9 @@ const Topbar = () => {
             <FaEllipsis size={20} />
           </div>
           <ul
-            ref={dropdownRef}
             tabIndex={0}
             className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow-lg ring-1 ring-base-300 ring-opacity-5"
           >
-            <li>
-              {facebookLinked ? (
-                isDisconnectingView ? (
-                  <button
-                    onClick={handleFacebookDisconnect}
-                    className={`flex items-center gap-2 btn btn-ghost hover:bg-base-100 btn-primary btn-soft text-primary transition-all duration-300 ${
-                      loadingState === "disconnecting"
-                        ? "opacity-50 pointer-events-none"
-                        : ""
-                    }`}
-                  >
-                    <FaFacebook />
-                    <span className="text-xs">
-                      {loadingState === "disconnecting"
-                        ? t("disconnecting")
-                        : t("disconnect")}
-                    </span>
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => setIsDisconnectingView(true)}
-                    className="flex items-center gap-2 btn transition-all duration-300"
-                  >
-                    <FaFacebook />
-                    {t("connected")}
-                    <div className="inline-grid *:[grid-area:1/1] ml-1">
-                      <div className="status status-success animate-ping"></div>
-                      <div className="status status-success"></div>
-                    </div>
-                  </button>
-                )
-              ) : (
-                <button
-                  onClick={handleFacebookConnect}
-                  className={`flex items-center gap-2 transition-all duration-300 ${
-                    loadingState === "connecting"
-                      ? "opacity-50 pointer-events-none"
-                      : ""
-                  }`}
-                >
-                  <span className="pl-[2px] flex gap-2 items-center">
-                    <FaFacebook />
-                    {loadingState === "connecting"
-                      ? t("connecting")
-                      : t("connectToFacebook")}
-                  </span>
-                </button>
-              )}
-            </li>
-
             <li>
               <ThemeAdmin />
             </li>
