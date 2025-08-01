@@ -7,7 +7,7 @@ import ConsentModal from "../modal/ConsentModal";
 import { useTranslation } from "react-i18next";
 
 const ContactForm = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
@@ -30,6 +30,15 @@ const ContactForm = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setErrorText("");
+    setSuccessText("");
+
+    // Validering af felter
+    if (!name || !mail || !mobile || !message) {
+      setErrorText("Alle felter skal udfyldes.");
+      return;
+    }
+
     if (!validatePhoneNumber(mobile)) {
       setErrorText(t("contactForm.errors.invalidPhone"));
       return;
@@ -40,8 +49,6 @@ const ContactForm = () => {
     }
 
     setIsLoading(true);
-    setErrorText("");
-    setSuccessText("");
 
     try {
       await createRequest(name, "", mobile, mail, category, isChecked, message);
@@ -59,12 +66,15 @@ const ContactForm = () => {
 
       const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           name,
           email: mail,
-          message: emailBody,
-          lang,
+          phone: mobile,
+          message,
+          lang: i18n.language,
         }),
       });
 
@@ -74,13 +84,13 @@ const ContactForm = () => {
       }
 
       setIsSuccess(true);
-      setSuccessText(t("contactForm.success.requestSent"));
+      setSuccessText("Din besked er sendt!");
     } catch (err: unknown) {
       console.error("Submit error:", err);
       if (err instanceof Error) {
-        setErrorText(err.message || t("contactForm.errors.generic"));
+        setErrorText(err.message);
       } else {
-        setErrorText(t("contactForm.errors.generic"));
+        setErrorText("Der opstod en fejl. Prøv igen senere.");
       }
     } finally {
       setIsLoading(false);

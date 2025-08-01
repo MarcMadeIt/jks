@@ -14,12 +14,14 @@ const transporter = nodemailer.createTransport({
 export async function sendContactEmail(
   name: string,
   email: string,
+  phone: string,
   message: string,
   lang: "en" | "da" = "en"
 ): Promise<void> {
   const adminText = `You’ve received a new message:
 Name: ${name}
 Email: ${email}
+Phone: ${phone}
 
 ${message}`;
 
@@ -29,6 +31,12 @@ ${message}`;
     <img src="https://junkerskøreskole.dk/logo-jk.webp" alt="Junkers Logo" width="180" style="display: block;" />
   </div>
   <p style="margin-bottom: 16px;">En ny kunde har udfyldt kontaktformularen på <strong>junkerskøreskole.dk</strong>.</p>
+  <div style="margin-bottom: 16px;">
+    <p><strong>Navn:</strong> ${name}</p>
+    <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+    <p><strong>Telefon:</strong> <a href="tel:${phone}">${phone}</a></p>
+    <p><strong>Besked:</strong><br/>${message}</p>
+  </div>
   <a href="https://junkerskøreskole.dk/admin/messages" style="display: inline-block; background-color: #CC222C; color: white; text-decoration: none; padding: 12px 20px; border-radius: 6px; font-weight: 500;">
     Se kundebesked
   </a>
@@ -37,9 +45,9 @@ ${message}`;
 
   const userText = `Hej ${name},
 
-      Tak for din besked! Vi kontakter dig hurtigst muligt.
+Tak for din besked! Vi kontakter dig hurtigst muligt.
 
-      – Junkers Køreskole`;
+– Junkers Køreskole`;
 
   const userHtml = `
 <div style="font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; padding: 32px 24px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); color: #333; text-align: start;">
@@ -58,7 +66,6 @@ ${message}`;
       Læs om kørekortforløbet
     </a>
   </div>
-  <p style="font-size: 14px; color: #555;">Har du spørgsmål eller ønsker du at ændre noget? Du er altid velkommen til at <a href="mailto:info@junkerskøreskole.dk" style="color: #2563eb;">kontakte os direkte</a>.</p>
   <p style="margin-top: 32px;">De bedste hilsner,<br/><strong>Teamet hos Junkers Køreskole</strong></p>
 </div>`;
 
@@ -66,8 +73,6 @@ ${message}`;
   let adminHtmlTr = adminHtml;
   let userTextTr = userText;
   let userHtmlTr = userHtml;
-
-  console.log("[sendContactEmail] selected lang=", lang);
 
   if (lang !== "en") {
     [adminTextTr, userTextTr] = await Promise.all([
@@ -79,14 +84,13 @@ ${message}`;
       translateHtml(adminHtml, lang),
       translateHtml(userHtml, lang),
     ]);
-
-    console.log("[sendContactEmail] adminHtmlTr=", adminHtmlTr);
   }
 
-  // Send to admin
+  // Send mail til admin
   await transporter.sendMail({
     from: `"Junkers Køreskole" <${process.env.FROM_EMAIL!}>`,
     to: process.env.ADMIN_EMAIL!,
+    replyTo: email, // Admin kan "besvare" til kunden
     subject:
       lang === "da"
         ? `Ny kontaktbesked fra ${name}`
@@ -95,7 +99,7 @@ ${message}`;
     html: adminHtmlTr,
   });
 
-  // Send to user
+  // Send bekræftelse til bruger
   await transporter.sendMail({
     from: `"Junkers Køreskole" <${process.env.FROM_EMAIL!}>`,
     to: email,
