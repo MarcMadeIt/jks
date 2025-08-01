@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 const RegistrationPage = () => {
   const { t } = useTranslation();
   return (
-    <div className="p-5 sm:p-7 w-full h-full flex flex-col gap-7 md:gap-15 justify-center items-center relative  my-7 md:my-20">
+    <div className="p-5 sm:p-7 w-full h-full flex flex-col gap-7 md:gap-15 justify-center items-center relative my-7 md:my-20">
       <div className="max-w-sm md:max-w-xl">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center">
           {t("registerPage.title")}
