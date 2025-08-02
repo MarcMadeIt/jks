@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AnimatePresence, motion } from "framer-motion";
-import { FaAngleLeft, FaCaretDown } from "react-icons/fa6";
+import { FaAngleLeft, FaCaretDown, FaVideo } from "react-icons/fa6";
 import Link from "next/link";
 
 const stepsItems = [
@@ -14,6 +14,7 @@ const stepsItems = [
   { href: "#theory_test", key: "theoryTest" },
   { href: "#tech_course", key: "techCourse" },
   { href: "#driving_test", key: "drivingTest" },
+  { href: "#video_preview", key: "videoPreview", hasVideo: true },
 ];
 
 const StepsMenu = () => {
@@ -53,6 +54,7 @@ const StepsMenu = () => {
                     onClick={(e) => handleClick(e, item.href)}
                   >
                     {t(`stepsMenu.${item.key}`)}
+                    {item.hasVideo && <FaVideo className="ml-2" />}
                   </a>
                 </li>
               ))}
@@ -98,6 +100,7 @@ const StepsMenu = () => {
                         className="block py-1"
                       >
                         {t(`stepsMenu.${item.key}`)}
+                        {item.hasVideo && <FaVideo className="ml-2" />}
                       </a>
                     </li>
                   ))}

@@ -490,7 +490,8 @@
     "stopping_parking": "Stopping & parking",
     "lane_merge": "Merging",
     "overtaking": "Overtaking",
-    "driving_dark": "Driving in the dark"
+    "driving_dark": "Driving in the dark",
+    "car_walkthrough": "Car walkthrough"
   },
   "littleHelper": {
     "vehicle_dimensions": "Maximum vehicle dimensions",
@@ -554,7 +555,10 @@
     "driving_dark": "Driving in the dark",
     "driving_dark.1": "Dim your lights 200–300 m before oncoming car/motorcycle",
     "driving_dark.2": "Dim your lights 100–150 m before cyclist or pedestrian",
-    "driving_dark.3": "Reduce speed before dimming. On narrow roads: max 40 km/h when meeting oncoming traffic."
+    "driving_dark.3": "Reduce speed before dimming. On narrow roads: max 40 km/h when meeting oncoming traffic.",
+
+    "car_walkthrough": "Car walkthrough",
+    "car_walkthrough.text": "A car walkthrough is a systematic check of the car's condition before driving. It includes checking lights, tires, mirrors, and other essential components to ensure safety and functionality."
   },
 
   "stepsContent": {
@@ -607,6 +611,9 @@
       "theoryTest": "Theory Test",
       "techCourse": "Slippery Track",
       "drivingTest": "Driving Test"
+    },
+    "teaser": {
+      "title": "Your license journey – quick preview"
     }
   },
 
@@ -617,7 +624,8 @@
     "maneuver": "Closed Course",
     "theoryTest": "Theory Test",
     "techCourse": "Slippery Track",
-    "drivingTest": "Driving Test"
+    "drivingTest": "Driving Test",
+    "videoPreview": "Video Teaser"
   },
 
   "departmentPage": {

@@ -8,7 +8,7 @@ const CTA = () => {
   return (
     <section className="px-4 w-full flex justify-center bg-base-200">
       <div className="p-5 md:py-10 rounded-lg max-w-5xl w-full flex-1 overflow-hidden">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between">
           <div className="flex flex-col gap-3 mb-5">
             <h2 className="text-xl md:text-2xl font-semibold">
               {t("cta.heading2")}

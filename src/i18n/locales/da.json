@@ -484,7 +484,8 @@
     "stopping_parking": "Standsning & parkering",
     "lane_merge": "Sammenfletning",
     "overtaking": "Overhaling",
-    "driving_dark": "Mørkekørsel"
+    "driving_dark": "Mørkekørsel",
+    "car_walkthrough": "Gennemgang af bil"
   },
 
   "littleHelper": {
@@ -549,7 +550,10 @@
     "driving_dark": "Kørsel i mørke",
     "driving_dark.1": "Blænd ned 200–300 m før modkørende bil/mc",
     "driving_dark.2": "Blænd ned 100–150 m før cyklist/fodgænger",
-    "driving_dark.3": "Nedsæt hastighed inden nedblænding. På smal vej: maks. 40 km/t ved møde med modkørende."
+    "driving_dark.3": "Nedsæt hastighed inden nedblænding. På smal vej: maks. 40 km/t ved møde med modkørende.",
+
+    "car_walkthrough": "Gennemgang af bil",
+    "car_walkthrough.text": "En grundlæggende gennemgang af bilens vigtigste dele og funktioner. Dette inkluderer kontrol af dæktryk, olie, vand, lys, blinklys og andre essentielle komponenter, der sikrer en sikker kørsel."
   },
 
   "stepsContent": {
@@ -602,6 +606,9 @@
       "theoryTest": "Teoriprøve",
       "techCourse": "Glatbane",
       "drivingTest": "Praktisk prøve"
+    },
+    "teaser": {
+      "title": "Kørekortforløbet – et hurtigt kig"
     }
   },
 
@@ -612,7 +619,8 @@
     "maneuver": "Manøvrebane",
     "theoryTest": "Teoriprøve",
     "techCourse": "Glatbane",
-    "drivingTest": "Praktisk prøve"
+    "drivingTest": "Praktisk prøve",
+    "videoPreview": "Video teaser"
   },
 
   "departmentPage": {

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AnimatePresence, motion } from "framer-motion";
-import { FaAngleLeft, FaCaretDown } from "react-icons/fa6";
+import { FaAngleLeft, FaCaretDown, FaVideo } from "react-icons/fa6";
 import Link from "next/link";
 
 const menuItems = [
@@ -11,6 +11,7 @@ const menuItems = [
   { href: "#alcohol", key: "alcohol" },
   { href: "#warning_triangle", key: "warning_triangle" },
   { href: "#towing", key: "towing" },
+  { href: "#car_walkthrough", key: "car_walkthrough", hasVideo: true },
   { href: "#road_risks", key: "road_risks" },
   { href: "#police_signals", key: "police_signals" },
   { href: "#speed_limits", key: "speed_limits" },
@@ -58,6 +59,7 @@ const HelperMenu = () => {
                     onClick={(e) => handleClick(e, item.href)}
                   >
                     {t(`helperMenu.${item.key}`)}
+                    {item.hasVideo && <FaVideo className="ml-2" />}
                   </a>
                 </li>
               ))}
@@ -97,9 +99,10 @@ const HelperMenu = () => {
                       <a
                         href={item.href}
                         onClick={(e) => handleClick(e, item.href)}
-                        className="block py-1"
+                        className="py-1 flex items-center"
                       >
                         {t(`helperMenu.${item.key}`)}
+                        {item.hasVideo && <FaVideo className="ml-2" />}
                       </a>
                     </li>
                   ))}
