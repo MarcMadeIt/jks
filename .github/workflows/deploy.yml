@@ -31,13 +31,13 @@ jobs:
         run: |
           echo "🧹 Removing old .next and public/_next folders..."
           cd /home/jks/htdocs/junkerskøreskole.dk
-          rm -rf .next .next/cache public/_next
+          rm -rf .next .next/cache public/_next || true
 
       - name: 📦 Install fresh dependencies
         run: |
           echo "📦 Installing dependencies cleanly..."
           cd /home/jks/htdocs/junkerskøreskole.dk
-          npm install
+          npm ci
 
       - name: 🔇 Disable Next.js telemetry
         run: |
@@ -65,8 +65,12 @@ jobs:
 
           echo "🚀 Starting app with PM2 on port 3750..."
           PORT=3750 pm2 start npm --name "jks-app" -- start
+
+          echo "💾 Saving PM2 state..."
           pm2 save
+
+          echo "📋 Active PM2 apps:"
           pm2 list
 
       - name: ✅ Deployment completed
-        run: echo "🚀 Deployment successful!"
+        run: echo "✅ Deployment successful!"
