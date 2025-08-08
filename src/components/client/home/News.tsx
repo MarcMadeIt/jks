@@ -73,61 +73,43 @@ const News = () => {
               index === 2 ? "hidden md:block" : ""
             }`}
           >
-            {item.linkFacebook ? (
-              <Link
-                href={item.linkFacebook}
-                className="max-w-[320px] sm:max-w-full w-92 h-auto block group relative"
-                target="_blank"
-                aria-label={
-                  t("aria.navigation.linkToNews") || "Go to news article"
-                }
-              >
-                <div className="relative aspect-[1/1] overflow-hidden rounded-xl">
-                  {/* Billedet */}
-                  <Image
-                    src={item.images?.[0] || item.image || FALLBACK_IMAGE}
-                    alt={item.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-300 md:group-hover:scale-103"
-                  />
+            <div className="max-w-[320px] sm:max-w-full w-92 h-auto block group relative">
+              <div className="relative aspect-[1/1] overflow-hidden rounded-xl">
+                <Image
+                  src={item.images?.[0] || item.image || FALLBACK_IMAGE}
+                  alt={item.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-300 md:group-hover:scale-103"
+                />
 
-                  {/* Gradient + tekst */}
-                  <div className="absolute bottom-0 left-0 right-0 z-10 p-4 bg-gradient-to-t from-black/80 to-transparent text-white">
-                    <h2 className="text-base font-bold mb-1">{item.title}</h2>
-                    <p className="text-sm font-light line-clamp-2">
-                      {item.content}
-                    </p>
-                  </div>
+                {/* Gradient + tekst */}
+                <div className="absolute bottom-0 left-0 right-0 z-10 p-4 bg-gradient-to-t from-black/80 to-transparent text-white">
+                  <h2 className="text-base font-bold mb-1">{item.title}</h2>
+                  <p className="text-sm font-light line-clamp-2">
+                    {item.content}
+                  </p>
+                </div>
 
-                  {/* Ikoner */}
+                {/* Ikoner */}
+                {item.linkFacebook && (
                   <div className="absolute top-3 right-3 flex gap-2 z-20">
                     <FaFacebook size={24} className="text-white drop-shadow" />
                     <FaInstagram size={26} className="text-white drop-shadow" />
                   </div>
-                </div>
-              </Link>
-            ) : (
-              <div className="w-full h-full block">
-                <div className="relative aspect-[1/1]">
-                  <Image
-                    src={item.images?.[0]}
-                    alt={item.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover hover:scale-105 transition-all duration-300"
-                  />
-                </div>
-                <div className="p-5 flex flex-col justify-evenly">
-                  <h2 className="text-lg font-bold">
-                    {item.title && item.title}
-                  </h2>
-                  <p className="text-sm text-zinc-400 line-clamp-3">
-                    {item.content}
-                  </p>
-                </div>
+                )}
               </div>
-            )}
+              {item.linkFacebook && (
+                <Link
+                  href={item.linkFacebook}
+                  target="_blank"
+                  aria-label={
+                    t("aria.navigation.linkToNews") || "Go to news article"
+                  }
+                  className="absolute inset-0"
+                />
+              )}
+            </div>
           </motion.article>
         ))}
       </div>
